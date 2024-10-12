@@ -1,5 +1,8 @@
 {
-  "itemGroup.examplemod": "Example Mod Tab",
-  "block.examplemod.example_block": "Example Block",
-  "item.examplemod.example_item": "Example Item"
+	"itemGroup.legacy_landscape.legacy_landscape": "Legacy Landscape",
+	"item.legacy_landscape.ore_dust": "Ore Dust",
+	"lore.legacy_landscape.ore_dust.1": "But if you close your eyes, does it almost feel like nothing's changed at all?",
+	"lore.legacy_landscape.ore_dust.2": "Use this item on any block in a chunk to convert it into a legacy chunk.",
+	"item.legacy_landscape.notch_wand": "Notch's Wand",
+	"lore.legacy_landscape.notch_wand.1": "Use this bone on land to reconcile it with the present."
 }

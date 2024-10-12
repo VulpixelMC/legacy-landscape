@@ -19,6 +19,7 @@ var modId = project.mod_id
 
 repositories {
     mavenLocal()
+	mavenCentral()
 }
 
 base {
