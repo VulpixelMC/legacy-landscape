@@ -1,6 +1,5 @@
 package gay.sylv.legacy_landscape.data_attachment;
 
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -9,17 +8,12 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import net.neoforged.neoforge.event.level.ChunkWatchEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
-import java.io.IOException;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
