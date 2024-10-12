@@ -31,7 +31,6 @@ import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
 )
 public final class LegacyAttachments {
 	public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
-	static final Logger LOGGER = LogUtils.getLogger();
 
 	public static final Supplier<AttachmentType<Boolean>> LEGACY_CHUNK = ATTACHMENT_TYPES.register(
 		"legacy_chunk",
