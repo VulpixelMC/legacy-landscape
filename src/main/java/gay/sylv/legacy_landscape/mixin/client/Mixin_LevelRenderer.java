@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(LevelRenderer.class)
+@Mixin(value = LevelRenderer.class, priority = 1001)
 public final class Mixin_LevelRenderer {
 	private Mixin_LevelRenderer() {}
 
@@ -24,7 +24,8 @@ public final class Mixin_LevelRenderer {
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/renderer/ShaderInstance;setDefaultUniforms(Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;Lcom/mojang/blaze3d/platform/Window;)V"
-		)
+		),
+		require = 0
 	)
 	private void setLegacyTextures(RenderType renderType, double x, double y, double z, Matrix4f frustrumMatrix, Matrix4f projectionMatrix, CallbackInfo ci, @Local ShaderInstance shaderInstance) {
 		Minecraft client = Minecraft.getInstance();

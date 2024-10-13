@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
+import gay.sylv.legacy_landscape.util.TintUtil;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
@@ -48,16 +49,10 @@ public final class Mixin_ClientLevel {
 		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
 			if (!colorResolver.equals(BiomeColors.WATER_COLOR_RESOLVER)) {
 				int tint = original.call(colorResolver, biome, x, z);
-				int red = ((tint & 0x00FF0000)) >> 16;
-				red += 0x28;
-				red = Math.clamp(red, 0, 0x98);
-				int green = ((tint & 0x0000FF00)) >> 8;
-				green += 0x28;
-				green = Math.clamp(green, 0, 0xFF); // prevent overflow/underflow
-				tint = (tint & 0xFF0000FF) | green << 8 | red << 16; // clear green channel and set new green
+				tint = TintUtil.saturateTint(tint);
 				return tint;
 			} else {
-				return 0x334FDD;
+				return TintUtil.WATER_COLOR;
 			}
 		}
 		return original.call(colorResolver, biome, x, z);
