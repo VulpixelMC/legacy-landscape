@@ -45,7 +45,7 @@ public class Mixin_BlockRenderer {
 				}
 			};
 		} else {
-			return colorProvider;
+			return colorProvider;	
 		}
 	}
 }
