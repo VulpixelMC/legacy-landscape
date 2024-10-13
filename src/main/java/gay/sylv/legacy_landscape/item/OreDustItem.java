@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+// not an orespawn reference :)
 public class OreDustItem extends Item {
 	public OreDustItem(Properties properties) {
 		super(properties);

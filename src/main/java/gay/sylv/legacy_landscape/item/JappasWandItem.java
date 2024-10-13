@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class NotchWandItem extends Item {
-	public NotchWandItem(Properties properties) {
+public class JappasWandItem extends Item {
+	public JappasWandItem(Properties properties) {
 		super(properties);
 	}
 

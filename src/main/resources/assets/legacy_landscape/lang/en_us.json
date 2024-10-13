@@ -3,6 +3,6 @@
 	"item.legacy_landscape.ore_dust": "Ore Dust",
 	"lore.legacy_landscape.ore_dust.1": "But if you close your eyes, does it almost feel like nothing's changed at all?",
 	"lore.legacy_landscape.ore_dust.2": "Use this item on any block in a chunk to convert it into a legacy chunk.",
-	"item.legacy_landscape.notch_wand": "Notch's Wand",
-	"lore.legacy_landscape.notch_wand.1": "Use this bone on land to reconcile it with the present."
+	"item.legacy_landscape.jappas_wand": "Jappa's Wand",
+	"lore.legacy_landscape.jappas_wand.1": "Use this wand on land to reconcile it with the present."
 }

@@ -33,9 +33,9 @@ public final class LegacyItems {
 			)
 	);
 
-	public static final DeferredItem<NotchWandItem> NOTCH_WAND = ITEMS.registerItem(
-		"notch_wand",
-		NotchWandItem::new,
+	public static final DeferredItem<JappasWandItem> NOTCH_WAND = ITEMS.registerItem(
+		"jappas_wand",
+		JappasWandItem::new,
 		new Item.Properties()
 			.rarity(Rarity.UNCOMMON)
 			.stacksTo(1)
@@ -43,7 +43,7 @@ public final class LegacyItems {
 				DataComponents.LORE,
 				new ItemLore(
 					List.of(
-						Component.translatable("lore.legacy_landscape.notch_wand.1")
+						Component.translatable("lore.legacy_landscape.jappas_wand.1")
 					)
 				)
 			)
