@@ -1,4 +1,4 @@
-package gay.sylv.legacy_landscape.mixin;
+package gay.sylv.legacy_landscape.mixin.client;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.client.color.block.BlockTintCache;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(ClientLevel.class)
-public interface ClientLevelAccessor {
+public interface Accessor_ClientLevel {
 	@Accessor
 	Object2ObjectArrayMap<ColorResolver, BlockTintCache> getTintCaches();
 }

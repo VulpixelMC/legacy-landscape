@@ -23,8 +23,8 @@ public final class LegacyNetworking {
 	@SubscribeEvent
 	public static void register(final RegisterPayloadHandlersEvent event) {
 		final PayloadRegistrar registrar = event.registrar("1");
-		registrar.executesOn(HandlerThread.MAIN);
-		registrar.playToClient(
+		final PayloadRegistrar mainThreadRegistrar = registrar.executesOn(HandlerThread.MAIN);
+		mainThreadRegistrar.playToClient(
 			LegacyChunkPayload.TYPE,
 			LegacyChunkPayload.STREAM_CODEC,
 			ClientPayloadHandler::handleLegacyChunkPayload

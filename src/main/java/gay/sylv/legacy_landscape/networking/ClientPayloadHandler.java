@@ -1,7 +1,7 @@
 package gay.sylv.legacy_landscape.networking;
 
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
-import gay.sylv.legacy_landscape.mixin.ClientLevelAccessor;
+import gay.sylv.legacy_landscape.mixin.client.Accessor_ClientLevel;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -22,7 +22,7 @@ public final class ClientPayloadHandler {
 			} else {
 				chunk.removeData(LegacyAttachments.LEGACY_CHUNK);
 			}
-			((ClientLevelAccessor) level).getTintCaches().forEach((colorResolver, blockTintCache) -> blockTintCache.invalidateForChunk(chunk.getPos().x, chunk.getPos().z));
+			((Accessor_ClientLevel) level).getTintCaches().forEach((colorResolver, blockTintCache) -> blockTintCache.invalidateForChunk(chunk.getPos().x, chunk.getPos().z));
 			for (int y = level.getMinSection(); y < level.getMaxSection(); y++) {
 				Minecraft.getInstance().levelRenderer.setSectionDirty(chunk.getPos().x, y, chunk.getPos().z);
 			}

@@ -4,10 +4,15 @@
 	"package": "gay.sylv.legacy_landscape.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ClientLevelAccessor"
 	],
 	"client": [
-		"client.Mixin_ClientLevel"
+		"client.Accessor_ClientLevel",
+		"client.Accessor_CompositeRenderType",
+		"client.Accessor_CompositeState",
+		"client.Accessor_RenderSystem",
+		"client.Accessor_TextureStateShard",
+		"client.Mixin_ClientLevel",
+		"client.Mixin_LevelRenderer"
 	],
 	"server": [],
 	"injectors": {

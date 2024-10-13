@@ -34,9 +34,10 @@ import java.util.stream.Collectors;
 	modid = LegacyLandscape.MOD_ID,
 	bus = EventBusSubscriber.Bus.MOD
 )
-public final class ClientLegacyLandscape {
+public final class LegacyResourceFaker {
 	private static final Logger LOGGER = LogUtils.getLogger();
 
+	private static boolean initialized;
 	private static PackResources programmerArt;
 	private static ReloadableResourceManager resourceManager;
 	private static TextureManager textureManager;
@@ -49,25 +50,35 @@ public final class ClientLegacyLandscape {
 	private static void registerReloadListeners(RegisterClientReloadListenersEvent event) {
 		event.registerReloadListener((ResourceManagerReloadListener) resourceManager1 -> {
 			Minecraft client = Minecraft.getInstance();
-			try (PackResources programmerArtResources = Objects.requireNonNull(client.getResourcePackRepository().getPack("programmer_art")).open()) {
-				programmerArt = programmerArtResources;
-				resourceManager = new ReloadableResourceManager(PackType.CLIENT_RESOURCES);
-				textureManager = new TextureManager(resourceManager);
-				resourceManager.registerReloadListener(textureManager);
-				splashManager = new SplashManager(Minecraft.getInstance().getUser());
-				resourceManager.registerReloadListener(splashManager);
-				resourceManager.registerReloadListener(new GrassColorReloadListener());
-				resourceManager.registerReloadListener(new FoliageColorReloadListener());
-				blockColors = BlockColors.createDefault();
-				modelManager = new ModelManager(textureManager, blockColors, 0);
-				resourceManager.registerReloadListener(modelManager);
-				entityModels = new EntityModelSet();
-				resourceManager.registerReloadListener(entityModels);
+			if (!initialized) {
+				try (PackResources programmerArtResources = Objects.requireNonNull(client.getResourcePackRepository().getPack("programmer_art")).open()) {
+					programmerArt = programmerArtResources;
+					resourceManager = new ReloadableResourceManager(PackType.CLIENT_RESOURCES);
+					textureManager = new TextureManager(resourceManager);
+					resourceManager.registerReloadListener(textureManager);
+					splashManager = new SplashManager(Minecraft.getInstance().getUser());
+					resourceManager.registerReloadListener(splashManager);
+					resourceManager.registerReloadListener(new GrassColorReloadListener());
+					resourceManager.registerReloadListener(new FoliageColorReloadListener());
+					blockColors = BlockColors.createDefault();
+					modelManager = new ModelManager(textureManager, blockColors, client.options.mipmapLevels().get());
+					resourceManager.registerReloadListener(modelManager);
+					entityModels = new EntityModelSet();
+					resourceManager.registerReloadListener(entityModels);
+				}
+
+				initialized = true;
 			}
+
+			modelManager.updateMaxMipLevel(client.options.mipmapLevels().get());
 
 			List<PackResources> fullResourcesList = client.getResourceManager().listPacks().collect(Collectors.toCollection(ArrayList::new));
 			fullResourcesList.add(programmerArt);
 			resourceManager.createReload(Util.backgroundExecutor(), client, CompletableFuture.completedFuture(Unit.INSTANCE), fullResourcesList).done().thenRun(() -> LOGGER.info("Loaded programmer art resources"));
 		});
+	}
+
+	public static TextureManager getTextureManager() {
+		return textureManager;
 	}
 }
