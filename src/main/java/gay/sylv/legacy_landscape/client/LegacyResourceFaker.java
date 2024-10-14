@@ -46,6 +46,8 @@ public final class LegacyResourceFaker {
 	private static ModelManager modelManager;
 	private static EntityModelSet entityModels;
 
+	private LegacyResourceFaker() {}
+
 	@SubscribeEvent
 	private static void registerReloadListeners(RegisterClientReloadListenersEvent event) {
 		event.registerReloadListener((ResourceManagerReloadListener) resourceManager1 -> {
