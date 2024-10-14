@@ -15,7 +15,9 @@
 		"client.Mixin_LevelRenderer",
 		"client.sodium.Mixin_BlockRenderer",
 		"client.sodium.Mixin_ColorProviderRegistry",
-		"client.sodium.Mixin_LevelColorCache"
+		"client.sodium.Mixin_DefaultChunkRenderer",
+		"client.sodium.Mixin_LevelColorCache",
+		"client.sodium.Accessor_TerrainRenderPass"
 	],
 	"server": [],
 	"injectors": {

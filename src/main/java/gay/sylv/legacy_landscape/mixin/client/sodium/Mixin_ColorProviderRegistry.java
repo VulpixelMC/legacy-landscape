@@ -1,7 +1,7 @@
 package gay.sylv.legacy_landscape.mixin.client.sodium;
 
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
-import gay.sylv.legacy_landscape.util.TintUtil;
+import gay.sylv.legacy_landscape.client.util.RenderUtil;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProviderRegistry;
 import net.minecraft.client.Minecraft;
@@ -44,7 +44,7 @@ public abstract class Mixin_ColorProviderRegistry {
 			assert client.level != null;
 			LevelChunk chunk = client.level.getChunkAt(blockPos);
 			if (chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
-				Arrays.fill(ints, TintUtil.WATER_COLOR);
+				Arrays.fill(ints, RenderUtil.WATER_COLOR);
 			} else {
 				colorProvider.getColors(levelSlice, blockPos, mutableBlockPos, fluidState, modelQuadView, ints);
 			}
