@@ -6,6 +6,9 @@ import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeState;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_TextureStateShard;
 import net.minecraft.client.renderer.RenderType;
 
+/**
+ * A grab-bag of utilities used in legacy-style rendering.
+ */
 public final class RenderUtil {
 	public static final int WATER_COLOR = 0xFF334FDD;
 

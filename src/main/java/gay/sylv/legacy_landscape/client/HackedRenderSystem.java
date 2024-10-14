@@ -6,6 +6,9 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 
+/**
+ * A cursed utility for fucking with Minecraft's textures using {@link LegacyResourceFaker}'s fake version of {@link TextureManager}. Essentially, this is only used for switching to Programmer Art at runtime.
+ */
 public final class HackedRenderSystem {
 	private HackedRenderSystem() {}
 
