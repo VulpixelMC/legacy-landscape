@@ -33,5 +33,4 @@ public final class Mixin_LevelRenderer {
 			RenderUtil.setLegacyTextures(renderType);
 		}
 	}
-
 }
