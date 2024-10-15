@@ -1,0 +1,12 @@
+{
+	"dig/turf": {
+		"sounds": [
+			"legacy_landscape:dig/turf1",
+			"legacy_landscape:dig/turf2",
+			"legacy_landscape:dig/turf3",
+			"legacy_landscape:dig/turf4",
+			"legacy_landscape:dig/turf5"
+		],
+		"subtitle": "legacy_landscape.dig.turf"
+	}
+}

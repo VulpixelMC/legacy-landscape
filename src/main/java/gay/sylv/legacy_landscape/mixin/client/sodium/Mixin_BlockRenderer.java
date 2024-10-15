@@ -3,8 +3,8 @@ package gay.sylv.legacy_landscape.mixin.client.sodium;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.client.util.RenderUtil;
+import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProviderRegistry;
 import net.caffeinemc.mods.sodium.client.model.color.DefaultColorProviders;
@@ -36,7 +36,7 @@ public class Mixin_BlockRenderer {
 		assert client.level != null;
 		LevelChunk chunk = client.level.getChunkAt(pos);
 		ColorProvider<BlockState> colorProvider = original.call(instance, block);
-		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
+		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK) && colorProvider != null) {
 			return (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> {
 				if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
 					Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));

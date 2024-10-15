@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.item.LegacyItems;
+import gay.sylv.legacy_landscape.sound.LegacySounds;
 import gay.sylv.legacy_landscape.tabs.CreativeTabs;
 import gay.sylv.legacy_landscape.util.CallerSensitive;
 import gay.sylv.legacy_landscape.util.RandomStrings;
@@ -30,6 +31,7 @@ public final class LegacyLandscape {
 	// The constructor for the mod class is the first code that is run when your mod is loaded.
 	// FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
 	public LegacyLandscape(IEventBus modBus, ModContainer modContainer) {
+		LegacySounds.SOUNDS.register(modBus);
 		LegacyBlocks.BLOCKS.register(modBus);
 		LegacyItems.ITEMS.register(modBus);
 		CreativeTabs.CREATIVE_MODE_TABS.register(modBus);

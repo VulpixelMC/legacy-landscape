@@ -1,7 +1,7 @@
 package gay.sylv.legacy_landscape.mixin.client.sodium;
 
-import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.client.util.RenderUtil;
+import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProviderRegistry;
 import net.minecraft.client.Minecraft;

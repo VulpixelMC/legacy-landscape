@@ -53,5 +53,7 @@ public final class LegacyItems {
 			)
 	);
 
+	public static final DeferredItem<Item> DIAMOND = ITEMS.registerSimpleItem("diamond");
+
 	private LegacyItems() {}
 }

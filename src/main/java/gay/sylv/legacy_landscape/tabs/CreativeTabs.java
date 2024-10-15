@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.tabs;
 
+import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.item.LegacyItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,9 @@ public final class CreativeTabs {
 			.displayItems((params, output) -> {
 				output.accept(LegacyItems.ORE_DUST);
 				output.accept(LegacyItems.NOTCH_WAND);
+				output.accept(LegacyBlocks.TURF.item());
+				output.accept(LegacyBlocks.LAZURITE.item());
+				output.accept(LegacyItems.DIAMOND);
 			})
 			.build()
 	);

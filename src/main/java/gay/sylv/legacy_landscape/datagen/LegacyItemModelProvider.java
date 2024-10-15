@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.datagen;
 
+import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.item.LegacyItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -14,7 +15,13 @@ public final class LegacyItemModelProvider extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
+		// Items
 		basicItem(LegacyItems.ORE_DUST.get());
 		withExistingParent(LegacyItems.NOTCH_WAND.getId().getPath(), mcLoc("blaze_rod"));
+		basicItem(LegacyItems.DIAMOND.get());
+
+		// Blocks
+		simpleBlockItem(LegacyBlocks.LAZURITE.block().get());
+		simpleBlockItem(LegacyBlocks.TURF.block().get());
 	}
 }
