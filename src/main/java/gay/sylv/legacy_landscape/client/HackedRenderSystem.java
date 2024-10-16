@@ -5,10 +5,13 @@ import gay.sylv.legacy_landscape.mixin.client.Accessor_RenderSystem;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * A cursed utility for fucking with Minecraft's textures using {@link LegacyResourceFaker}'s fake version of {@link TextureManager}. Essentially, this is only used for switching to Programmer Art at runtime.
  */
+@OnlyIn(Dist.CLIENT)
 public final class HackedRenderSystem {
 	private HackedRenderSystem() {}
 
