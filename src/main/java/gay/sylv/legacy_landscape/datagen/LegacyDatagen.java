@@ -40,7 +40,8 @@ public final class LegacyDatagen {
 			event.includeServer(),
 			generator,
 			new LegacyLootTableProvider(output, lookupProvider),
-			new LegacyBlockTagsProvider(output, lookupProvider, existingFileHelper)
+			new LegacyBlockTagsProvider(output, lookupProvider, existingFileHelper),
+			new LegacyRecipeProvider(output, lookupProvider)
 		);
 	}
 
