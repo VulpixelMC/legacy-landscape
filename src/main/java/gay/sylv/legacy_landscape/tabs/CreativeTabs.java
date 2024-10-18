@@ -2,12 +2,9 @@ package gay.sylv.legacy_landscape.tabs;
 
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.item.LegacyItems;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.Unbreakable;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -25,9 +22,7 @@ public final class CreativeTabs {
 			.title(Component.translatable("itemGroup.legacy_landscape.legacy_landscape"))
 			.displayItems((params, output) -> {
 				output.accept(LegacyItems.ORE_DUST);
-				ItemStack jappasWand = LegacyItems.JAPPAS_WAND.toStack();
-				jappasWand.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
-				output.accept(jappasWand);
+				output.accept(LegacyItems.JAPPAS_WAND);
 				output.accept(LegacyBlocks.TURF.item());
 				output.accept(LegacyBlocks.LAZURITE.item());
 				output.accept(LegacyItems.DIAMOND);
