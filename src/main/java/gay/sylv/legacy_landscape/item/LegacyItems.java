@@ -5,7 +5,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.ItemLore;
-import net.minecraft.world.item.component.Unbreakable;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -33,7 +32,7 @@ public final class LegacyItems {
 			)
 	);
 
-	public static final DeferredItem<JappasWandItem> NOTCH_WAND = ITEMS.registerItem(
+	public static final DeferredItem<JappasWandItem> JAPPAS_WAND = ITEMS.registerItem(
 		"jappas_wand",
 		JappasWandItem::new,
 		new Item.Properties()
@@ -47,10 +46,7 @@ public final class LegacyItems {
 					)
 				)
 			)
-			.component(
-				DataComponents.UNBREAKABLE,
-				new Unbreakable(true)
-			)
+			.durability(300)
 	);
 
 	public static final DeferredItem<Item> DIAMOND = ITEMS.registerSimpleItem("diamond");

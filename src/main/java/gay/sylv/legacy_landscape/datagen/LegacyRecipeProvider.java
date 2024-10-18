@@ -33,12 +33,15 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.requires(Items.SUGAR)
 			.requires(Tags.Items.SEEDS)
 			.unlockedBy("has_glowstone_dust", has(Tags.Items.SEEDS))
-			.unlockedBy("has_sugar", has(Items.SUGAR));
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, LegacyItems.NOTCH_WAND, 1)
+			.unlockedBy("has_sugar", has(Items.SUGAR))
+			.save(recipeOutput);
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, LegacyItems.JAPPAS_WAND, 1)
 			.define('@', LegacyItems.ORE_DUST)
-			.define('|', Items.BLAZE_ROD)
-			.pattern("@")
-			.pattern("|")
+			.define('/', Items.BLAZE_ROD)
+			.pattern(" @")
+			.pattern("/ ")
+			.unlockedBy("has_ore_dust", has(LegacyItems.ORE_DUST))
+			.unlockedBy("has_blaze_rod", has(Items.BLAZE_ROD))
 			.save(recipeOutput);
 	}
 }

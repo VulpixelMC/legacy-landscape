@@ -16,7 +16,6 @@ public final class ClientPayloadHandler {
 	public static void handleLegacyChunkPayload(final LegacyChunkPayload payload, final IPayloadContext context) {
 		try (ClientLevel level = (ClientLevel) context.player().level()) {
 			LevelChunk chunk = level.getChunk(payload.chunkPos().x, payload.chunkPos().z);
-			LegacyNetworking.LOGGER.info("{}", payload);
 			if (payload.isLegacyChunk()) {
 				chunk.setData(LegacyAttachments.LEGACY_CHUNK, true);
 			} else {

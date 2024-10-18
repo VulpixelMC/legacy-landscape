@@ -17,7 +17,7 @@ public final class LegacyItemModelProvider extends ItemModelProvider {
 	protected void registerModels() {
 		// Items
 		basicItem(LegacyItems.ORE_DUST.get());
-		withExistingParent(LegacyItems.NOTCH_WAND.getId().getPath(), mcLoc("blaze_rod"));
+		withExistingParent(LegacyItems.JAPPAS_WAND.getId().getPath(), mcLoc("blaze_rod"));
 		basicItem(LegacyItems.DIAMOND.get());
 
 		// Blocks

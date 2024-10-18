@@ -25,20 +25,26 @@ public class OreDustItem extends Item {
 		BlockState state = context.getLevel().getBlockState(context.getClickedPos());
 		if (state.isAir()) return InteractionResult.PASS;
 
-		context.getLevel().playSound(context.getPlayer(), Objects.requireNonNull(context.getPlayer()), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1.0F, 1.25F);
-		if (!context.getLevel().isClientSide()) {
-			context.getItemInHand().consume(1, context.getPlayer());
+		LevelChunk chunk = context.getLevel().getChunkAt(context.getClickedPos());
 
-			LevelChunk chunk = context.getLevel().getChunkAt(context.getClickedPos());
-			LegacyAttachments.setChunkData(
-				(ServerLevel) context.getLevel(),
-				chunk,
-				LegacyAttachments.LEGACY_CHUNK,
-				true,
-				data -> new LegacyChunkPayload(chunk.getPos(), data)
-			);
+		if (!chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
+			context.getLevel().playSound(context.getPlayer(), Objects.requireNonNull(context.getPlayer()), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1.0F, 1.25F);
+
+			if (!context.getLevel().isClientSide()) {
+				LegacyAttachments.setChunkData(
+					(ServerLevel) context.getLevel(),
+					chunk,
+					LegacyAttachments.LEGACY_CHUNK,
+					true,
+					data -> new LegacyChunkPayload(chunk.getPos(), data)
+				);
+
+				context.getItemInHand().consume(1, context.getPlayer());
+			}
+
+			return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
 		}
 
-		return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
+		return InteractionResult.PASS;
 	}
 }

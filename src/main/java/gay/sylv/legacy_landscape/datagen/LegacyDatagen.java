@@ -36,12 +36,14 @@ public final class LegacyDatagen {
 			LegacyItemModelProvider::new
 		);
 
+		LegacyBlockTagsProvider blockTags = new LegacyBlockTagsProvider(output, lookupProvider, existingFileHelper);
 		addProviders(
 			event.includeServer(),
 			generator,
 			new LegacyLootTableProvider(output, lookupProvider),
-			new LegacyBlockTagsProvider(output, lookupProvider, existingFileHelper),
-			new LegacyRecipeProvider(output, lookupProvider)
+			blockTags,
+			new LegacyRecipeProvider(output, lookupProvider),
+			new LegacyItemTagsProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper)
 		);
 	}
 
