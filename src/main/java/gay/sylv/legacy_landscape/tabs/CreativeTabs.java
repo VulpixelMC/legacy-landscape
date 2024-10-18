@@ -18,7 +18,7 @@ public final class CreativeTabs {
 		MOD_ID,
 		() -> CreativeModeTab
 			.builder()
-			.icon(LegacyItems.ORE_DUST::toStack)
+			.icon(LegacyBlocks.TURF.item()::toStack)
 			.title(Component.translatable("itemGroup.legacy_landscape.legacy_landscape"))
 			.displayItems((params, output) -> {
 				output.accept(LegacyItems.ORE_DUST);
