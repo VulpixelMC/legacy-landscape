@@ -183,13 +183,26 @@ neoForge.ideSyncTask generateModMetadata
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
+			groupId = mod_group_id
+			artifactId = mod_id
+			version = mod_version
+
             from components.java
         }
     }
     repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
-        }
+        if (System.getenv("MAVEN_URL") != null) {
+			maven {
+				def repo = System.getenv("MAVEN_URL")
+				def releases = repo + "releases"
+				def snapshots = repo + "snapshots"
+				url Objects.equals(System.getenv("MAVEN_SNAPSHOT"), "1") ? snapshots : releases
+				credentials.username = System.getenv("MAVEN_USERNAME")
+				credentials.password = System.getenv("MAVEN_PASSWORD")
+			}
+		} else {
+			logger.log(LogLevel.WARN, "Publishing locally is unsafe. Use CI to publish artifacts to Maven.")
+		}
     }
 }
 
