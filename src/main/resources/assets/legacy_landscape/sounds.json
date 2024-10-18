@@ -7,6 +7,45 @@
 			"legacy_landscape:dig/turf4",
 			"legacy_landscape:dig/turf5"
 		],
-		"subtitle": "legacy_landscape.dig.turf"
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"step/turf": {
+		"sounds": [
+			"legacy_landscape:dig/turf1",
+			"legacy_landscape:dig/turf2",
+			"legacy_landscape:dig/turf3",
+			"legacy_landscape:dig/turf4",
+			"legacy_landscape:dig/turf5"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"place/turf": {
+		"sounds": [
+			"legacy_landscape:dig/turf1",
+			"legacy_landscape:dig/turf2",
+			"legacy_landscape:dig/turf3",
+			"legacy_landscape:dig/turf4",
+			"legacy_landscape:dig/turf5"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"hit/turf": {
+		"sounds": [
+			"legacy_landscape:dig/turf1",
+			"legacy_landscape:dig/turf2",
+			"legacy_landscape:dig/turf3",
+			"legacy_landscape:dig/turf4",
+			"legacy_landscape:dig/turf5"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"fall/turf": {
+		"sounds": [
+			"legacy_landscape:dig/turf1",
+			"legacy_landscape:dig/turf2",
+			"legacy_landscape:dig/turf3",
+			"legacy_landscape:dig/turf4",
+			"legacy_landscape:dig/turf5"
+		]
 	}
 }

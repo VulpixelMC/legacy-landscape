@@ -1,13 +1,12 @@
 package gay.sylv.legacy_landscape.datagen;
 
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
+import gay.sylv.legacy_landscape.item.LegacyItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -28,6 +27,18 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.pattern("###")
 			.unlockedBy("has_string", has(Items.STRING))
 			.unlockedBy("has_lime_dye", has(Items.LIME_DYE))
+			.save(recipeOutput);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, LegacyItems.ORE_DUST, 3)
+			.requires(Items.GLOWSTONE_DUST)
+			.requires(Items.SUGAR)
+			.requires(Tags.Items.SEEDS)
+			.unlockedBy("has_glowstone_dust", has(Tags.Items.SEEDS))
+			.unlockedBy("has_sugar", has(Items.SUGAR));
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, LegacyItems.NOTCH_WAND, 1)
+			.define('@', LegacyItems.ORE_DUST)
+			.define('|', Items.BLAZE_ROD)
+			.pattern("@")
+			.pattern("|")
 			.save(recipeOutput);
 	}
 }
