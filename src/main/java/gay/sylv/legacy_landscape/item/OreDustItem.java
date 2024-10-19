@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 // not an orespawn reference :)
-public class OreDustItem extends Item {
+public class OreDustItem extends TooltipItem {
 	public OreDustItem(Properties properties) {
 		super(properties);
 	}
