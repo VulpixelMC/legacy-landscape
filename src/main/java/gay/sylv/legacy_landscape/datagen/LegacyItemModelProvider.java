@@ -23,5 +23,6 @@ public final class LegacyItemModelProvider extends ItemModelProvider {
 		// Blocks
 		simpleBlockItem(LegacyBlocks.LAZURITE.block().get());
 		simpleBlockItem(LegacyBlocks.TURF.block().get());
+		simpleBlockItem(LegacyBlocks.COMMAND_BLOCK.block().get());
 	}
 }

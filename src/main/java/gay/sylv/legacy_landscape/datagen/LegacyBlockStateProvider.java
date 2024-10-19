@@ -20,6 +20,7 @@ public final class LegacyBlockStateProvider extends BlockStateProvider {
 	protected void registerStatesAndModels() {
 		simpleBlock(LegacyBlocks.LAZURITE.block().get());
 		cubeBottomTop(LegacyBlocks.TURF.block().get());
+		simpleBlock(LegacyBlocks.COMMAND_BLOCK.block().get());
 	}
 
 	private void cubeBottomTop(Block block) {

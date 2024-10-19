@@ -30,5 +30,17 @@ public final class CreativeTabs {
 			.build()
 	);
 
+	public static final Supplier<CreativeModeTab> LEGACY_LANDSCAPE_CREATIVE = CREATIVE_MODE_TABS.register(
+		"creative",
+		() -> CreativeModeTab
+			.builder()
+			.icon(LegacyBlocks.COMMAND_BLOCK.item()::toStack)
+			.title(Component.translatable("itemGroup.legacy_landscape.creative"))
+			.displayItems((params, output) -> {
+				output.accept(LegacyBlocks.COMMAND_BLOCK.item());
+			})
+			.build()
+	);
+
 	private CreativeTabs() {}
 }

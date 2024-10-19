@@ -6,7 +6,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
 
@@ -24,10 +27,25 @@ public final class LegacyBlocks {
 			.sound(LegacySounds.Types.TURF)
 	);
 
+	public static final BlockItemPair<CommandBlock, BlockItem> COMMAND_BLOCK = registerBlockSimpleItem(
+		"command_block",
+		() -> new CommandBlock(
+			BlockBehaviour.Properties.ofFullCopy(Blocks.COMMAND_BLOCK)
+		)
+	);
+
 	private LegacyBlocks() {}
 
 	private static BlockItemPair<Block, BlockItem> registerSimpleBlockItem(String path, BlockBehaviour.Properties properties) {
-		var block = BLOCKS.registerSimpleBlock(path, properties);
+		DeferredBlock<Block> block = BLOCKS.registerSimpleBlock(path, properties);
+		return new BlockItemPair<>(
+			block,
+			LegacyItems.ITEMS.registerSimpleBlockItem(block)
+		);
+	}
+
+	private static <B extends Block> BlockItemPair<B, BlockItem> registerBlockSimpleItem(String path, Supplier<B> blockSupplier) {
+		DeferredBlock<B> block = BLOCKS.register(path, blockSupplier);
 		return new BlockItemPair<>(
 			block,
 			LegacyItems.ITEMS.registerSimpleBlockItem(block)
