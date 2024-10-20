@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(
+	value = Dist.CLIENT,
 	modid = LegacyLandscape.MOD_ID,
 	bus = EventBusSubscriber.Bus.MOD
 )
