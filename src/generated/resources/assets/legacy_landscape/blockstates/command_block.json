@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "legacy_landscape:block/command_block"
+    }
+  }
+}

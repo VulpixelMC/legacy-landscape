@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "legacy_landscape:block/turf_bottom",
+    "side": "legacy_landscape:block/turf_side",
+    "top": "legacy_landscape:block/turf_top"
+  }
+}

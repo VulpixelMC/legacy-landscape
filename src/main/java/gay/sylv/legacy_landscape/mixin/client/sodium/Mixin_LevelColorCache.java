@@ -37,7 +37,7 @@ public final class Mixin_LevelColorCache {
 		Minecraft client = Minecraft.getInstance();
 		assert client.level != null;
 		LevelChunk chunk = client.level.getChunk(context.getOrigin().x(), context.getOrigin().z());
-		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
+		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK)) {
 			legacy_landscape$previousBlendRadius = this.blendRadius;
 			this.blendRadius = 0;
 			legacy_landscape$isLegacyChunk = true;

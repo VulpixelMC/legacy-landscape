@@ -1,6 +1,5 @@
 package gay.sylv.legacy_landscape.data_attachment;
 
-import com.mojang.serialization.Codec;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
@@ -26,12 +25,23 @@ import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
 public final class LegacyAttachments {
 	public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
 
-	public static final Supplier<AttachmentType<Boolean>> LEGACY_CHUNK = ATTACHMENT_TYPES.register(
+	public static final Supplier<AttachmentType<LegacyChunkType>> LEGACY_CHUNK = ATTACHMENT_TYPES.register(
 		"legacy_chunk",
-		() -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build()
+		() -> AttachmentType.builder(() -> LegacyChunkType.LEGACY).serialize(LegacyChunkType.CODEC).build()
 	);
 
 	private LegacyAttachments() {}
+
+	/**
+	 * A version of {@link ChunkAccess#getData(AttachmentType)} that returns {@link Optional#empty()} when no data is present.
+	 * @param chunk The chunk to get the data from.
+	 * @param attachmentType The {@link AttachmentType}.
+	 * @return The data (if it exists) {@link Optional}&lt;{@link T}&gt;.
+	 * @param <T> The type of data to get.
+	 */
+	public static <T> Optional<T> getChunkData(ChunkAccess chunk, Supplier<AttachmentType<T>> attachmentType) {
+		return Optional.ofNullable(chunk.hasData(attachmentType) ? chunk.getData(attachmentType) : null);
+	}
 
 	/**
 	 * A version of {@link ChunkAccess#setData(AttachmentType, Object)} that additionally synchronizes the chunk data with clients.
@@ -65,7 +75,13 @@ public final class LegacyAttachments {
 	@SubscribeEvent
 	public static void chunkSent(ChunkWatchEvent.Sent event) {
 		if (event.getChunk().hasData(LegacyAttachments.LEGACY_CHUNK)) {
-			PacketDistributor.sendToPlayer(event.getPlayer(), new LegacyChunkPayload(event.getPos(), event.getChunk().getData(LegacyAttachments.LEGACY_CHUNK)));
+			PacketDistributor.sendToPlayer(
+				event.getPlayer(),
+				new LegacyChunkPayload(
+					event.getPos(),
+					Optional.of(event.getChunk().getData(LegacyAttachments.LEGACY_CHUNK))
+				)
+			);
 		}
 	}
 }

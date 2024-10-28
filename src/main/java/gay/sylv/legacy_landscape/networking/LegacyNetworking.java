@@ -16,7 +16,7 @@ import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
 	bus = EventBusSubscriber.Bus.MOD
 )
 public final class LegacyNetworking {
-	static final Logger LOGGER = LogUtils.getLogger();
+	public static final Logger LOGGER = LogUtils.getLogger();
 
 	private LegacyNetworking() {}
 

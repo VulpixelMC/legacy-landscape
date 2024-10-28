@@ -1,0 +1,7 @@
+// 1.21.1	2024-10-18T20:10:11.851694	Block States: legacy_landscape
+4ba671ac39b3cdbfeb026813831ea89002f28e76 assets/legacy_landscape/blockstates/command_block.json
+20dd2613ffe048843feaf8041337a24cf1128b52 assets/legacy_landscape/blockstates/lazurite.json
+b868c3cdbe05cab931086abcdf4b377d561803d2 assets/legacy_landscape/blockstates/turf.json
+b3ef9bdda85d0d0116cb36c1b356e52cb18675f0 assets/legacy_landscape/models/block/command_block.json
+bd7393970de07922e0cc0e00fd1cf0e6bd6ef319 assets/legacy_landscape/models/block/lazurite.json
+e3228763ce21a496763b3b57109d46c04778e660 assets/legacy_landscape/models/block/turf.json

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "legacy_landscape:block/turf"
+    }
+  }
+}

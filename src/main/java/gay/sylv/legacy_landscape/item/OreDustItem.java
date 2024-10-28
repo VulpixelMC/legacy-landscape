@@ -1,6 +1,7 @@
 package gay.sylv.legacy_landscape.item;
 
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
+import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 // not an orespawn reference :)
 public class OreDustItem extends TooltipItem {
@@ -26,7 +28,7 @@ public class OreDustItem extends TooltipItem {
 
 		LevelChunk chunk = context.getLevel().getChunkAt(context.getClickedPos());
 
-		if (!chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
+		if (!chunk.hasData(LegacyAttachments.LEGACY_CHUNK)) {
 			context.getLevel().playSound(context.getPlayer(), Objects.requireNonNull(context.getPlayer()), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1.0F, 1.25F);
 
 			if (!context.getLevel().isClientSide()) {
@@ -34,8 +36,8 @@ public class OreDustItem extends TooltipItem {
 					(ServerLevel) context.getLevel(),
 					chunk,
 					LegacyAttachments.LEGACY_CHUNK,
-					true,
-					data -> new LegacyChunkPayload(chunk.getPos(), data)
+					LegacyChunkType.LEGACY,
+					data -> new LegacyChunkPayload(chunk.getPos(), Optional.of(data))
 				);
 
 				context.getItemInHand().consume(1, context.getPlayer());

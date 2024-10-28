@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:item/blaze_rod",
+  "overrides": [
+    {
+      "model": "minecraft:item/blaze_powder",
+      "predicate": {
+        "minecraft:custom_model_data": 1.0
+      }
+    }
+  ]
+}

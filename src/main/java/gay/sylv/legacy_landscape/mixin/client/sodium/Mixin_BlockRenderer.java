@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import gay.sylv.legacy_landscape.client.util.RenderUtil;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
+import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProviderRegistry;
 import net.caffeinemc.mods.sodium.client.model.color.DefaultColorProviders;
@@ -20,6 +21,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @Mixin(BlockRenderer.class)
 @Pseudo
@@ -36,16 +38,30 @@ public class Mixin_BlockRenderer {
 		assert client.level != null;
 		LevelChunk chunk = client.level.getChunkAt(pos);
 		ColorProvider<BlockState> colorProvider = original.call(instance, block);
-		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK) && colorProvider != null) {
-			return (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> {
-				if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
-					Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
-				} else if (colorProvider.equals(DefaultColorProviders.FoliageColorProvider.BLOCKS)) {
-					Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
+		Optional<LegacyChunkType> chunkType = LegacyAttachments.getChunkData(chunk, LegacyAttachments.LEGACY_CHUNK);
+		if (chunkType.isPresent() && colorProvider != null) {
+			switch (chunkType.get()) {
+				case LEGACY -> {
+					return (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> {
+						if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
+							Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
+						} else if (colorProvider.equals(DefaultColorProviders.FoliageColorProvider.BLOCKS)) {
+							Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
+						}
+					};
 				}
-			};
-		} else {
-			return colorProvider;
+				case DECAYED -> {
+					return (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> {
+						if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
+							Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
+						} else if (colorProvider.equals(DefaultColorProviders.FoliageColorProvider.BLOCKS)) {
+							Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
+						}
+					};
+				}
+			}
 		}
+
+		return colorProvider;
 	}
 }

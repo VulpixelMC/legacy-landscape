@@ -49,6 +49,21 @@ public final class LegacyItems {
 						ChatFormatting.DARK_PURPLE
 					)
 			)
+			.tooltip(
+				TooltipCondition::hasModifierKey,
+				Component.translatable("tooltip.legacy_landscape.jappas_wand.2")
+					.withStyle(
+						ChatFormatting.DARK_PURPLE
+					)
+			)
+			.tooltip(
+				TooltipCondition::hasModifierKey,
+				Component.translatable("tooltip.legacy_landscape.jappas_wand.3")
+					.withStyle(
+						ChatFormatting.DARK_RED,
+						ChatFormatting.BOLD
+					)
+			)
 			.moreInfo()
 			.durability(300)
 	);

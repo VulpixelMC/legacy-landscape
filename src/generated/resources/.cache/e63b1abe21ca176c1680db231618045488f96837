@@ -1,0 +1,4 @@
+// 1.21.1	2024-10-15T19:26:56.179015	Tags for minecraft:block mod id legacy_landscape
+8d127b96be308c32ce1c572a3018c7bec50d15de data/minecraft/tags/block/mineable/pickaxe.json
+412ff0db2dd5c51fba0101477d499d6a0fae97be data/minecraft/tags/block/mineable/shovel.json
+3410d60b48d212a3a7c39f7aa82dacc843e6718b data/minecraft/tags/block/needs_stone_tool.json

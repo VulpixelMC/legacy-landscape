@@ -16,8 +16,8 @@ public final class ClientPayloadHandler {
 	public static void handleLegacyChunkPayload(final LegacyChunkPayload payload, final IPayloadContext context) {
 		try (ClientLevel level = (ClientLevel) context.player().level()) {
 			LevelChunk chunk = level.getChunk(payload.chunkPos().x, payload.chunkPos().z);
-			if (payload.isLegacyChunk()) {
-				chunk.setData(LegacyAttachments.LEGACY_CHUNK, true);
+			if (payload.chunkType().isPresent()) {
+				chunk.setData(LegacyAttachments.LEGACY_CHUNK, payload.chunkType().get());
 			} else {
 				chunk.removeData(LegacyAttachments.LEGACY_CHUNK);
 			}

@@ -22,6 +22,10 @@ public class TooltipItem extends Item {
 		this.tooltip = properties.tooltip;
 	}
 
+	protected List<Component> getTooltip() {
+		return tooltip;
+	}
+
 	@Override
 	public void appendHoverText(
 		@NotNull ItemStack stack,

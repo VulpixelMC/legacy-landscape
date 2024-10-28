@@ -45,7 +45,7 @@ public abstract class Mixin_DefaultChunkRenderer extends ShaderChunkRenderer {
 		Minecraft client = Minecraft.getInstance();
 		assert client.level != null;
 		LevelChunk chunk = client.level.getChunkAt(BlockPos.containing(camera.x, camera.y, camera.z));
-		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
+		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK)) {
 			RenderUtil.setLegacyTextures(((Accessor_TerrainRenderPass) renderPass).getRenderType());
 			this.activeProgram.getInterface().setupState();
 		}

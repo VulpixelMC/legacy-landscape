@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import gay.sylv.legacy_landscape.client.util.RenderUtil;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
+import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
@@ -14,6 +15,8 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+
+import java.util.Optional;
 
 @Mixin(ClientLevel.class)
 public final class Mixin_ClientLevel {
@@ -29,7 +32,7 @@ public final class Mixin_ClientLevel {
 	private Object disableBiomeBlend(OptionInstance<Integer> instance, Operation<Integer> original, @Local(argsOnly = true) BlockPos blockPos) {
 		var self = (ClientLevel) (Object) this;
 		LevelChunk chunk = self.getChunkAt(blockPos);
-		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
+		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK)) {
 			return 0;
 		} else {
 			return original.call(instance);
@@ -46,14 +49,27 @@ public final class Mixin_ClientLevel {
 	private int saturateBlockTint(ColorResolver colorResolver, Biome biome, double x, double z, Operation<Integer> original, @Local(argsOnly = true) BlockPos blockPos) {
 		var self = (ClientLevel) (Object) this;
 		LevelChunk chunk = self.getChunkAt(blockPos);
-		if (chunk.getData(LegacyAttachments.LEGACY_CHUNK)) {
-			if (!colorResolver.equals(BiomeColors.WATER_COLOR_RESOLVER)) {
-				int tint = original.call(colorResolver, biome, x, z);
-				tint = RenderUtil.saturateTint(tint);
-				return tint;
-			} else {
-				return RenderUtil.WATER_COLOR;
+		Optional<LegacyChunkType> chunkType = LegacyAttachments.getChunkData(chunk, LegacyAttachments.LEGACY_CHUNK);
+		switch (chunkType.orElse(null)) {
+			case LEGACY -> {
+				if (!colorResolver.equals(BiomeColors.WATER_COLOR_RESOLVER)) {
+					int tint = original.call(colorResolver, biome, x, z);
+					tint = RenderUtil.saturateTint(tint);
+					return tint;
+				} else {
+					return RenderUtil.WATER_COLOR;
+				}
 			}
+			case DECAYED -> {
+				if (!colorResolver.equals(BiomeColors.WATER_COLOR_RESOLVER)) {
+					int tint = original.call(colorResolver, biome, x, z);
+					tint = RenderUtil.desaturateTint(tint);
+					return tint;
+				} else {
+					return RenderUtil.DECAYED_WATER_COLOR;
+				}
+			}
+			case null -> {}
 		}
 		return original.call(colorResolver, biome, x, z);
 	}
