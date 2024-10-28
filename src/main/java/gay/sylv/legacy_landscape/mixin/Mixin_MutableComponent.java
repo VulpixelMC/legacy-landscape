@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.mixin;
 
+import gay.sylv.legacy_landscape.data_components.Broken;
 import gay.sylv.legacy_landscape.item.ConditionalText;
 import gay.sylv.legacy_landscape.item.TooltipCondition;
 import net.minecraft.network.chat.MutableComponent;
@@ -19,6 +20,9 @@ public final class Mixin_MutableComponent implements ConditionalText {
 	@Unique
 	private TooltipCondition legacy_landscape$condition;
 
+	@Unique
+	private Broken legacy_landscape$broken;
+
 	@Override
 	public @NotNull Predicate<TooltipFlag> legacy_landscape$getCondition() {
 		return Objects.requireNonNullElse(
@@ -30,5 +34,15 @@ public final class Mixin_MutableComponent implements ConditionalText {
 	@Override
 	public void legacy_landscape$setCondition(TooltipCondition condition) {
 		legacy_landscape$condition = condition;
+	}
+
+	@Override
+	public @NotNull Broken legacy_landscape$getBroken() {
+		return Objects.requireNonNullElse(legacy_landscape$broken, Broken.UNBROKEN);
+	}
+
+	@Override
+	public void legacy_landscape$setBroken(Broken broken) {
+		legacy_landscape$broken = broken;
 	}
 }

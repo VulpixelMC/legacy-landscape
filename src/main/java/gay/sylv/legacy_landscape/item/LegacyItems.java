@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.item;
 
+import gay.sylv.legacy_landscape.data_components.Broken;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -51,14 +52,16 @@ public final class LegacyItems {
 			)
 			.tooltip(
 				TooltipCondition::hasModifierKey,
-				Component.translatable("tooltip.legacy_landscape.jappas_wand.2")
+				Broken.of(1),
+				Component.translatable("broken.1.tooltip.legacy_landscape.jappas_wand.1")
 					.withStyle(
 						ChatFormatting.DARK_PURPLE
 					)
 			)
 			.tooltip(
 				TooltipCondition::hasModifierKey,
-				Component.translatable("tooltip.legacy_landscape.jappas_wand.3")
+				Broken.of(1),
+				Component.translatable("broken.1.tooltip.legacy_landscape.jappas_wand.2")
 					.withStyle(
 						ChatFormatting.DARK_RED,
 						ChatFormatting.BOLD

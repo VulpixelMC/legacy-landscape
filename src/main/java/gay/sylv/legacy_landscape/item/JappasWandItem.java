@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,32 +31,14 @@ public class JappasWandItem extends TooltipItem {
 	}
 
 	@Override
-	public void appendHoverText(
-		@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag
+	protected boolean showTooltip(
+		@NotNull ItemStack stack,
+		@NotNull TooltipContext context,
+		@NotNull Component tooltip,
+		@NotNull TooltipFlag tooltipFlag
 	) {
-		tooltipComponents.addAll(
-			getTooltip()
-				.stream()
-				.filter(
-					tooltip -> {
-						boolean condition = ((ConditionalText) tooltip)
-							.legacy_landscape$getCondition()
-							.test(tooltipFlag);
-						if (stack.getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN).level() == 1) {
-							if (!tooltip.contains(Component.translatable("tooltip.legacy_landscape.jappas_wand.1"))) {
-								return condition;
-							} else {
-								return false;
-							}
-						} else if (!tooltip.contains(Component.translatable("tooltip.legacy_landscape.jappas_wand.2"))) {
-							return condition;
-						} else {
-							return false;
-						}
-					}
-				)
-				.toList()
-		);
+		Broken brokenLevel = ((ConditionalText) tooltip).legacy_landscape$getBroken();
+		return brokenLevel.equals(stack.getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN));
 	}
 
 	@Override

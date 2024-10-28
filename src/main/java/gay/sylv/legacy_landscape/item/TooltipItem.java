@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.item;
 
+import gay.sylv.legacy_landscape.data_components.Broken;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
@@ -22,8 +23,22 @@ public class TooltipItem extends Item {
 		this.tooltip = properties.tooltip;
 	}
 
-	protected List<Component> getTooltip() {
-		return tooltip;
+	/**
+	 * Controls if the tooltip should be shown based on the given context.
+	 * @param stack The {@link ItemStack} to show the tooltip on.
+	 * @param context The {@link net.minecraft.world.item.Item.TooltipContext}.
+	 * @param tooltip The {@link Component} of the tooltip.
+	 * @param tooltipFlag The {@link TooltipFlag}s of the tooltip.
+	 * @return whether the tooltip should be shown.
+	 */
+	@SuppressWarnings("unused")
+	protected boolean showTooltip(
+		@NotNull ItemStack stack,
+		@NotNull TooltipContext context,
+		@NotNull Component tooltip,
+		@NotNull TooltipFlag tooltipFlag
+	) {
+		return true;
 	}
 
 	@Override
@@ -37,9 +52,13 @@ public class TooltipItem extends Item {
 			tooltip
 				.stream()
 				.filter(
-					tooltip -> ((ConditionalText) tooltip)
-						.legacy_landscape$getCondition()
-						.test(tooltipFlag)
+					tooltip -> {
+						boolean condition = ((ConditionalText) tooltip)
+							.legacy_landscape$getCondition()
+							.test(tooltipFlag);
+						boolean showTooltip = showTooltip(stack, context, tooltip, tooltipFlag);
+						return condition && showTooltip;
+					}
 				)
 				.toList()
 		);
@@ -59,10 +78,18 @@ public class TooltipItem extends Item {
 			return this;
 		}
 
+		public Properties tooltip(Predicate<TooltipFlag> condition, Broken broken, Component tooltip) {
+			((ConditionalText) tooltip).legacy_landscape$setCondition(new TooltipCondition(condition));
+			((ConditionalText) tooltip).legacy_landscape$setBroken(broken);
+			this.tooltip.add(tooltip);
+			return this;
+		}
+
 		public Properties moreInfo() {
 			return this
 				.tooltip(
 					TooltipCondition.not(TooltipCondition::hasModifierKey),
+					Broken.ALWAYS,
 					Component.translatable("tooltip.legacy_landscape.more_info")
 						.withStyle(
 							ChatFormatting.ITALIC,
