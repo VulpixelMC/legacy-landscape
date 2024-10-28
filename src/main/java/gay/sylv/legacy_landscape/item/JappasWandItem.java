@@ -14,6 +14,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.Unbreakable;
@@ -28,6 +29,15 @@ import java.util.Optional;
 public class JappasWandItem extends TooltipItem {
 	public JappasWandItem(Properties properties) {
 		super(properties);
+	}
+
+	@Override
+	public @NotNull String getDescriptionId(@NotNull ItemStack stack) {
+		if (stack.has(LegacyComponents.BROKEN)) {
+			return "broken." + Objects.requireNonNull(stack.get(LegacyComponents.BROKEN)).level() + ".item.legacy_landscape.jappas_wand";
+		}
+
+		return super.getDescriptionId(stack);
 	}
 
 	@Override
@@ -50,14 +60,19 @@ public class JappasWandItem extends TooltipItem {
 		LevelChunk chunk = context.getLevel().getChunkAt(context.getClickedPos());
 		Player player = Objects.requireNonNull(context.getPlayer());
 
-		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK) && chunk.getData(LegacyAttachments.LEGACY_CHUNK) == LegacyChunkType.DECAYED && !player.isCreative()) {
+		// Prevent non-Creative players from recovering decayed chunks.
+		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK) && chunk.getData(LegacyAttachments.LEGACY_CHUNK) == LegacyChunkType.DECAYED && !player.getAbilities().instabuild) {
 			return InteractionResult.PASS;
 		}
 
-		boolean broken = context.getItemInHand().getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN).level() == 1;
+		boolean broken = context.getItemInHand().getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN).equals(Broken.of(1));
 
 		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK) || broken) {
-			context.getLevel().playSound(context.getPlayer(), Objects.requireNonNull(context.getPlayer()), SoundEvents.END_PORTAL_SPAWN, SoundSource.PLAYERS, 0.25F, 3.0F);
+			if (broken) {
+				context.getLevel().playSound(context.getPlayer(), Objects.requireNonNull(context.getPlayer()), SoundEvents.WITHER_BREAK_BLOCK, SoundSource.PLAYERS, 0.25F, 0.25F);
+			} else {
+				context.getLevel().playSound(context.getPlayer(), Objects.requireNonNull(context.getPlayer()), SoundEvents.END_PORTAL_SPAWN, SoundSource.PLAYERS, 0.25F, 3.0F);
+			}
 
 			if (!context.getLevel().isClientSide()) {
 				if (broken) {
@@ -85,6 +100,7 @@ public class JappasWandItem extends TooltipItem {
 					stack.set(LegacyComponents.BROKEN, new Broken(1));
 					stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
 					stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(1));
+					stack.set(DataComponents.RARITY, Rarity.COMMON);
 					context.getPlayer().onEquippedItemBroken(item, slot);
 				});
 			}

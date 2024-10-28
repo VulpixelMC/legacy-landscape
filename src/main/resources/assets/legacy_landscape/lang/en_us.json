@@ -4,7 +4,7 @@
 	"block.legacy_landscape.turf": "Turf",
 	"item.legacy_landscape.diamond": "Noob Diamond",
 	"item.legacy_landscape.jappas_wand": "Jappa's Wand",
-	"broken.1.item.legacy_landscape.jappas_wand": "Decaying Dust",
+	"broken.1.item.legacy_landscape.jappas_wand": "Dust of Decay",
 	"item.legacy_landscape.ore_dust": "Ore Dust",
 	"itemGroup.legacy_landscape.creative": "Legacy Creative Items",
 	"itemGroup.legacy_landscape.legacy_landscape": "Legacy Landscape",
