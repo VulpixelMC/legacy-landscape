@@ -27,6 +27,7 @@ public final class CreativeTabs {
 				output.accept(LegacyBlocks.TURF.item());
 				output.accept(LegacyBlocks.LAZURITE.item());
 				output.accept(LegacyItems.DIAMOND);
+				output.accept(LegacyItems.VOID_BUCKET);
 			})
 			.build()
 	);

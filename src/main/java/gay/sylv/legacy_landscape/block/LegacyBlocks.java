@@ -1,10 +1,12 @@
 package gay.sylv.legacy_landscape.block;
 
+import gay.sylv.legacy_landscape.fluid.LegacyFluids;
 import gay.sylv.legacy_landscape.item.LegacyItems;
 import gay.sylv.legacy_landscape.sound.LegacySounds;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -32,6 +34,11 @@ public final class LegacyBlocks {
 		() -> new CommandBlock(
 			BlockBehaviour.Properties.ofFullCopy(Blocks.COMMAND_BLOCK)
 		)
+	);
+
+	public static final DeferredBlock<LiquidBlock> VOID = BLOCKS.register(
+		"void",
+		() -> new LiquidBlock(LegacyFluids.VOID_SOURCE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.LAVA))
 	);
 
 	private LegacyBlocks() {}

@@ -1,9 +1,12 @@
 package gay.sylv.legacy_landscape.item;
 
 import gay.sylv.legacy_landscape.data_components.Broken;
+import gay.sylv.legacy_landscape.fluid.LegacyFluids;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -69,6 +72,16 @@ public final class LegacyItems {
 			)
 			.moreInfo()
 			.durability(300)
+	);
+
+	public static final DeferredItem<BucketItem> VOID_BUCKET = ITEMS.register(
+		"void_bucket",
+		() -> new BucketItem(
+			LegacyFluids.VOID_SOURCE.get(),
+			new Item.Properties()
+				.craftRemainder(Items.BUCKET)
+				.stacksTo(1)
+		)
 	);
 
 	public static final DeferredItem<Item> DIAMOND = ITEMS.registerSimpleItem("diamond");

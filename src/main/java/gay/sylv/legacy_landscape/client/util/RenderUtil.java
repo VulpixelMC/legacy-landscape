@@ -5,6 +5,7 @@ import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeRenderType;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeState;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_TextureStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -16,6 +17,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 public final class RenderUtil {
 	public static final int WATER_COLOR = 0xFF334FDD;
 	public static final int DECAYED_WATER_COLOR = 0xFF425CB4;
+	public static final Vec3i VOID_COLOR = new Vec3i(24, 24, 24);
 
 	private RenderUtil() {}
 

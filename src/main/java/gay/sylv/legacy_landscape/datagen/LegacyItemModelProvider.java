@@ -23,6 +23,7 @@ public final class LegacyItemModelProvider extends ItemModelProvider {
 			.model(getExistingFile(mcLoc("blaze_powder")))
 			.end();
 		basicItem(LegacyItems.DIAMOND.get());
+		handheldItem(LegacyItems.VOID_BUCKET.get());
 
 		// Blocks
 		simpleBlockItem(LegacyBlocks.LAZURITE.block().get());

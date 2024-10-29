@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
+import gay.sylv.legacy_landscape.fluid.LegacyFluids;
 import gay.sylv.legacy_landscape.item.LegacyItems;
 import gay.sylv.legacy_landscape.sound.LegacySounds;
 import gay.sylv.legacy_landscape.tabs.CreativeTabs;
@@ -34,6 +35,8 @@ public final class LegacyLandscape {
 	public LegacyLandscape(IEventBus modBus, ModContainer modContainer) {
 		LegacySounds.SOUNDS.register(modBus);
 		LegacyComponents.DATA_COMPONENTS.register(modBus);
+		LegacyFluids.Types.FLUID_TYPES.register(modBus);
+		LegacyFluids.FLUIDS.register(modBus);
 		LegacyBlocks.BLOCKS.register(modBus);
 		LegacyItems.ITEMS.register(modBus);
 		CreativeTabs.CREATIVE_MODE_TABS.register(modBus);
