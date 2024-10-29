@@ -38,7 +38,7 @@ public final class RenderUtil {
 		int green = (tint & 0x0000FF00) >> 8;
 		int blue = (tint & 0x000000FF);
 		red += green + blue;
-		red /= 3;
+		red = Mth.floor(red / 2.5f);
 		red = Math.max(red, 0);
 		green += red + blue;
 		green = Mth.floor(green / 2.5f);
