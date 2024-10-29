@@ -9,6 +9,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.joml.Vector3f;
 
 /**
  * A grab-bag of utilities used in legacy-style rendering.
@@ -18,6 +19,7 @@ public final class RenderUtil {
 	public static final int WATER_COLOR = 0xFF334FDD;
 	public static final int DECAYED_WATER_COLOR = 0xFF425CB4;
 	public static final Vec3i VOID_COLOR = new Vec3i(24, 24, 24);
+	public static final Vector3f VOID_FOG_COLOR = new Vector3f(16.0F * -VOID_COLOR.getX() / 255.0F, 16.0F * -VOID_COLOR.getY() / 255.0F, 16.0F * -VOID_COLOR.getZ() / 255.0F);
 
 	private RenderUtil() {}
 
