@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.effect;
 
+import gay.sylv.legacy_landscape.entity.SilentLivingEntity;
 import gay.sylv.legacy_landscape.mixin.Accessor_ChunkMap;
 import gay.sylv.legacy_landscape.mixin.Accessor_TrackedEntity;
 import net.minecraft.core.particles.ParticleOptions;
@@ -93,6 +94,8 @@ public final class EvanescenceEffect extends MobEffect {
 				trackedEntity.updatePlayers((List<ServerPlayer>) entity.level().players());
 				((Accessor_TrackedEntity) trackedEntity).getSeenBy()
 					.forEach(connection -> connection.send(new ClientboundAddEntityPacket(entity, ((Accessor_TrackedEntity) trackedEntity).getServerEntity())));
+				// Make entity no longer silent.
+				((SilentLivingEntity) entity).legacy_landscape$setSilent(false);
 			});
 		}
 	}

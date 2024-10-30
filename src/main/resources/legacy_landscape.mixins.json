@@ -6,7 +6,10 @@
 	"mixins": [
 		"Accessor_ChunkMap",
 		"Accessor_TrackedEntity",
+		"Mixin_Entity",
+		"Mixin_LivingEntity",
 		"Mixin_MutableComponent",
+		"Mixin_Player",
 		"Mixin_ServerEntity",
 		"Mixin_ServerLevel"
 	],
