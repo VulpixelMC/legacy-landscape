@@ -4,7 +4,8 @@
   "package": "gay.sylv.legacy_landscape.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "Mixin_MutableComponent"
+    "Mixin_MutableComponent",
+    "Mixin_ServerLevel"
   ],
   "client": [
     "client.Accessor_ClientLevel",

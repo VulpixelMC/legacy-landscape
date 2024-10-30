@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -44,26 +45,34 @@ public final class LegacyBlocks {
 
 	public static final BlockItemPair<Block, BlockItem> FABRIC_OF_REALITY = registerSimpleBlockItem(
 		"fabric_of_reality",
-		BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WOOL)
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_BLACK)
+			.strength(0.8F)
 			.sound(SoundType.EMPTY) // for an eery silent effect
 	);
 
 	public static final BlockItemPair<Block, BlockItem> EPHEMERAL_FABRIC_OF_REALITY = registerSimpleBlockItem(
 		"ephemeral_fabric_of_reality",
-		BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WOOL)
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_BLACK)
+			.strength(0.8F)
 			.sound(SoundType.EMPTY) // for an eery silent effect
 			.noCollission()
 	);
 
 	public static final BlockItemPair<Block, BlockItem> PATCHED_FABRIC_OF_REALITY = registerSimpleBlockItem(
 		"patched_fabric_of_reality",
-		BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WOOL)
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_BLACK)
+			.strength(0.8F)
 			.sound(SoundType.EMPTY)
 	);
 
 	public static final BlockItemPair<Block, BlockItem> FLOWING_REALITY = registerSimpleBlockItem(
 		"flowing_reality",
-		BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WOOL)
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_BLACK)
+			.strength(0.8F)
 			.sound(SoundType.EMPTY)
 	);
 

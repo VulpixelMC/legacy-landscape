@@ -1,3 +1,7 @@
-// 1.21.1	2024-10-15T19:51:09.298927	Loot Tables
+// 1.21.1	2024-10-29T20:51:29.985183	Loot Tables
+188a4852b1acd04b164aad99f4c5ee7963fb0780 data/legacy_landscape/loot_table/blocks/ephemeral_fabric_of_reality.json
+2805a02cf9fa298c3b01d55b8b810ba83b38c148 data/legacy_landscape/loot_table/blocks/fabric_of_reality.json
+8cad6ca56015d49df86f6eb74ff3e0a9fd93b18e data/legacy_landscape/loot_table/blocks/flowing_reality.json
 bdaa7ceb86fc4736a647969de2dab66bfb88cc2d data/legacy_landscape/loot_table/blocks/lazurite.json
+0b96b01e66fe6d5d8f9216b8f4036a33846e3e70 data/legacy_landscape/loot_table/blocks/patched_fabric_of_reality.json
 6ce983d2223e0b91475dd2589cd3c1448c7de621 data/legacy_landscape/loot_table/blocks/turf.json

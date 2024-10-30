@@ -53,6 +53,14 @@ public final class LegacyLootTableProvider extends LootTableProvider {
 			DataProvider.LOGGER.info("{}", getKnownBlocks());
 			dropOre(LegacyBlocks.LAZURITE.block().get(), LegacyItems.DIAMOND.get());
 			dropSelf(LegacyBlocks.TURF.block().get());
+			noDrop(LegacyBlocks.FABRIC_OF_REALITY.block().get());
+			noDrop(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
+			noDrop(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
+			noDrop(LegacyBlocks.FLOWING_REALITY.block().get());
+		}
+
+		private void noDrop(Block block) {
+			this.add(block, noDrop());
 		}
 
 		private void dropOre(Block block, Item item) {

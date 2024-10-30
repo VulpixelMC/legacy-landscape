@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "all": "legacy_landscape:block/ephemeral_fabric_of_reality"
+  }
+}
