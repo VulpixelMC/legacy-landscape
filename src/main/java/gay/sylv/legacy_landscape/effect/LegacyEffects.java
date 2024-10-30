@@ -1,9 +1,12 @@
 package gay.sylv.legacy_landscape.effect;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -23,4 +26,9 @@ public final class LegacyEffects {
 	);
 
 	private LegacyEffects() {}
+
+	@SuppressWarnings("UnusedReturnValue")
+	public static boolean apply(LivingEntity entity, Holder<MobEffect> effect, int duration) {
+		return entity.addEffect(new MobEffectInstance(effect, duration));
+	}
 }

@@ -4,7 +4,9 @@ import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.client.util.RenderUtil;
+import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.item.LegacyItems;
+import gay.sylv.legacy_landscape.util.Maths;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
@@ -13,6 +15,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FastColor;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -20,6 +24,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.SoundAction;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -32,6 +37,9 @@ import org.joml.Vector3f;
 import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
 import static gay.sylv.legacy_landscape.client.util.RenderUtil.VOID_COLOR;
 
+@EventBusSubscriber(
+	modid = MOD_ID
+)
 public final class LegacyFluids {
 	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(
 		BuiltInRegistries.FLUID,
@@ -55,6 +63,19 @@ public final class LegacyFluids {
 		.levelDecreasePerBlock(1);
 
 	private LegacyFluids() {}
+
+	@SubscribeEvent
+	public static void onEntityTick(EntityTickEvent.Pre event) {
+		Entity entity = event.getEntity();
+		// Apply Evanescence to entities in void fluid.
+		if (entity instanceof LivingEntity livingEntity && livingEntity.isInFluidType(Types.VOID.get())) {
+			LegacyEffects.apply(
+				livingEntity,
+				LegacyEffects.EVANESCENCE,
+				Maths.tickMinute(10)
+			);
+		}
+	}
 
 	public static final class Types {
 		public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, MOD_ID);
