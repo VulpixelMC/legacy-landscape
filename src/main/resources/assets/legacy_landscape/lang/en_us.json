@@ -3,6 +3,7 @@
 	"block.legacy_landscape.lazurite": "Lazurite",
 	"block.legacy_landscape.turf": "Turf",
 	"block.legacy_landscape.void": "Void",
+	"effect.legacy_landscape.evanescence": "Evanescence",
 	"item.legacy_landscape.diamond": "Noob Diamond",
 	"item.legacy_landscape.jappas_wand": "Jappa's Wand",
 	"broken.1.item.legacy_landscape.jappas_wand": "Dust of Decay",
