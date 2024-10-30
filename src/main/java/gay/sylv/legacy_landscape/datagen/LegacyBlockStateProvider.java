@@ -21,6 +21,23 @@ public final class LegacyBlockStateProvider extends BlockStateProvider {
 		simpleBlock(LegacyBlocks.LAZURITE.block().get());
 		cubeBottomTop(LegacyBlocks.TURF.block().get());
 		simpleBlock(LegacyBlocks.COMMAND_BLOCK.block().get());
+		simpleBlock(LegacyBlocks.FABRIC_OF_REALITY.block().get());
+		simpleTranslucent(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
+		simpleBlock(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
+		simpleBlock(LegacyBlocks.FLOWING_REALITY.block().get());
+	}
+
+	private void simpleTranslucent(Block block) {
+		ResourceLocation blockLoc = key(block).withPrefix(BLOCK_FOLDER + "/");
+		simpleBlock(
+			block,
+			models()
+				.cubeAll(
+					name(block),
+					blockLoc
+				)
+				.renderType("translucent")
+		);
 	}
 
 	private void cubeBottomTop(Block block) {

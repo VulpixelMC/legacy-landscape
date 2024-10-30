@@ -84,6 +84,8 @@ public final class LegacyItems {
 		)
 	);
 
+	public static final DeferredItem<Item> TWINE_OF_REALITY = ITEMS.registerSimpleItem("twine_of_reality");
+
 	public static final DeferredItem<Item> DIAMOND = ITEMS.registerSimpleItem("diamond");
 
 	private LegacyItems() {}

@@ -28,6 +28,11 @@ public final class CreativeTabs {
 				output.accept(LegacyBlocks.LAZURITE.item());
 				output.accept(LegacyItems.DIAMOND);
 				output.accept(LegacyItems.VOID_BUCKET);
+				output.accept(LegacyItems.TWINE_OF_REALITY);
+				output.accept(LegacyBlocks.FABRIC_OF_REALITY.item());
+				output.accept(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.item());
+				output.accept(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.item());
+				output.accept(LegacyBlocks.FLOWING_REALITY.item());
 			})
 			.build()
 	);

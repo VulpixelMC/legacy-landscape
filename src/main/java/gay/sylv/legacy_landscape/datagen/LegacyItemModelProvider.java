@@ -24,10 +24,15 @@ public final class LegacyItemModelProvider extends ItemModelProvider {
 			.end();
 		basicItem(LegacyItems.DIAMOND.get());
 		handheldItem(LegacyItems.VOID_BUCKET.get());
+		basicItem(LegacyItems.TWINE_OF_REALITY.get());
 
 		// Blocks
 		simpleBlockItem(LegacyBlocks.LAZURITE.block().get());
 		simpleBlockItem(LegacyBlocks.TURF.block().get());
 		simpleBlockItem(LegacyBlocks.COMMAND_BLOCK.block().get());
+		simpleBlockItem(LegacyBlocks.FABRIC_OF_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.FLOWING_REALITY.block().get());
 	}
 }
