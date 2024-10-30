@@ -94,9 +94,10 @@ public final class EvanescenceEffect extends MobEffect {
 				trackedEntity.updatePlayers((List<ServerPlayer>) entity.level().players());
 				((Accessor_TrackedEntity) trackedEntity).getSeenBy()
 					.forEach(connection -> connection.send(new ClientboundAddEntityPacket(entity, ((Accessor_TrackedEntity) trackedEntity).getServerEntity())));
-				// Make entity no longer silent.
-				((SilentLivingEntity) entity).legacy_landscape$setSilent(false);
 			});
 		}
+
+		// Make entity no longer silent.
+		((SilentLivingEntity) entity).legacy_landscape$setSilent(false);
 	}
 }
