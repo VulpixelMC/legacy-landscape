@@ -31,6 +31,11 @@ public final class EvanescenceEffect extends MobEffect {
 		super(category, color, particle);
 	}
 
+	/**
+	 * Upon gaining the evanescence effect, all players tracking this {@link LivingEntity} will stop tracking the entity. This creates a vanishing effect as if the entity never existed, effectively making the clients "forget."
+	 * @param livingEntity The affected {@link LivingEntity}.
+	 * @param amplifier The {@code int amplifier}. This is currently useless.
+	 */
 	@Override
 	public void onEffectAdded(@NotNull LivingEntity livingEntity, int amplifier) {
 		super.onEffectAdded(livingEntity, amplifier);
@@ -42,6 +47,7 @@ public final class EvanescenceEffect extends MobEffect {
 				ChunkMap.TrackedEntity trackedEntity = chunkMap
 					.getEntityMap()
 					.get(livingEntity.getId());
+				// Remove entity from players' clients.
 				trackedEntity.broadcastRemoved();
 			});
 		}
@@ -69,6 +75,10 @@ public final class EvanescenceEffect extends MobEffect {
 		}
 	}
 
+	/**
+	 * A function that triggers upon effect removal or expiry, removing the vanishing or evanesced effect from previously affected entities.
+	 * @param entity The entity that had Evanescence.
+	 */
 	private static void onRemoved(LivingEntity entity) {
 		if (entity.getServer() != null) {
 			entity.getServer().execute(() -> {

@@ -23,6 +23,7 @@ public abstract class Mixin_ServerLevel {
 	private void suppressEvanesced(Entity entity, byte state, CallbackInfo ci) {
 		if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
 			ci.cancel();
+			// If entity is player, only send packet to that player.
 			if (entity instanceof ServerPlayer player) {
 				player.connection.send(new ClientboundEntityEventPacket(entity, state));
 			}
