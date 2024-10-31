@@ -31,8 +31,14 @@ public final class LegacyItemModelProvider extends ItemModelProvider {
 		simpleBlockItem(LegacyBlocks.TURF.block().get());
 		simpleBlockItem(LegacyBlocks.COMMAND_BLOCK.block().get());
 		simpleBlockItem(LegacyBlocks.FABRIC_OF_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.block().get());
 		simpleBlockItem(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.block().get());
 		simpleBlockItem(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.INVERTED_PATCHED_FABRIC_OF_REALITY.block().get());
 		simpleBlockItem(LegacyBlocks.FLOWING_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.INVERTED_FLOWING_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.INTERTWINED_REALITY.block().get());
+		simpleBlockItem(LegacyBlocks.INVERTED_INTERTWINED_REALITY.block().get());
 	}
 }

@@ -3,12 +3,15 @@ package gay.sylv.legacy_landscape.block;
 import gay.sylv.legacy_landscape.fluid.LegacyFluids;
 import gay.sylv.legacy_landscape.item.LegacyItems;
 import gay.sylv.legacy_landscape.sound.LegacySounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -40,40 +43,59 @@ public final class LegacyBlocks {
 
 	public static final DeferredBlock<LiquidBlock> VOID = BLOCKS.register(
 		"void",
-		() -> new LiquidBlock(LegacyFluids.VOID_SOURCE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.LAVA))
+		() -> new LiquidBlock(LegacyFluids.VOID_SOURCE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.LAVA).mapColor(MapColor.COLOR_BLACK))
 	);
 
 	public static final BlockItemPair<Block, BlockItem> FABRIC_OF_REALITY = registerSimpleBlockItem(
 		"fabric_of_reality",
-		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_BLACK)
-			.strength(0.8F)
-			.sound(SoundType.EMPTY) // for an eery silent effect
+		Properties.fabricOfReality()
+	);
+
+	public static final BlockItemPair<Block, BlockItem> INVERTED_FABRIC_OF_REALITY = registerSimpleBlockItem(
+		"inverted_fabric_of_reality",
+		Properties.invertedFabricOfReality()
 	);
 
 	public static final BlockItemPair<Block, BlockItem> EPHEMERAL_FABRIC_OF_REALITY = registerSimpleBlockItem(
 		"ephemeral_fabric_of_reality",
-		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_BLACK)
-			.strength(0.8F)
-			.sound(SoundType.EMPTY) // for an eery silent effect
+		Properties.fabricOfReality()
+			.noCollission()
+	);
+
+	public static final BlockItemPair<Block, BlockItem> INVERTED_EPHEMERAL_FABRIC_OF_REALITY = registerSimpleBlockItem(
+		"inverted_ephemeral_fabric_of_reality",
+		Properties.invertedFabricOfReality()
 			.noCollission()
 	);
 
 	public static final BlockItemPair<Block, BlockItem> PATCHED_FABRIC_OF_REALITY = registerSimpleBlockItem(
 		"patched_fabric_of_reality",
-		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_BLACK)
-			.strength(0.8F)
-			.sound(SoundType.EMPTY)
+		Properties.fabricOfReality()
+	);
+
+	public static final BlockItemPair<Block, BlockItem> INVERTED_PATCHED_FABRIC_OF_REALITY = registerSimpleBlockItem(
+		"inverted_patched_fabric_of_reality",
+		Properties.invertedFabricOfReality()
 	);
 
 	public static final BlockItemPair<Block, BlockItem> FLOWING_REALITY = registerSimpleBlockItem(
 		"flowing_reality",
-		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_BLACK)
-			.strength(0.8F)
-			.sound(SoundType.EMPTY)
+		Properties.fabricOfReality()
+	);
+
+	public static final BlockItemPair<Block, BlockItem> INVERTED_FLOWING_REALITY = registerSimpleBlockItem(
+		"inverted_flowing_reality",
+		Properties.invertedFabricOfReality()
+	);
+
+	public static final BlockItemPair<Block, BlockItem> INTERTWINED_REALITY = registerSimpleBlockItem(
+		"intertwined_reality",
+		Properties.intertwinedReality()
+	);
+
+	public static final BlockItemPair<Block, BlockItem> INVERTED_INTERTWINED_REALITY = registerSimpleBlockItem(
+		"inverted_intertwined_reality",
+		Properties.intertwinedReality()
 	);
 
 	private LegacyBlocks() {}
@@ -92,5 +114,36 @@ public final class LegacyBlocks {
 			block,
 			LegacyItems.ITEMS.registerSimpleBlockItem(block)
 		);
+	}
+
+	public static final class Properties {
+		private Properties() {}
+
+		public static BlockBehaviour.Properties reality() {
+			return BlockBehaviour.Properties.of()
+				.strength(0.8F)
+				.sound(SoundType.EMPTY) // for an eery silent effect
+				.lightLevel(state -> 7)
+				.emissiveRendering(Properties::always);
+		}
+
+		public static BlockBehaviour.Properties fabricOfReality() {
+			return reality()
+				.mapColor(MapColor.COLOR_BLACK);
+		}
+
+		public static BlockBehaviour.Properties invertedFabricOfReality() {
+			return reality()
+				.mapColor(MapColor.SNOW);
+		}
+
+		public static BlockBehaviour.Properties intertwinedReality() {
+			return reality()
+				.mapColor(MapColor.COLOR_GRAY);
+		}
+
+		private static boolean always(BlockState state, BlockGetter blockGetter, BlockPos pos) {
+			return true;
+		}
 	}
 }

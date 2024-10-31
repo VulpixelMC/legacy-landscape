@@ -2,6 +2,6 @@
   "parent": "legacy_landscape:block/cube_all_unshaded",
   "render_type": "minecraft:translucent",
   "textures": {
-    "all": "legacy_landscape:block/ephemeral_fabric_of_reality"
+    "all": "legacy_landscape:block/inverted_ephemeral_fabric_of_reality"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "legacy_landscape:block/cube_all_unshaded",
   "textures": {
     "all": "legacy_landscape:block/flowing_reality"
   }

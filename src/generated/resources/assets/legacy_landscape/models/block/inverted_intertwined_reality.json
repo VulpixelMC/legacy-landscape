@@ -1,6 +1,6 @@
 {
   "parent": "legacy_landscape:block/cube_all_unshaded",
   "textures": {
-    "all": "legacy_landscape:block/patched_fabric_of_reality"
+    "all": "legacy_landscape:block/inverted_intertwined_reality"
   }
 }

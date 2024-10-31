@@ -29,10 +29,16 @@ public final class CreativeTabs {
 				output.accept(LegacyItems.DIAMOND);
 				output.accept(LegacyItems.VOID_BUCKET);
 				output.accept(LegacyItems.TWINE_OF_REALITY);
+				output.accept(LegacyBlocks.INVERTED_INTERTWINED_REALITY.item());
 				output.accept(LegacyBlocks.FABRIC_OF_REALITY.item());
 				output.accept(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.item());
 				output.accept(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.item());
 				output.accept(LegacyBlocks.FLOWING_REALITY.item());
+				output.accept(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item());
+				output.accept(LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.item());
+				output.accept(LegacyBlocks.INVERTED_PATCHED_FABRIC_OF_REALITY.item());
+				output.accept(LegacyBlocks.INVERTED_FLOWING_REALITY.item());
+				output.accept(LegacyBlocks.INTERTWINED_REALITY.item());
 			})
 			.build()
 	);

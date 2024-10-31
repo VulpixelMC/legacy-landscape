@@ -5,10 +5,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
+import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 public final class LegacyBlockStateProvider extends BlockStateProvider {
@@ -21,23 +23,44 @@ public final class LegacyBlockStateProvider extends BlockStateProvider {
 		simpleBlock(LegacyBlocks.LAZURITE.block().get());
 		cubeBottomTop(LegacyBlocks.TURF.block().get());
 		simpleBlock(LegacyBlocks.COMMAND_BLOCK.block().get());
-		simpleBlock(LegacyBlocks.FABRIC_OF_REALITY.block().get());
-		simpleTranslucent(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
-		simpleBlock(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
-		simpleBlock(LegacyBlocks.FLOWING_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.FABRIC_OF_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.block().get());
+		simpleTranslucentUnshaded(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
+		simpleTranslucentUnshaded(LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.INVERTED_PATCHED_FABRIC_OF_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.FLOWING_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.INVERTED_FLOWING_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.INTERTWINED_REALITY.block().get());
+		simpleUnshaded(LegacyBlocks.INVERTED_INTERTWINED_REALITY.block().get());
 	}
 
-	private void simpleTranslucent(Block block) {
+	private void simpleTranslucentUnshaded(Block block) {
 		ResourceLocation blockLoc = key(block).withPrefix(BLOCK_FOLDER + "/");
 		simpleBlock(
 			block,
-			models()
-				.cubeAll(
-					name(block),
-					blockLoc
-				)
+			cubeAllUnshaded(
+				name(block),
+				blockLoc
+			)
 				.renderType("translucent")
 		);
+	}
+
+	private void simpleUnshaded(Block block) {
+		ResourceLocation blockLoc = key(block).withPrefix(BLOCK_FOLDER + "/");
+		simpleBlock(
+			block,
+			cubeAllUnshaded(
+				name(block),
+				blockLoc
+			)
+		);
+	}
+
+	private BlockModelBuilder cubeAllUnshaded(String name, ResourceLocation texture) {
+		return models()
+			.singleTexture(name, id(BLOCK_FOLDER + "/cube_all_unshaded"), "all", texture);
 	}
 
 	private void cubeBottomTop(Block block) {

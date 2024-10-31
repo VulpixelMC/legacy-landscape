@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "legacy_landscape:inverted_fabric_of_reality"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "legacy_landscape:blocks/inverted_fabric_of_reality"
+}

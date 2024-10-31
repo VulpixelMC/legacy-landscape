@@ -53,12 +53,19 @@ public final class LegacyLootTableProvider extends LootTableProvider {
 			DataProvider.LOGGER.info("{}", getKnownBlocks());
 			dropOre(LegacyBlocks.LAZURITE.block().get(), LegacyItems.DIAMOND.get());
 			dropSelf(LegacyBlocks.TURF.block().get());
-			noDrop(LegacyBlocks.FABRIC_OF_REALITY.block().get());
-			noDrop(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
-			noDrop(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
-			noDrop(LegacyBlocks.FLOWING_REALITY.block().get());
+			dropWhenSilkTouch(LegacyBlocks.FABRIC_OF_REALITY.block().get());
+			dropSelf(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.block().get());
+			dropWhenSilkTouch(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.block().get());
+			dropSelf(LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.block().get());
+			dropWhenSilkTouch(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.block().get());
+			dropSelf(LegacyBlocks.INVERTED_PATCHED_FABRIC_OF_REALITY.block().get());
+			dropWhenSilkTouch(LegacyBlocks.FLOWING_REALITY.block().get());
+			dropSelf(LegacyBlocks.INVERTED_FLOWING_REALITY.block().get());
+			dropOre(LegacyBlocks.INTERTWINED_REALITY.block().get(), LegacyItems.TWINE_OF_REALITY.get());
+			dropOre(LegacyBlocks.INVERTED_INTERTWINED_REALITY.block().get(), LegacyItems.TWINE_OF_REALITY.get());
 		}
 
+		@SuppressWarnings("unused")
 		private void noDrop(Block block) {
 			this.add(block, noDrop());
 		}
