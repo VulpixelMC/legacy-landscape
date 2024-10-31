@@ -123,7 +123,6 @@ public final class LegacyBlocks {
 			return BlockBehaviour.Properties.of()
 				.strength(0.8F)
 				.sound(SoundType.EMPTY) // for an eery silent effect
-				.lightLevel(state -> 7)
 				.emissiveRendering(Properties::always);
 		}
 
