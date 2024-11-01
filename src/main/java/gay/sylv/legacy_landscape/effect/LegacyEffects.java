@@ -31,4 +31,8 @@ public final class LegacyEffects {
 	public static boolean apply(LivingEntity entity, Holder<MobEffect> effect, int duration) {
 		return entity.addEffect(new MobEffectInstance(effect, duration));
 	}
+
+	public static boolean apply(LivingEntity entity, Holder<MobEffect> effect, int duration, int amplifier, boolean ambient, boolean visible) {
+		return entity.addEffect(new MobEffectInstance(effect, duration, amplifier, ambient, visible));
+	}
 }

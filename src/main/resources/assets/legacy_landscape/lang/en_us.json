@@ -27,5 +27,9 @@
 	"broken.1.tooltip.legacy_landscape.jappas_wand.1": "A waste byproduct from breaking a wand.",
 	"broken.1.tooltip.legacy_landscape.jappas_wand.2": "Irreversibly decays chunks when used.",
 	"tooltip.legacy_landscape.ore_dust.1": "But if you close your eyes, does it almost feel like nothing's changed at all?",
-	"tooltip.legacy_landscape.ore_dust.2": "Use this item on any block in a chunk to convert it into a legacy chunk."
+	"tooltip.legacy_landscape.ore_dust.2": "Use this item on any block in a chunk to convert it into a legacy chunk.",
+	"commands.legacy_landscape.vanish.cannot_be_applied": "Cannot apply Evanescence to entity.",
+	"commands.legacy_landscape.vanish.cannot_be_removed": "Cannot remove Evanescence from entity.",
+	"commands.legacy_landscape.vanish.applied": "vanish: Applied Evanescence effect to entity.",
+	"commands.legacy_landscape.vanish.removed": "vanish: Removed Evanescence effect from entity."
 }
