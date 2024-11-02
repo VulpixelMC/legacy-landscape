@@ -3,11 +3,11 @@ package gay.sylv.legacy_landscape.fluid;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
-import gay.sylv.legacy_landscape.client.util.RenderUtil;
 import gay.sylv.legacy_landscape.data_components.Broken;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.item.LegacyItems;
+import gay.sylv.legacy_landscape.util.Constants;
 import gay.sylv.legacy_landscape.util.Maths;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -41,7 +41,6 @@ import org.joml.Vector3f;
 import java.util.Objects;
 
 import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
-import static gay.sylv.legacy_landscape.client.util.RenderUtil.VOID_COLOR;
 
 @EventBusSubscriber(
 	modid = MOD_ID
@@ -111,16 +110,10 @@ public final class LegacyFluids {
 				.canDrown(false)
 				.canSwim(false)
 				.supportsBoating(false),
-			VOID_COLOR,
+			Constants.VOID_COLOR,
 			ResourceLocation.withDefaultNamespace("block/water_still"),
 			ResourceLocation.withDefaultNamespace("block/water_flow"),
-			ResourceLocation.withDefaultNamespace("block/water_overlay"),
-			(camera, mode, renderDistance, partialTick, nearDistance, farDistance, shape) -> {
-				RenderSystem.setShaderFogStart(0.5F);
-				RenderSystem.setShaderFogEnd(6.5F);
-				RenderSystem.setShaderFogShape(FogShape.SPHERE);
-			},
-			(camera, partialTick, level, renderDistance, darkenWorldAmount, fluidFogColor) -> RenderUtil.VOID_FOG_COLOR
+			ResourceLocation.withDefaultNamespace("block/water_overlay")
 		);
 
 		private static DeferredHolder<FluidType, FluidType> register(
@@ -129,9 +122,7 @@ public final class LegacyFluids {
 			Vec3i color,
 			ResourceLocation stillTexture,
 			ResourceLocation flowingTexture,
-			ResourceLocation overlayTexture,
-			LegacyFluidType.Fog fog,
-			LegacyFluidType.FogColor fogColor
+			ResourceLocation overlayTexture
 		) {
 			return register(
 				name,
@@ -139,9 +130,7 @@ public final class LegacyFluids {
 				FastColor.ARGB32.color(color.getX(), color.getY(), color.getZ()),
 				stillTexture,
 				flowingTexture,
-				overlayTexture,
-				fog,
-				fogColor
+				overlayTexture
 			);
 		}
 
@@ -151,9 +140,7 @@ public final class LegacyFluids {
 			int color,
 			ResourceLocation stillTexture,
 			ResourceLocation flowingTexture,
-			ResourceLocation overlayTexture,
-			LegacyFluidType.Fog fog,
-			LegacyFluidType.FogColor fogColor
+			ResourceLocation overlayTexture
 		) {
 			return FLUID_TYPES.register(
 				name,
@@ -162,9 +149,7 @@ public final class LegacyFluids {
 					color,
 					stillTexture,
 					flowingTexture,
-					overlayTexture,
-					fog,
-					fogColor
+					overlayTexture
 				)
 			);
 		}
@@ -180,6 +165,16 @@ public final class LegacyFluids {
 
 		@SubscribeEvent
 		public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+			LegacyFluidType voidType = (LegacyFluidType) Types.VOID.get();
+			voidType.setFogProperties(
+				(camera, mode, renderDistance, partialTick, nearDistance, farDistance, shape) -> {
+					RenderSystem.setShaderFogStart(0.5F);
+					RenderSystem.setShaderFogEnd(6.5F);
+					RenderSystem.setShaderFogShape(FogShape.SPHERE);
+				},
+				(camera, partialTick, level, renderDistance, darkenWorldAmount, fluidFogColor) -> Constants.VOID_FOG_COLOR
+			);
+
 			for (FluidType fluidType : NeoForgeRegistries.FLUID_TYPES) {
 				if (fluidType instanceof LegacyFluidType legacyFluidType) {
 					event.registerFluidType(
