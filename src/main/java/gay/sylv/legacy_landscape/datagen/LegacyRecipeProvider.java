@@ -44,6 +44,8 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.unlockedBy("has_ore_dust", has(LegacyItems.ORE_DUST))
 			.unlockedBy("has_blaze_rod", has(Items.BLAZE_ROD))
 			.save(recipeOutput);
+
+		// Void recipes
 		VoidRecipeBuilder.of(LegacyItems.TWINE_OF_REALITY.get())
 			.input(Items.STRING)
 			.unlockedBy("has_string", has(Items.STRING))
@@ -51,6 +53,18 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 		VoidRecipeBuilder.of(LegacyItems.REALITY_DUST.get())
 			.input(LegacyItems.TWINE_OF_REALITY.get())
 			.unlockedBy("has_twine_of_reality", has(LegacyItems.TWINE_OF_REALITY.get()))
+			.save(recipeOutput);
+		VoidRecipeBuilder.of(LegacyBlocks.FABRIC_OF_REALITY.item().get())
+			.input(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item().get())
+			.save(recipeOutput);
+		VoidRecipeBuilder.of(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item().get())
+			.input(LegacyBlocks.FABRIC_OF_REALITY.item().get())
+			.save(recipeOutput);
+		VoidRecipeBuilder.of(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.item().get())
+			.input(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.item().get())
+			.save(recipeOutput);
+		VoidRecipeBuilder.of(LegacyBlocks.INVERTED_PATCHED_FABRIC_OF_REALITY.item().get())
+			.input(LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.item().get())
 			.save(recipeOutput);
 	}
 }
