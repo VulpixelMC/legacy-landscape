@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ephemeral_fabric_of_reality": {
+      "conditions": {
+        "items": [
+          {
+            "items": "legacy_landscape:ephemeral_fabric_of_reality"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "legacy_landscape:patched_fabric_of_reality"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ephemeral_fabric_of_reality"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "legacy_landscape:patched_fabric_of_reality"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "legacy_landscape:inverted_patched_fabric_of_reality"
+    },
+    {
+      "item": "legacy_landscape:twine_of_reality"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "legacy_landscape:inverted_flowing_reality"
+  }
+}

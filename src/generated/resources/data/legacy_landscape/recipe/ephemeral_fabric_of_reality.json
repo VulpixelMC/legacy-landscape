@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "legacy_landscape:fabric_of_reality"
+    },
+    {
+      "item": "legacy_landscape:reality_dust"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "legacy_landscape:ephemeral_fabric_of_reality"
+  }
+}

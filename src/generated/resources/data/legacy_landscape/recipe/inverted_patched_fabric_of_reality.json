@@ -1,0 +1,11 @@
+{
+  "type": "legacy_landscape:void",
+  "group": "",
+  "ingredient": {
+    "item": "legacy_landscape:inverted_ephemeral_fabric_of_reality"
+  },
+  "result": {
+    "count": 1,
+    "id": "legacy_landscape:inverted_patched_fabric_of_reality"
+  }
+}

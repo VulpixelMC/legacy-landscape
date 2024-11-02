@@ -36,13 +36,40 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.unlockedBy("has_glowstone_dust", has(Tags.Items.SEEDS))
 			.unlockedBy("has_sugar", has(Items.SUGAR))
 			.save(recipeOutput);
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, LegacyItems.JAPPAS_WAND, 1)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, LegacyItems.JAPPAS_WAND)
 			.define('@', LegacyItems.ORE_DUST)
 			.define('/', Items.BLAZE_ROD)
 			.pattern(" @")
 			.pattern("/ ")
 			.unlockedBy("has_ore_dust", has(LegacyItems.ORE_DUST))
 			.unlockedBy("has_blaze_rod", has(Items.BLAZE_ROD))
+			.save(recipeOutput);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, LegacyBlocks.INTERTWINED_REALITY.item(), 2)
+			.requires(LegacyBlocks.FABRIC_OF_REALITY.item())
+			.requires(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item())
+			.requires(LegacyItems.TWINE_OF_REALITY)
+			.requires(Items.STRING)
+			.unlockedBy("has_twine_of_reality", has(LegacyItems.TWINE_OF_REALITY))
+			.save(recipeOutput);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.item())
+			.requires(LegacyBlocks.FABRIC_OF_REALITY.item())
+			.requires(LegacyItems.REALITY_DUST)
+			.unlockedBy("has_reality_dust", has(LegacyItems.REALITY_DUST))
+			.save(recipeOutput);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.item())
+			.requires(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item())
+			.requires(LegacyItems.REALITY_DUST)
+			.unlockedBy("has_reality_dust", has(LegacyItems.REALITY_DUST))
+			.save(recipeOutput);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, LegacyBlocks.FLOWING_REALITY.item())
+			.requires(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.item())
+			.requires(LegacyItems.TWINE_OF_REALITY)
+			.unlockedBy("has_twine_of_reality", has(LegacyItems.TWINE_OF_REALITY))
+			.save(recipeOutput);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, LegacyBlocks.INVERTED_FLOWING_REALITY.item())
+			.requires(LegacyBlocks.INVERTED_PATCHED_FABRIC_OF_REALITY.item())
+			.requires(LegacyItems.TWINE_OF_REALITY)
+			.unlockedBy("has_twine_of_reality", has(LegacyItems.TWINE_OF_REALITY))
 			.save(recipeOutput);
 
 		// Void recipes
@@ -56,15 +83,23 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.save(recipeOutput);
 		VoidRecipeBuilder.of(LegacyBlocks.FABRIC_OF_REALITY.item().get())
 			.input(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item().get())
+			.unlockedBy("has_inverted_fabric_of_reality", has(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item()))
 			.save(recipeOutput);
 		VoidRecipeBuilder.of(LegacyBlocks.INVERTED_FABRIC_OF_REALITY.item().get())
 			.input(LegacyBlocks.FABRIC_OF_REALITY.item().get())
+			.unlockedBy("has_fabric_of_reality", has(LegacyBlocks.FABRIC_OF_REALITY.item()))
 			.save(recipeOutput);
 		VoidRecipeBuilder.of(LegacyBlocks.PATCHED_FABRIC_OF_REALITY.item().get())
 			.input(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.item().get())
+			.unlockedBy("has_ephemeral_fabric_of_reality", has(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.item()))
 			.save(recipeOutput);
 		VoidRecipeBuilder.of(LegacyBlocks.INVERTED_PATCHED_FABRIC_OF_REALITY.item().get())
 			.input(LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.item().get())
+			.unlockedBy("has_inverted_ephemeral_fabric_of_reality", has(LegacyBlocks.INVERTED_EPHEMERAL_FABRIC_OF_REALITY.item()))
+			.save(recipeOutput);
+		VoidRecipeBuilder.of(LegacyBlocks.INVERTED_INTERTWINED_REALITY.item().get())
+			.input(LegacyBlocks.INTERTWINED_REALITY.item().get())
+			.unlockedBy("has_intertwined_reality", has(LegacyBlocks.INTERTWINED_REALITY.item()))
 			.save(recipeOutput);
 	}
 }
