@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.permission;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -26,7 +27,7 @@ public final class Permissions {
 
 	private Permissions() {}
 
-	public static void assertPermission(ServerPlayer player, PermissionNode<Boolean> node, PermissionDynamicContext<?>... context) {
+	public static void assertPermission(ServerPlayer player, PermissionNode<Boolean> node, PermissionDynamicContext<?>... context) throws CommandSyntaxException {
 		boolean permission = PermissionAPI.getPermission(player, node, context);
 		if (!permission) throw new PermissionException(node);
 	}
