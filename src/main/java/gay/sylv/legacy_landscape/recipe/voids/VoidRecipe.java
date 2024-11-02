@@ -1,10 +1,12 @@
 package gay.sylv.legacy_landscape.recipe.voids;
 
+import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.fluid.LegacyFluids;
 import gay.sylv.legacy_landscape.recipe.LegacyRecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -27,6 +29,7 @@ public record VoidRecipe(String group, Ingredient input, ItemStack result) imple
 		if (
 			event.getEntity() instanceof ItemEntity entity &&
 			entity.isInFluidType(LegacyFluids.Types.VOID.get()) &&
+			!entity.hasData(LegacyAttachments.VOID_RESULT) &&
 			!entity.level().isClientSide()
 		) {
 			ItemStack stack = entity.getItem();
@@ -41,6 +44,7 @@ public record VoidRecipe(String group, Ingredient input, ItemStack result) imple
 			if (optionalRecipeHolder.isPresent()) {
 				VoidRecipe recipe = optionalRecipeHolder.get().value();
 				entity.setItem(recipe.result);
+				entity.setData(LegacyAttachments.VOID_RESULT, Unit.INSTANCE);
 			}
 		}
 	}

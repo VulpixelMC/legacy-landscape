@@ -3,6 +3,7 @@ package gay.sylv.legacy_landscape.data_attachment;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Unit;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -28,6 +29,11 @@ public final class LegacyAttachments {
 	public static final Supplier<AttachmentType<LegacyChunkType>> LEGACY_CHUNK = ATTACHMENT_TYPES.register(
 		"legacy_chunk",
 		() -> AttachmentType.builder(() -> LegacyChunkType.LEGACY).serialize(LegacyChunkType.CODEC).build()
+	);
+
+	public static final Supplier<AttachmentType<Unit>> VOID_RESULT = ATTACHMENT_TYPES.register(
+		"void_result",
+		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
 	);
 
 	private LegacyAttachments() {}

@@ -25,6 +25,7 @@ public final class LegacyItemModelProvider extends ItemModelProvider {
 		basicItem(LegacyItems.DIAMOND.get());
 		handheldItem(LegacyItems.VOID_BUCKET.get());
 		basicItem(LegacyItems.TWINE_OF_REALITY.get());
+		basicItem(LegacyItems.REALITY_DUST.get());
 
 		// Blocks
 		simpleBlockItem(LegacyBlocks.LAZURITE.block().get());

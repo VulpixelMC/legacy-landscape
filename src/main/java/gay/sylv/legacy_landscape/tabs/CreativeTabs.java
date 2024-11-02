@@ -29,6 +29,7 @@ public final class CreativeTabs {
 				output.accept(LegacyItems.DIAMOND);
 				output.accept(LegacyItems.VOID_BUCKET);
 				output.accept(LegacyItems.TWINE_OF_REALITY);
+				output.accept(LegacyItems.REALITY_DUST);
 				output.accept(LegacyBlocks.INVERTED_INTERTWINED_REALITY.item());
 				output.accept(LegacyBlocks.FABRIC_OF_REALITY.item());
 				output.accept(LegacyBlocks.EPHEMERAL_FABRIC_OF_REALITY.item());

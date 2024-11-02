@@ -25,6 +25,10 @@ public final class VoidRecipeBuilder implements RecipeBuilder {
 		return new VoidRecipeBuilder(item, size);
 	}
 
+	public static VoidRecipeBuilder of(Item item) {
+		return new VoidRecipeBuilder(item, 1);
+	}
+
 	public static VoidRecipeBuilder of(ItemStack stack) {
 		return new VoidRecipeBuilder(stack);
 	}

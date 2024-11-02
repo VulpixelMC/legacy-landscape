@@ -44,9 +44,13 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.unlockedBy("has_ore_dust", has(LegacyItems.ORE_DUST))
 			.unlockedBy("has_blaze_rod", has(Items.BLAZE_ROD))
 			.save(recipeOutput);
-		VoidRecipeBuilder.of(LegacyItems.TWINE_OF_REALITY.get(), 1)
+		VoidRecipeBuilder.of(LegacyItems.TWINE_OF_REALITY.get())
 			.input(Items.STRING)
 			.unlockedBy("has_string", has(Items.STRING))
+			.save(recipeOutput);
+		VoidRecipeBuilder.of(LegacyItems.REALITY_DUST.get())
+			.input(LegacyItems.TWINE_OF_REALITY.get())
+			.unlockedBy("has_twine_of_reality", has(LegacyItems.TWINE_OF_REALITY.get()))
 			.save(recipeOutput);
 	}
 }
