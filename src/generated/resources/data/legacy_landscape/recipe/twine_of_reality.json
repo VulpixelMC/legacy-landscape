@@ -1,0 +1,11 @@
+{
+  "type": "legacy_landscape:void",
+  "group": "",
+  "ingredient": {
+    "item": "minecraft:string"
+  },
+  "result": {
+    "count": 1,
+    "id": "legacy_landscape:twine_of_reality"
+  }
+}

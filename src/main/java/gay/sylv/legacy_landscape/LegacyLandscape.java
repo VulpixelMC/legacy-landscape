@@ -7,6 +7,7 @@ import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.fluid.LegacyFluids;
 import gay.sylv.legacy_landscape.item.LegacyItems;
+import gay.sylv.legacy_landscape.recipe.LegacyRecipes;
 import gay.sylv.legacy_landscape.sound.LegacySounds;
 import gay.sylv.legacy_landscape.tabs.CreativeTabs;
 import gay.sylv.legacy_landscape.util.CallerSensitive;
@@ -43,6 +44,8 @@ public final class LegacyLandscape {
 		LegacyItems.ITEMS.register(modBus);
 		CreativeTabs.CREATIVE_MODE_TABS.register(modBus);
 		LegacyAttachments.ATTACHMENT_TYPES.register(modBus);
+		LegacyRecipes.TYPES.register(modBus);
+		LegacyRecipes.SERIALIZERS.register(modBus);
 		modBus.addListener(this::commonSetup);
 
 		// Register our mod's ModConfigSpec so that FML can create and load the config file for us

@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.datagen;
 
+import gay.sylv.legacy_landscape.api.recipe.builder.VoidRecipeBuilder;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.item.LegacyItems;
 import net.minecraft.core.HolderLookup;
@@ -42,6 +43,10 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.pattern("/ ")
 			.unlockedBy("has_ore_dust", has(LegacyItems.ORE_DUST))
 			.unlockedBy("has_blaze_rod", has(Items.BLAZE_ROD))
+			.save(recipeOutput);
+		VoidRecipeBuilder.of(LegacyItems.TWINE_OF_REALITY.get(), 1)
+			.input(Items.STRING)
+			.unlockedBy("has_string", has(Items.STRING))
 			.save(recipeOutput);
 	}
 }
