@@ -4,6 +4,8 @@ import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.client.util.RenderUtil;
+import gay.sylv.legacy_landscape.data_components.Broken;
+import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.item.LegacyItems;
 import gay.sylv.legacy_landscape.util.Maths;
@@ -13,10 +15,12 @@ import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,6 +37,8 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+
+import java.util.Objects;
 
 import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
 import static gay.sylv.legacy_landscape.client.util.RenderUtil.VOID_COLOR;
@@ -74,6 +80,21 @@ public final class LegacyFluids {
 				LegacyEffects.EVANESCENCE,
 				Maths.tickMinute(10)
 			);
+		}
+	}
+
+	@SubscribeEvent
+	public static void transmuteWater(EntityTickEvent.Post event) {
+		if (
+			event.getEntity() instanceof ItemEntity entity &&
+			entity.isInWater() &&
+			entity.getItem().is(LegacyItems.JAPPAS_WAND) &&
+			Objects.requireNonNull(entity.getItem().get(LegacyComponents.BROKEN)).equals(Broken.of(1)) &&
+			!entity.level().isClientSide()
+		) {
+			ServerLevel level = (ServerLevel) entity.level();
+			entity.kill();
+			level.setBlock(entity.blockPosition(), LegacyFluids.VOID_SOURCE.get().defaultFluidState().createLegacyBlock(), 11);
 		}
 	}
 

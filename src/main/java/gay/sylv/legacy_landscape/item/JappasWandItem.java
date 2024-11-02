@@ -97,10 +97,7 @@ public class JappasWandItem extends TooltipItem {
 				context.getItemInHand().hurtAndBreak(3, (ServerLevel) context.getLevel(), context.getPlayer(), item -> {
 					ItemStack stack = context.getPlayer().getItemBySlot(slot);
 					stack.grow(1);
-					stack.set(LegacyComponents.BROKEN, new Broken(1));
-					stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
-					stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(1));
-					stack.set(DataComponents.RARITY, Rarity.COMMON);
+					dustOfDecay(stack);
 					context.getPlayer().onEquippedItemBroken(item, slot);
 				});
 			}
@@ -109,5 +106,18 @@ public class JappasWandItem extends TooltipItem {
 		}
 
 		return InteractionResult.PASS;
+	}
+
+	private static void dustOfDecay(ItemStack stack) {
+		stack.set(LegacyComponents.BROKEN, new Broken(1));
+		stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
+		stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(1));
+		stack.set(DataComponents.RARITY, Rarity.COMMON);
+	}
+
+	public static ItemStack dustOfDecay() {
+		ItemStack stack = new ItemStack(LegacyItems.JAPPAS_WAND.get());
+		dustOfDecay(stack);
+		return stack;
 	}
 }
