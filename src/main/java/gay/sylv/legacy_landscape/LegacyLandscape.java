@@ -18,8 +18,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -38,7 +36,6 @@ public final class LegacyLandscape {
 	// FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
 	public LegacyLandscape(IEventBus modBus, ModContainer modContainer) {
 		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-		modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
 		LegacySounds.SOUNDS.register(modBus);
 		LegacyComponents.DATA_COMPONENTS.register(modBus);
