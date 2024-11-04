@@ -1,0 +1,11 @@
+{
+	"neoforge:conditions": [
+		{
+			"type": "neoforge:mod_loaded",
+			"modid": "witchery"
+		}
+	],
+	"block": "#legacy_landscape:flowing_reality",
+	"power": 32,
+	"limit": 800
+}

@@ -32,5 +32,10 @@
 	"commands.legacy_landscape.vanish.cannot_be_applied": "Cannot apply Evanescence to entity.",
 	"commands.legacy_landscape.vanish.cannot_be_removed": "Cannot remove Evanescence from entity.",
 	"commands.legacy_landscape.vanish.applied": "vanish: Applied Evanescence effect to entity.",
-	"commands.legacy_landscape.vanish.removed": "vanish: Removed Evanescence effect from entity."
+	"commands.legacy_landscape.vanish.removed": "vanish: Removed Evanescence effect from entity.",
+	"legacy_landscape.configuration.superSecretSettings": "Super Secret Settings",
+	"legacy_landscape.configuration.section.legacy.landscape.client.toml": "legacy_landscape-client.toml",
+	"legacy_landscape.configuration.section.legacy.landscape.client.toml.title": "Legacy Landscape Client TOML",
+	"legacy_landscape.configuration.title": "Legacy Landscape",
+	"legacy_landscape.configuration.superSecretSettings.tooltip": "Super secret settings to enhance your experience.\nDo not use this setting if you have photosensitive epilepsy or are otherwise sensitive to flashing lights."
 }
