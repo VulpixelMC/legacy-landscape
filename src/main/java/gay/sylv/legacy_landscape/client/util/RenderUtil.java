@@ -1,6 +1,8 @@
 package gay.sylv.legacy_landscape.client.util;
 
+import gay.sylv.legacy_landscape.ClientConfig;
 import gay.sylv.legacy_landscape.client.HackedRenderSystem;
+import gay.sylv.legacy_landscape.client.SuperSecretSetting;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeRenderType;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeState;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_TextureStateShard;
@@ -54,7 +56,8 @@ public final class RenderUtil {
 		assert compositeState != null;
 		Accessor_TextureStateShard textureState = (Accessor_TextureStateShard) (compositeState.getTextureState());
 		if (textureState.getTexture().isPresent()) {
-			HackedRenderSystem.setShaderTexture(0, textureState.getTexture().get(), textureState.isBlur(), textureState.isMipmap());
+			boolean blurSetting = ClientConfig.superSecretSettings == SuperSecretSetting.BLUR;
+			HackedRenderSystem.setShaderTexture(0, textureState.getTexture().get(), textureState.isBlur() || blurSetting, textureState.isMipmap());
 		}
 	}
 }

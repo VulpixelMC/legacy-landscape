@@ -1,0 +1,11 @@
+{
+	"neoforge:conditions": [
+		{
+			"type": "neoforge:mod_loaded",
+			"modid": "witchery"
+		}
+	],
+	"block": "#legacy_landscape:patched_fabric_of_reality",
+	"power": 16,
+	"limit": 800
+}
