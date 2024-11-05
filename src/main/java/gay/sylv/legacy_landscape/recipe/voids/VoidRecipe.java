@@ -25,13 +25,14 @@ import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
 )
 public record VoidRecipe(String group, Ingredient input, ItemStack result) implements Recipe<VoidInput> {
 	@SubscribeEvent
-	public static void onItemTouchVoid(EntityTickEvent.Post event) {
+	public static void onItemTouchVoid(EntityTickEvent.Pre event) {
 		if (
 			event.getEntity() instanceof ItemEntity entity &&
 			entity.isInFluidType(LegacyFluids.Types.VOID.get()) &&
 			!entity.hasData(LegacyAttachments.VOID_RESULT) &&
 			!entity.level().isClientSide()
 		) {
+			entity.setNeverPickUp();
 			ItemStack stack = entity.getItem();
 			ServerLevel level = (ServerLevel) entity.level();
 			RecipeManager recipes = level.getRecipeManager();
@@ -43,9 +44,13 @@ public record VoidRecipe(String group, Ingredient input, ItemStack result) imple
 			);
 			if (optionalRecipeHolder.isPresent()) {
 				VoidRecipe recipe = optionalRecipeHolder.get().value();
-				entity.setItem(recipe.result);
+				int ingredientCount = entity.getItem().getCount();
+				int resultCount = recipe.result.getCount();
+				ItemStack clampedResult = recipe.result.copyWithCount(resultCount * ingredientCount);
+				entity.setItem(clampedResult);
 				entity.setData(LegacyAttachments.VOID_RESULT, Unit.INSTANCE);
 			}
+			entity.setPickUpDelay(40);
 		}
 	}
 
