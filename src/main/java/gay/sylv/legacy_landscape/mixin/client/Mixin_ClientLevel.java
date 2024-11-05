@@ -50,27 +50,30 @@ public final class Mixin_ClientLevel {
 		var self = (ClientLevel) (Object) this;
 		LevelChunk chunk = self.getChunkAt(blockPos);
 		Optional<LegacyChunkType> chunkType = LegacyAttachments.getChunkData(chunk, LegacyAttachments.LEGACY_CHUNK);
+		final boolean isGrassOrFoliage = colorResolver.equals(BiomeColors.GRASS_COLOR_RESOLVER) || colorResolver.equals(BiomeColors.FOLIAGE_COLOR_RESOLVER);
+		final boolean isWater = colorResolver.equals(BiomeColors.WATER_COLOR_RESOLVER);
 		switch (chunkType.orElse(null)) {
 			case LEGACY -> {
-				if (!colorResolver.equals(BiomeColors.WATER_COLOR_RESOLVER)) {
+				if (isGrassOrFoliage) {
 					int tint = original.call(colorResolver, biome, x, z);
 					tint = RenderUtil.saturateTint(tint);
 					return tint;
-				} else {
+				} else if (isWater) {
 					return RenderUtil.WATER_COLOR;
 				}
 			}
 			case DECAYED -> {
-				if (!colorResolver.equals(BiomeColors.WATER_COLOR_RESOLVER)) {
+				if (isGrassOrFoliage) {
 					int tint = original.call(colorResolver, biome, x, z);
 					tint = RenderUtil.desaturateTint(tint);
 					return tint;
-				} else {
+				} else if (isWater) {
 					return RenderUtil.DECAYED_WATER_COLOR;
 				}
 			}
 			case null -> {}
 		}
+
 		return original.call(colorResolver, biome, x, z);
 	}
 }

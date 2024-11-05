@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Arrays;
@@ -26,6 +27,16 @@ import java.util.Optional;
 @Mixin(BlockRenderer.class)
 @Pseudo
 public class Mixin_BlockRenderer {
+	@Unique
+	private static final ColorProvider<BlockState> SATURATE_GRASS = (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> Arrays.fill(ints, RenderUtil.saturateTint(
+		BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
+	@Unique
+	private static final ColorProvider<BlockState> SATURATE_FOLIAGE = (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
+	@Unique
+	private static final ColorProvider<BlockState> DESATURATE_GRASS = (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
+	@Unique
+	private static final ColorProvider<BlockState> DESATURATE_FOLIAGE = (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
+
 	@WrapOperation(
 		method = "renderModel",
 		at = @At(
@@ -42,22 +53,22 @@ public class Mixin_BlockRenderer {
 		if (chunkType.isPresent() && colorProvider != null) {
 			switch (chunkType.get()) {
 				case LEGACY -> {
-					return (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> {
-						if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
-							Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
-						} else if (colorProvider.equals(DefaultColorProviders.FoliageColorProvider.BLOCKS)) {
-							Arrays.fill(ints, RenderUtil.saturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
-						}
-					};
+					if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
+						return SATURATE_GRASS;
+					} else if (colorProvider.equals(DefaultColorProviders.FoliageColorProvider.BLOCKS)) {
+						return SATURATE_FOLIAGE;
+					} else {
+						return colorProvider;
+					}
 				}
 				case DECAYED -> {
-					return (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> {
-						if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
-							Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
-						} else if (colorProvider.equals(DefaultColorProviders.FoliageColorProvider.BLOCKS)) {
-							Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
-						}
-					};
+					if (colorProvider.equals(DefaultColorProviders.GrassColorProvider.BLOCKS)) {
+						return DESATURATE_GRASS;
+					} else if (colorProvider.equals(DefaultColorProviders.FoliageColorProvider.BLOCKS)) {
+						return DESATURATE_FOLIAGE;
+					} else {
+						return colorProvider;
+					}
 				}
 			}
 		}
