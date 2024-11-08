@@ -9,7 +9,7 @@ import net.neoforged.neoforge.network.registration.HandlerThread;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
+import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
 @EventBusSubscriber(
 	modid = MOD_ID,

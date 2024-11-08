@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
+import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
 @EventBusSubscriber(
 	modid = MOD_ID,

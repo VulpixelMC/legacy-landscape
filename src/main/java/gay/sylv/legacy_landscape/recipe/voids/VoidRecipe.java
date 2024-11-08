@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
+import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
 @EventBusSubscriber(
 	modid = MOD_ID

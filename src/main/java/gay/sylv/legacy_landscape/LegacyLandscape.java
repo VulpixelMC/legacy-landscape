@@ -11,6 +11,7 @@ import gay.sylv.legacy_landscape.recipe.LegacyRecipes;
 import gay.sylv.legacy_landscape.sound.LegacySounds;
 import gay.sylv.legacy_landscape.tabs.CreativeTabs;
 import gay.sylv.legacy_landscape.util.CallerSensitive;
+import gay.sylv.legacy_landscape.util.Constants;
 import gay.sylv.legacy_landscape.util.RandomStrings;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -24,10 +25,8 @@ import org.slf4j.Logger;
 import java.lang.invoke.MethodHandles;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(LegacyLandscape.MOD_ID)
+@Mod(Constants.MOD_ID)
 public final class LegacyLandscape {
-	// Define mod id in a common place for everything to reference
-	public static final String MOD_ID = "legacy_landscape";
 	// Directly reference a slf4j logger
 	private static final Logger LOGGER = LogUtils.getLogger();
 	private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
@@ -52,7 +51,7 @@ public final class LegacyLandscape {
 	}
 
 	public static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+		return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, path);
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {

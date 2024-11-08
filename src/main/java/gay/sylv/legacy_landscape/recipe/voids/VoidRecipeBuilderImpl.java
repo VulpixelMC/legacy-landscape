@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
+import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
 public class VoidRecipeBuilderImpl implements RecipeBuilder {
 	private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();

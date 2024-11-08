@@ -6,8 +6,12 @@ import gay.sylv.legacy_landscape.client.SuperSecretSetting;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeRenderType;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeState;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_TextureStateShard;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -18,6 +22,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 public final class RenderUtil {
 	public static final int WATER_COLOR = 0xFF334FDD;
 	public static final int DECAYED_WATER_COLOR = 0xFF425CB4;
+	public static final Object2ObjectMap<BlockState, BakedModel> MODEL_CACHE = new Object2ObjectOpenHashMap<>();
 
 	private RenderUtil() {}
 

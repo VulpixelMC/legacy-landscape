@@ -6,7 +6,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
+import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
 @Mod(
 	value = MOD_ID,

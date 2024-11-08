@@ -18,10 +18,14 @@ loader_range = "[4,)"
 parchment = "2024.07.28"
 parchment_minecraft = "1.21"
 sodium = "mc1.21-0.6.0-beta.2-neoforge"
+forgified-fabric-api-renderer = "3.4.0+acb05a39d1"
+resource-explorer = "PeIjpcQk"
 
 [libraries]
 neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
 sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
+forgified-fabric-api-renderer = { module = "org.sinytra.forgified-fabric-api:fabric-renderer-api-v1", version.ref = "forgified-fabric-api-renderer" }
+resource-explorer = { module = "maven.modrinth:resource_explorer", version.ref = "resource-explorer" }
 
 [plugins]
 moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }

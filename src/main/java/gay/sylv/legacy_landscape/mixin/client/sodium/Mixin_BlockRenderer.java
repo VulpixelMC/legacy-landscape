@@ -10,23 +10,32 @@ import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProviderRegistry;
 import net.caffeinemc.mods.sodium.client.model.color.DefaultColorProviders;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
+import net.caffeinemc.mods.sodium.client.render.chunk.vertex.format.ChunkVertexEncoder;
+import net.caffeinemc.mods.sodium.client.render.frapi.mesh.MutableQuadViewImpl;
+import net.caffeinemc.mods.sodium.client.render.frapi.render.AbstractBlockRenderContext;
+import net.caffeinemc.mods.sodium.client.render.texture.SpriteFinderCache;
+import net.fabricmc.fabric.api.renderer.v1.model.SpriteFinder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 @Mixin(BlockRenderer.class)
 @Pseudo
-public class Mixin_BlockRenderer {
+public abstract class Mixin_BlockRenderer extends AbstractBlockRenderContext {
+	@Shadow
+	@Final
+	private ChunkVertexEncoder.Vertex[] vertices;
 	@Unique
 	private static final ColorProvider<BlockState> SATURATE_GRASS = (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> Arrays.fill(ints, RenderUtil.saturateTint(
 		BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
@@ -36,6 +45,8 @@ public class Mixin_BlockRenderer {
 	private static final ColorProvider<BlockState> DESATURATE_GRASS = (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageGrassColor(levelSlice, blockPos)));
 	@Unique
 	private static final ColorProvider<BlockState> DESATURATE_FOLIAGE = (levelSlice, blockPos, mutableBlockPos, blockState, modelQuadView, ints) -> Arrays.fill(ints, RenderUtil.desaturateTint(BiomeColors.getAverageFoliageColor(levelSlice, blockPos)));
+
+	private Mixin_BlockRenderer() {}
 
 	@WrapOperation(
 		method = "renderModel",
@@ -74,5 +85,37 @@ public class Mixin_BlockRenderer {
 		}
 
 		return colorProvider;
+	}
+
+	/**
+	 * Display legacy textures in legacy chunks.
+	 */
+	@WrapOperation(
+		method = "bufferQuad",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/caffeinemc/mods/sodium/client/render/frapi/mesh/MutableQuadViewImpl;sprite(Lnet/fabricmc/fabric/api/renderer/v1/model/SpriteFinder;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;"
+		)
+	)
+	private TextureAtlasSprite legacyQuad(MutableQuadViewImpl instance, SpriteFinder finder, Operation<TextureAtlasSprite> original) {
+		Minecraft client = Minecraft.getInstance();
+		if (Objects.requireNonNull(client.level).getChunkAt(this.pos).hasData(LegacyAttachments.LEGACY_CHUNK)) {
+			TextureAtlasSprite sprite = instance.sprite(SpriteFinderCache.forBlockAtlas());
+			ResourceLocation key = sprite.contents().name();
+			ResourceLocation newKey = key.withPath(key.getPath().replace("block/", "block/legacy/"));
+			TextureAtlasSprite newSprite = client.getTextureAtlas(sprite.atlasLocation()).apply(newKey);
+			// Override UV
+			this.vertices[0].u = newSprite.getU(0.0F);
+			this.vertices[0].v = newSprite.getV(0.0F);
+			this.vertices[1].u = newSprite.getU(0.0F);
+			this.vertices[1].v = newSprite.getV(1.0F);
+			this.vertices[2].u = newSprite.getU(1.0F);
+			this.vertices[2].v = newSprite.getV(1.0F);
+			this.vertices[3].u = newSprite.getU(1.0F);
+			this.vertices[3].v = newSprite.getV(0.0F);
+			return newSprite;
+		} else {
+			return original.call(instance, finder);
+		}
 	}
 }

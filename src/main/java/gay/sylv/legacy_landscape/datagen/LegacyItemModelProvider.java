@@ -6,7 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.MOD_ID;
+import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
 public final class LegacyItemModelProvider extends ItemModelProvider {
 	public LegacyItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
