@@ -39,5 +39,7 @@
 	"legacy_landscape.configuration.superSecretSettings.tooltip": "Super secret settings to enhance your experience.\nDo not use this setting if you have photosensitive epilepsy or are otherwise sensitive to flashing lights.",
 	"legacy_landscape.configuration.showLegacyTextures": "Show Legacy Textures",
 	"legacy_landscape.configuration.showLegacyTextures.tooltip": "If enabled, show programmer art textures in legacy chunks.",
-	"legacy_landscape.configuration.title": "Legacy Landscape"
+	"legacy_landscape.configuration.title": "Legacy Landscape",
+	"legacy_landscape.allow_adventure_mode.on": "Adventure mode players can interact with this chunk using legacy items.",
+	"legacy_landscape.allow_adventure_mode.off": "Adventure mode players cannot interact with this chunk using legacy items."
 }

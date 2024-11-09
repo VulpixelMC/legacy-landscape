@@ -1,6 +1,7 @@
 package gay.sylv.legacy_landscape.data_attachment;
 
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
+import gay.sylv.legacy_landscape.networking.client_bound.UnitChunkAttachmentPayload;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
@@ -10,6 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.level.ChunkWatchEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -33,6 +35,14 @@ public final class LegacyAttachments {
 
 	public static final Supplier<AttachmentType<Unit>> VOID_RESULT = ATTACHMENT_TYPES.register(
 		"void_result",
+		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
+	);
+
+	/**
+	 * Allows adventure mode players to interact with the chunk's legacy status.
+	 */
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> ALLOW_ADVENTURE_MODE = ATTACHMENT_TYPES.register(
+		"allow_adventure_mode",
 		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
 	);
 
@@ -61,7 +71,22 @@ public final class LegacyAttachments {
 	 */
 	public static <T, P extends CustomPacketPayload> Optional<T> setChunkData(ServerLevel level, ChunkAccess chunk, Supplier<AttachmentType<T>> attachmentType, T data, Function<T, P> payloadSupplier) {
 		PacketDistributor.sendToPlayersTrackingChunk(level, chunk.getPos(), payloadSupplier.apply(data));
-		return Optional.ofNullable(chunk.setData(attachmentType.get(), data));
+		return Optional.ofNullable(chunk.setData(attachmentType, data));
+	}
+
+	/**
+	 * A version of {@link ChunkAccess#setData(AttachmentType, Object)} that additionally synchronizes the chunk data with clients. This method works with {@link AttachmentType}s with {@link Unit} data.
+	 * @param level The level in which the chunk resides.
+	 * @param chunk The chunk to set data in.
+	 * @param attachmentType The {@link AttachmentType}.
+	 */
+	public static void setChunkData(ServerLevel level, ChunkAccess chunk, DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> attachmentType) {
+		PacketDistributor.sendToPlayersTrackingChunk(
+			level,
+			chunk.getPos(),
+			new UnitChunkAttachmentPayload(attachmentType.getKey(), chunk.getPos(), false)
+		);
+		chunk.setData(attachmentType, Unit.INSTANCE);
 	}
 
 	/**
@@ -75,7 +100,22 @@ public final class LegacyAttachments {
 	 */
 	public static <T, P extends CustomPacketPayload> Optional<T> removeChunkData(ServerLevel level, ChunkAccess chunk, Supplier<AttachmentType<T>> attachmentType, Supplier<P> payloadSupplier) {
 		PacketDistributor.sendToPlayersTrackingChunk(level, chunk.getPos(), payloadSupplier.get());
-		return Optional.ofNullable(chunk.removeData(attachmentType.get()));
+		return Optional.ofNullable(chunk.removeData(attachmentType));
+	}
+
+	/**
+	 * A version of {@link ChunkAccess#removeData(AttachmentType)} that additionally synchronizes the chunk data with clients. This method works with {@link AttachmentType}s with {@link Unit} data.
+	 * @param level The level in which the chunk resides.
+	 * @param chunk The chunk to set data in.
+	 * @param attachmentType The {@link AttachmentType}.
+	 */
+	public static void removeChunkData(ServerLevel level, ChunkAccess chunk, DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> attachmentType) {
+		PacketDistributor.sendToPlayersTrackingChunk(
+			level,
+			chunk.getPos(),
+			new UnitChunkAttachmentPayload(attachmentType.getKey(), chunk.getPos(), true)
+		);
+		chunk.removeData(attachmentType);
 	}
 
 	@SubscribeEvent
@@ -86,6 +126,17 @@ public final class LegacyAttachments {
 				new LegacyChunkPayload(
 					event.getPos(),
 					Optional.of(event.getChunk().getData(LegacyAttachments.LEGACY_CHUNK))
+				)
+			);
+		}
+
+		if (event.getChunk().hasData(LegacyAttachments.ALLOW_ADVENTURE_MODE)) {
+			PacketDistributor.sendToPlayer(
+				event.getPlayer(),
+				new UnitChunkAttachmentPayload(
+					LegacyAttachments.ALLOW_ADVENTURE_MODE.getKey(),
+					event.getPos(),
+					false
 				)
 			);
 		}

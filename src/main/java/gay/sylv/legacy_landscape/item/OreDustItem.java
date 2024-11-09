@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -27,6 +28,12 @@ public class OreDustItem extends TooltipItem {
 		if (state.isAir()) return InteractionResult.PASS;
 
 		LevelChunk chunk = context.getLevel().getChunkAt(context.getClickedPos());
+		Player player = Objects.requireNonNull(context.getPlayer());
+
+		// Prevent Adventure players from interacting with chunks.
+		if (!player.mayBuild() && !chunk.hasData(LegacyAttachments.ALLOW_ADVENTURE_MODE)) {
+			return InteractionResult.PASS;
+		}
 
 		if (!chunk.hasData(LegacyAttachments.LEGACY_CHUNK)) {
 			context.getLevel().playSound(context.getPlayer(), Objects.requireNonNull(context.getPlayer()), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1.0F, 1.25F);

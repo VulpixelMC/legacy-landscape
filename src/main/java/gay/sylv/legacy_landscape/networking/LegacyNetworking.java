@@ -2,6 +2,7 @@ package gay.sylv.legacy_landscape.networking;
 
 import com.mojang.logging.LogUtils;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
+import gay.sylv.legacy_landscape.networking.client_bound.UnitChunkAttachmentPayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -28,6 +29,11 @@ public final class LegacyNetworking {
 			LegacyChunkPayload.TYPE,
 			LegacyChunkPayload.STREAM_CODEC,
 			ClientPayloadHandler::handleLegacyChunkPayload
+		);
+		mainThreadRegistrar.playToClient(
+			UnitChunkAttachmentPayload.TYPE,
+			UnitChunkAttachmentPayload.STREAM_CODEC,
+			ClientPayloadHandler::handleUnitChunkAttachmentPayload
 		);
 	}
 }

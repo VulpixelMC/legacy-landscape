@@ -5,6 +5,7 @@ import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
 import gay.sylv.legacy_landscape.data_components.Broken;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -65,6 +66,11 @@ public class JappasWandItem extends TooltipItem {
 			return InteractionResult.PASS;
 		}
 
+		// Prevent Adventure players from interacting with chunks.
+		if (!player.mayBuild() && !chunk.hasData(LegacyAttachments.ALLOW_ADVENTURE_MODE)) {
+			return InteractionResult.PASS;
+		}
+
 		boolean broken = context.getItemInHand().getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN).equals(Broken.of(1));
 
 		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK) || broken) {
@@ -75,7 +81,8 @@ public class JappasWandItem extends TooltipItem {
 			}
 
 			if (!context.getLevel().isClientSide()) {
-				if (broken) {
+				boolean isCreative = player.isCreative();
+				if (broken && !isCreative) {
 					LegacyAttachments.setChunkData(
 						(ServerLevel) context.getLevel(),
 						chunk,
@@ -83,6 +90,28 @@ public class JappasWandItem extends TooltipItem {
 						LegacyChunkType.DECAYED,
 						data -> new LegacyChunkPayload(chunk.getPos(), Optional.of(data))
 					);
+				} else if (broken && !player.isCrouching()) {
+					if (!chunk.hasData(LegacyAttachments.ALLOW_ADVENTURE_MODE)) {
+						LegacyAttachments.setChunkData(
+							(ServerLevel) context.getLevel(),
+							chunk,
+							LegacyAttachments.ALLOW_ADVENTURE_MODE
+						);
+						player.sendSystemMessage(Component.translatable("legacy_landscape.allow_adventure_mode.on"));
+					} else {
+						LegacyAttachments.removeChunkData(
+							(ServerLevel) context.getLevel(),
+							chunk,
+							LegacyAttachments.ALLOW_ADVENTURE_MODE
+						);
+						player.sendSystemMessage(Component.translatable("legacy_landscape.allow_adventure_mode.off"));
+					}
+				} else if (broken && player.isCrouching()) {
+					if (chunk.hasData(LegacyAttachments.ALLOW_ADVENTURE_MODE)) {
+						player.sendSystemMessage(Component.translatable("legacy_landscape.allow_adventure_mode.on").withStyle(ChatFormatting.ITALIC));
+					} else {
+						player.sendSystemMessage(Component.translatable("legacy_landscape.allow_adventure_mode.off").withStyle(ChatFormatting.ITALIC));
+					}
 				} else {
 					LegacyAttachments.removeChunkData(
 						(ServerLevel) context.getLevel(),
