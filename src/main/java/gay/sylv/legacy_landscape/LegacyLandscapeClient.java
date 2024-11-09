@@ -3,7 +3,6 @@ package gay.sylv.legacy_landscape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -15,7 +14,6 @@ import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 )
 public final class LegacyLandscapeClient {
 	public LegacyLandscapeClient(ModContainer modContainer) {
-		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
 		modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 	}
 }

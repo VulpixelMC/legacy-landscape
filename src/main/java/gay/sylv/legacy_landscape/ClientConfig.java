@@ -3,14 +3,11 @@ package gay.sylv.legacy_landscape;
 import gay.sylv.legacy_landscape.client.SuperSecretSetting;
 import gay.sylv.legacy_landscape.util.Constants;
 import net.minecraft.client.Minecraft;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(
 	modid = Constants.MOD_ID,
 	bus = EventBusSubscriber.Bus.MOD
