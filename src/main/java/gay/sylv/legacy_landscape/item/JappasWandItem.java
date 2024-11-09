@@ -5,6 +5,7 @@ import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
 import gay.sylv.legacy_landscape.data_components.Broken;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
+import gay.sylv.legacy_landscape.util.Constants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -28,6 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class JappasWandItem extends TooltipItem {
+
 	public JappasWandItem(Properties properties) {
 		super(properties);
 	}
@@ -68,6 +70,9 @@ public class JappasWandItem extends TooltipItem {
 
 		// Prevent Adventure players from interacting with chunks.
 		if (!player.mayBuild() && !chunk.hasData(LegacyAttachments.ALLOW_ADVENTURE_MODE)) {
+			if (!context.getLevel().isClientSide()) {
+				player.sendSystemMessage(Constants.ALLOW_ADVENTURE_MODE_OFF);
+			}
 			return InteractionResult.PASS;
 		}
 

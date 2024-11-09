@@ -1,6 +1,8 @@
 package gay.sylv.legacy_landscape.util;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import org.joml.Vector3f;
 
 public final class Constants {
@@ -9,6 +11,8 @@ public final class Constants {
 	// Define mod id in a common place for everything to reference
 	public static final String MOD_ID = "legacy_landscape";
 	public static final String MOD_NAME = "Legacy Landscape";
+	public static final Component ALLOW_ADVENTURE_MODE_OFF = Component.translatable("legacy_landscape.allow_adventure_mode.off")
+			.withStyle(ChatFormatting.RED);
 
 	private Constants() {}
 }
