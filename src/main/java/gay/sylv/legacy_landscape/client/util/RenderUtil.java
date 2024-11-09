@@ -1,17 +1,6 @@
 package gay.sylv.legacy_landscape.client.util;
 
-import gay.sylv.legacy_landscape.ClientConfig;
-import gay.sylv.legacy_landscape.client.HackedRenderSystem;
-import gay.sylv.legacy_landscape.client.SuperSecretSetting;
-import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeRenderType;
-import gay.sylv.legacy_landscape.mixin.client.Accessor_CompositeState;
-import gay.sylv.legacy_landscape.mixin.client.Accessor_TextureStateShard;
-import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -22,7 +11,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 public final class RenderUtil {
 	public static final int WATER_COLOR = 0xFF334FDD;
 	public static final int DECAYED_WATER_COLOR = 0xFF425CB4;
-	public static final Object2ObjectMap<BlockState, BakedModel> MODEL_CACHE = new Object2ObjectOpenHashMap<>();
 
 	private RenderUtil() {}
 
@@ -53,16 +41,5 @@ public final class RenderUtil {
 		blue = Math.max(blue, 0); // prevent overflow/underflow
 		tint = (tint & 0xFF000000) | blue | green << 8 | red << 16; // clear green channel and set new green
 		return tint;
-	}
-
-	public static void setLegacyTextures(RenderType renderType) {
-		Accessor_CompositeRenderType compositeRenderType = (Accessor_CompositeRenderType) renderType;
-		Accessor_CompositeState compositeState = (Accessor_CompositeState) (Object) compositeRenderType.getState();
-		assert compositeState != null;
-		Accessor_TextureStateShard textureState = (Accessor_TextureStateShard) (compositeState.getTextureState());
-		if (textureState.getTexture().isPresent()) {
-			boolean blurSetting = ClientConfig.superSecretSettings == SuperSecretSetting.BLUR;
-			HackedRenderSystem.setShaderTexture(0, textureState.getTexture().get(), textureState.isBlur() || blurSetting, textureState.isMipmap());
-		}
 	}
 }

@@ -3,18 +3,13 @@ package gay.sylv.legacy_landscape.client;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.logging.LogUtils;
 import gay.sylv.legacy_landscape.api.RuntimeResourcePack;
-import gay.sylv.legacy_landscape.client.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.IoSupplier;
-import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -25,14 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
-
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(
-	value = Dist.CLIENT,
-	modid = MOD_ID,
-	bus = EventBusSubscriber.Bus.MOD
-)
 public final class LegacyResourceFaker {
 	private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -64,13 +52,5 @@ public final class LegacyResourceFaker {
 				}
 			});
 		}
-	}
-
-	@SubscribeEvent
-	private static void registerReloadListeners(RegisterClientReloadListenersEvent event) {
-		event.registerReloadListener((ResourceManagerReloadListener) resourceManager1 -> {
-			// Invalidate caches
-			RenderUtil.MODEL_CACHE.clear();
-		});
 	}
 }

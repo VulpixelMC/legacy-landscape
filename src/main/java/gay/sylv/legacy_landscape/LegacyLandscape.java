@@ -15,9 +15,7 @@ import gay.sylv.legacy_landscape.util.Constants;
 import gay.sylv.legacy_landscape.util.RandomStrings;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -33,9 +31,7 @@ public final class LegacyLandscape {
 
 	// The constructor for the mod class is the first code that is run when your mod is loaded.
 	// FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-	public LegacyLandscape(IEventBus modBus, ModContainer modContainer) {
-		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-
+	public LegacyLandscape(IEventBus modBus) {
 		LegacySounds.SOUNDS.register(modBus);
 		LegacyComponents.DATA_COMPONENTS.register(modBus);
 		LegacyEffects.MOB_EFFECTS.register(modBus);

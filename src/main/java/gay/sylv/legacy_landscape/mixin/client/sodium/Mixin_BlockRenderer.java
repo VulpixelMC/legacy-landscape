@@ -3,6 +3,7 @@ package gay.sylv.legacy_landscape.mixin.client.sodium;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import gay.sylv.legacy_landscape.ClientConfig;
 import gay.sylv.legacy_landscape.client.util.RenderUtil;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
@@ -95,7 +96,7 @@ public abstract class Mixin_BlockRenderer extends AbstractBlockRenderContext {
 	)
 	private void legacyTransformQuad(MutableQuadViewImpl quad, CallbackInfo ci) {
 		Minecraft client = Minecraft.getInstance();
-		if (Objects.requireNonNull(client.level).getChunkAt(this.pos).hasData(LegacyAttachments.LEGACY_CHUNK)) {
+		if (ClientConfig.showLegacyTextures && Objects.requireNonNull(client.level).getChunkAt(this.pos).hasData(LegacyAttachments.LEGACY_CHUNK)) {
 			TextureAtlasSprite sprite = quad.sprite(SpriteFinderCache.forBlockAtlas());
 			ResourceLocation key = sprite.contents().name();
 			ResourceLocation newKey = key.withPath(key.getPath().replace("block/", "block/legacy/"));
