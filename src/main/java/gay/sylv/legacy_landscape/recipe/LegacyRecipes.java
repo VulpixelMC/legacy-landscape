@@ -9,8 +9,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
+import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 
 public final class LegacyRecipes {
 	public static final DeferredRegister<RecipeType<?>> TYPES = DeferredRegister.create(

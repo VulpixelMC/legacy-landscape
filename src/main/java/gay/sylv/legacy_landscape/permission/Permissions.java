@@ -11,8 +11,8 @@ import net.neoforged.neoforge.server.permission.nodes.PermissionDynamicContext;
 import net.neoforged.neoforge.server.permission.nodes.PermissionNode;
 import net.neoforged.neoforge.server.permission.nodes.PermissionTypes;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
+import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 
 @EventBusSubscriber(
 	modid = MOD_ID,

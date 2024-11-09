@@ -10,8 +10,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
+import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 
 public final class CreativeTabs {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);

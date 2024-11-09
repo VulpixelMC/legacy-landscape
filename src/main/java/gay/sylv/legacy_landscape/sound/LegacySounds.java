@@ -6,8 +6,8 @@ import net.neoforged.neoforge.common.util.DeferredSoundType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
+import static gay.sylv.legacy_landscape.LegacyLandscape.id;
 
 public final class LegacySounds {
 	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, MOD_ID);
