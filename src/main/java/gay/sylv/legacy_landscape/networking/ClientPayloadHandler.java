@@ -4,9 +4,11 @@ import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.mixin.client.Accessor_ClientLevel;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import gay.sylv.legacy_landscape.networking.client_bound.UnitChunkAttachmentPayload;
+import gay.sylv.legacy_landscape.networking.client_bound.UnitEntityAttachmentPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -16,6 +18,22 @@ import java.util.Objects;
 
 public final class ClientPayloadHandler {
 	private ClientPayloadHandler() {}
+
+	public static void handleUnitEntityAttachmentPayload(final UnitEntityAttachmentPayload payload, final IPayloadContext context) {
+		try {
+			ClientLevel level = (ClientLevel) context.player().level();
+			Entity entity = Objects.requireNonNull(level.getEntity(payload.entityId()), "entity does not exist");
+			@SuppressWarnings("unchecked") AttachmentType<Unit> attachmentType = (AttachmentType<Unit>) NeoForgeRegistries.ATTACHMENT_TYPES.get(payload.attachmentType());
+			Objects.requireNonNull(attachmentType);
+			if (payload.remove()) {
+				entity.removeData(attachmentType);
+			} else {
+				entity.setData(attachmentType, Unit.INSTANCE);
+			}
+		} catch (NullPointerException e) {
+			LegacyNetworking.LOGGER.error("Failed to decode chunk attachment packet", e);
+		}
+	}
 
 	public static void handleUnitChunkAttachmentPayload(final UnitChunkAttachmentPayload payload, final IPayloadContext context) {
 		try {

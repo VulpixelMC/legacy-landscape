@@ -3,6 +3,7 @@ package gay.sylv.legacy_landscape.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.permission.Permissions;
 import net.minecraft.commands.CommandSourceStack;
@@ -25,6 +26,7 @@ public final class LegacyCommands {
 	public static final String ROOT_ALIAS = "legacy";
 	public static final String VANISH_NAME = "vanish";
 	public static final String VANISH_ALIAS = "v";
+	public static final String OMNISCIENT_NAME = "omniscient";
 
 	@SubscribeEvent
 	public static void registerCommands(RegisterCommandsEvent event) {
@@ -59,16 +61,33 @@ public final class LegacyCommands {
 
 			return Command.SINGLE_SUCCESS;
 		};
+		Command<CommandSourceStack> executeOmniscient = ctx -> {
+			ServerPlayer player = ctx.getSource().getPlayerOrException();
+			Permissions.assertPermission(player, Permissions.OMNISCIENT);
+			if (!player.hasData(LegacyAttachments.OMNISCIENT)) {
+				LegacyAttachments.setOmniscient(player);
+				ctx.getSource().sendSuccess(() -> Component.translatable("commands.legacy_landscape.omniscient.applied"), true);
+			} else {
+				LegacyAttachments.removeOmniscience(player);
+				ctx.getSource().sendSuccess(() -> Component.translatable("commands.legacy_landscape.omniscient.removed"), true);
+			}
+
+			return Command.SINGLE_SUCCESS;
+		};
 		LiteralCommandNode<CommandSourceStack> vanish = Commands.literal(VANISH_NAME)
 			.executes(executeVanish)
 			.build();
 		LiteralCommandNode<CommandSourceStack> vanishAlias = Commands.literal(VANISH_ALIAS)
 			.executes(executeVanish)
 			.build();
+		LiteralCommandNode<CommandSourceStack> omniscient = Commands.literal(OMNISCIENT_NAME)
+			.executes(executeOmniscient)
+			.build();
 		LiteralCommandNode<CommandSourceStack> root = dispatcher.register(
 			Commands.literal(ROOT_NAME)
 				.then(vanish)
 				.then(vanishAlias)
+				.then(omniscient)
 		);
 		dispatcher.register(
 			Commands.literal(ROOT_ALIAS)

@@ -24,6 +24,14 @@ public final class Permissions {
 		PermissionTypes.BOOLEAN,
 		Permissions.Resolvers.LEVEL_1
 	);
+	/**
+	 * @see gay.sylv.legacy_landscape.data_attachment.LegacyAttachments#OMNISCIENT
+	 */
+	public static final PermissionNode<Boolean> OMNISCIENT = new PermissionNode<>(
+		id("omniscient"),
+		PermissionTypes.BOOLEAN,
+		Permissions.Resolvers.LEVEL_1
+	);
 
 	private Permissions() {}
 
@@ -35,7 +43,8 @@ public final class Permissions {
 	@SubscribeEvent
 	public static void registerCommandPermissions(PermissionGatherEvent.Nodes event) {
 		event.addNodes(
-			Permissions.VANISH
+			Permissions.VANISH,
+			Permissions.OMNISCIENT
 		);
 	}
 

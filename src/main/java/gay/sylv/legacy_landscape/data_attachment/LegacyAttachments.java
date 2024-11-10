@@ -1,14 +1,18 @@
 package gay.sylv.legacy_landscape.data_attachment;
 
+import gay.sylv.legacy_landscape.effect.EvanescenceEffect;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import gay.sylv.legacy_landscape.networking.client_bound.UnitChunkAttachmentPayload;
+import gay.sylv.legacy_landscape.networking.client_bound.UnitEntityAttachmentPayload;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.ChunkWatchEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -46,7 +50,51 @@ public final class LegacyAttachments {
 		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
 	);
 
+	/**
+	 * Allows operators to see evanesced entities.
+	 */
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> OMNISCIENT = ATTACHMENT_TYPES.register(
+		"omniscient",
+		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
+	);
+
 	private LegacyAttachments() {}
+
+	@SubscribeEvent
+	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+		if (event.getEntity() instanceof ServerPlayer player && player.hasData(LegacyAttachments.OMNISCIENT)) {
+			PacketDistributor.sendToPlayer(
+				player,
+				new UnitEntityAttachmentPayload(OMNISCIENT.getKey(), player.getId(), false)
+			);
+		}
+	}
+
+	/**
+	 * Makes a player omniscient.
+	 * @param player the player to modify.
+	 */
+	public static void setOmniscient(ServerPlayer player) {
+		player.setData(OMNISCIENT, Unit.INSTANCE);
+		PacketDistributor.sendToPlayer(
+			player,
+			new UnitEntityAttachmentPayload(OMNISCIENT.getKey(), player.getId(), false)
+		);
+		EvanescenceEffect.onOmniscient((ServerLevel) player.level(), player);
+	}
+
+	/**
+	 * Removes a player's omniscience.
+	 * @param player the player to modify.
+	 */
+	public static void removeOmniscience(ServerPlayer player) {
+		player.removeData(OMNISCIENT);
+		PacketDistributor.sendToPlayer(
+			player,
+			new UnitEntityAttachmentPayload(OMNISCIENT.getKey(), player.getId(), true)
+		);
+		EvanescenceEffect.onRemoveOmniscience((ServerLevel) player.level(), player);
+	}
 
 	/**
 	 * A version of {@link ChunkAccess#getData(AttachmentType)} that returns {@link Optional#empty()} when no data is present.

@@ -41,5 +41,7 @@
 	"legacy_landscape.configuration.showLegacyTextures.tooltip": "If enabled, show programmer art textures in legacy chunks.",
 	"legacy_landscape.configuration.title": "Legacy Landscape",
 	"legacy_landscape.allow_adventure_mode.on": "Adventure mode players can interact with this chunk using legacy items.",
-	"legacy_landscape.allow_adventure_mode.off": "Adventure mode players cannot interact with this chunk using legacy items."
+	"legacy_landscape.allow_adventure_mode.off": "Adventure mode players cannot interact with this chunk using legacy items.",
+	"commands.legacy_landscape.omniscient.applied": "omniscient: Player is now omniscient.",
+	"commands.legacy_landscape.omniscient.removed": "omniscient: Player is no longer omniscient."
 }

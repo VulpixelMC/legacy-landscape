@@ -1,33 +1,33 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "gay.sylv.legacy_landscape.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "Accessor_ChunkMap",
-    "Accessor_TrackedEntity",
-    "Mixin_BuiltInPackSource",
-    "Mixin_Entity",
-    "Mixin_LivingEntity",
-    "Mixin_MutableComponent",
-    "Mixin_Player",
-    "Mixin_ServerEntity",
-    "Mixin_ServerLevel"
-  ],
-  "client": [
-    "client.Accessor_ClientLevel",
-    "client.Accessor_RenderSystem",
-    "client.Mixin_ClientLevel",
-    "client.Mixin_LivingEntity",
-    "client.Mixin_Minecraft",
-    "client.Mixin_TextureAtlas",
-    "client.sodium.Accessor_TerrainRenderPass",
-    "client.sodium.Mixin_BlockRenderer",
-    "client.sodium.Mixin_ColorProviderRegistry",
-    "client.sodium.Mixin_LevelColorCache"
-  ],
-  "server": [],
-  "injectors": {
-    "defaultRequire": 1
+	"required": true,
+	"minVersion": "0.8",
+	"package": "gay.sylv.legacy_landscape.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"Accessor_ChunkMap",
+		"Accessor_TrackedEntity",
+		"Mixin_BuiltInPackSource",
+		"Mixin_Entity",
+		"Mixin_LivingEntity",
+		"Mixin_MutableComponent",
+		"Mixin_Player",
+		"Mixin_ServerEntity",
+		"Mixin_ServerLevel"
+	],
+	"client": [
+		"client.Accessor_ClientLevel",
+		"client.Accessor_RenderSystem",
+		"client.Mixin_ClientLevel",
+		"client.Mixin_LivingEntity",
+		"client.Mixin_Minecraft",
+		"client.Mixin_TextureAtlas",
+		"client.sodium.Accessor_TerrainRenderPass",
+		"client.sodium.Mixin_BlockRenderer",
+		"client.sodium.Mixin_ColorProviderRegistry",
+		"client.sodium.Mixin_LevelColorCache"
+	],
+	"server": [],
+	"injectors": {
+		"defaultRequire": 1
 	}
 }

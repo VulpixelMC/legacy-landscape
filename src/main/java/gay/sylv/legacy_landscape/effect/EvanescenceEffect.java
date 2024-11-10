@@ -1,13 +1,18 @@
 package gay.sylv.legacy_landscape.effect;
 
+import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.entity.SilentLivingEntity;
 import gay.sylv.legacy_landscape.mixin.Accessor_ChunkMap;
 import gay.sylv.legacy_landscape.mixin.Accessor_TrackedEntity;
+import gay.sylv.legacy_landscape.util.Maths;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
+import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerPlayerConnection;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -49,7 +54,13 @@ public final class EvanescenceEffect extends MobEffect {
 					.getEntityMap()
 					.get(livingEntity.getId());
 				// Remove entity from players' clients.
-				trackedEntity.broadcastRemoved();
+				((Accessor_TrackedEntity) trackedEntity).getSeenBy()
+					.forEach(connection -> {
+						ServerPlayer player = connection.getPlayer();
+						if (!player.hasData(LegacyAttachments.OMNISCIENT)) {
+							((Accessor_TrackedEntity) trackedEntity).getServerEntity().removePairing(player);
+						}
+					});
 			});
 		}
 	}
@@ -60,6 +71,28 @@ public final class EvanescenceEffect extends MobEffect {
 		@NotNull MobEffectInstance effectInstance
 	) {
 		// No cures.
+	}
+
+	public static void onOmniscient(ServerLevel level, ServerPlayer player) {
+		player.getChunkTrackingView().forEach(
+			chunkPos -> level.getEntities()
+				.get(Maths.chunkToBox(chunkPos, level), entity -> {
+					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
+						showForPlayer(livingEntity, player);
+					}
+				})
+		);
+	}
+
+	public static void onRemoveOmniscience(ServerLevel level, ServerPlayer player) {
+		player.getChunkTrackingView().forEach(
+			chunkPos -> level.getEntities()
+				.get(Maths.chunkToBox(chunkPos, level), entity -> {
+					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
+						removeForPlayer(livingEntity, player);
+					}
+				})
+		);
 	}
 
 	@SubscribeEvent
@@ -93,11 +126,70 @@ public final class EvanescenceEffect extends MobEffect {
 				//noinspection unchecked
 				trackedEntity.updatePlayers((List<ServerPlayer>) entity.level().players());
 				((Accessor_TrackedEntity) trackedEntity).getSeenBy()
-					.forEach(connection -> connection.send(new ClientboundAddEntityPacket(entity, ((Accessor_TrackedEntity) trackedEntity).getServerEntity())));
+					.forEach(connection -> {
+						connection.send(new ClientboundAddEntityPacket(entity, ((Accessor_TrackedEntity) trackedEntity).getServerEntity()));
+						if (connection.getPlayer().hasData(LegacyAttachments.OMNISCIENT)) {
+							removeInactiveEffect(entity, connection);
+						}
+					});
 			});
 		}
 
 		// Make entity no longer silent.
 		((SilentLivingEntity) entity).legacy_landscape$setSilent(false);
+	}
+
+	private static void showForPlayer(LivingEntity entity, ServerPlayer player) {
+		if (entity.getServer() != null) {
+			entity.getServer().execute(() -> {
+				Accessor_ChunkMap chunkMap = (Accessor_ChunkMap) ((ServerLevel) entity.level())
+					.getChunkSource()
+					.chunkMap;
+				ChunkMap.TrackedEntity trackedEntity = chunkMap
+					.getEntityMap()
+					.get(entity.getId());
+				// Tell player to track this entity again.
+				trackedEntity.updatePlayers(List.of(player));
+				((Accessor_TrackedEntity) trackedEntity).getSeenBy()
+					.forEach(connection -> connection.send(new ClientboundAddEntityPacket(entity, ((Accessor_TrackedEntity) trackedEntity).getServerEntity())));
+				sendActiveEffect(entity, player.connection);
+			});
+		}
+	}
+
+	private static void removeForPlayer(LivingEntity entity, ServerPlayer player) {
+		if (entity.getServer() != null) {
+			entity.getServer().execute(() -> {
+				Accessor_ChunkMap chunkMap = (Accessor_ChunkMap) ((ServerLevel) entity.level())
+					.getChunkSource()
+					.chunkMap;
+				ChunkMap.TrackedEntity trackedEntity = chunkMap
+					.getEntityMap()
+					.get(entity.getId());
+				// Remove entity from player's client.
+				((Accessor_TrackedEntity) trackedEntity).getServerEntity().removePairing(player);
+			});
+		}
+	}
+
+	public static void sendActiveEffect(LivingEntity entity, ServerPlayerConnection connection) {
+		if (entity.hasEffect(LegacyEffects.EVANESCENCE)) {
+			connection.send(
+				new ClientboundUpdateMobEffectPacket(
+					entity.getId(),
+					Objects.requireNonNull(entity.getEffect(LegacyEffects.EVANESCENCE), "effect corresponds to no existing effect instance"),
+					false
+				)
+			);
+		}
+	}
+
+	private static void removeInactiveEffect(LivingEntity entity, ServerPlayerConnection connection) {
+		connection.send(
+			new ClientboundRemoveMobEffectPacket(
+				entity.getId(),
+				LegacyEffects.EVANESCENCE
+			)
+		);
 	}
 }
