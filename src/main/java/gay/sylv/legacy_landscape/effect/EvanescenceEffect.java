@@ -77,6 +77,7 @@ public final class EvanescenceEffect extends MobEffect {
 		player.getChunkTrackingView().forEach(
 			chunkPos -> level.getEntities()
 				.get(Maths.chunkToBox(chunkPos, level), entity -> {
+					if (entity.equals(player)) return;
 					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
 						showForPlayer(livingEntity, player);
 					}
@@ -88,6 +89,7 @@ public final class EvanescenceEffect extends MobEffect {
 		player.getChunkTrackingView().forEach(
 			chunkPos -> level.getEntities()
 				.get(Maths.chunkToBox(chunkPos, level), entity -> {
+					if (entity.equals(player)) return;
 					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
 						removeForPlayer(livingEntity, player);
 					}
