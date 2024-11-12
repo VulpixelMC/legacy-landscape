@@ -1,6 +1,6 @@
 package gay.sylv.legacy_landscape.util;
 
-import gay.sylv.legacy_landscape.ServerConfig;
+import gay.sylv.legacy_landscape.CommonConfig;
 import gay.sylv.legacy_landscape.item.LegacyItemTags;
 import net.minecraft.advancements.critereon.BlockPredicate;
 import net.minecraft.core.component.DataComponents;
@@ -23,7 +23,7 @@ public final class Util {
 	private Util() {}
 
 	public static void modifyDemoItem(ItemStack original) {
-		if (ServerConfig.isDemoMode() && original.is(LegacyItemTags.DEMO_ITEMS)) {
+		if (CommonConfig.isDemoMode() && original.is(LegacyItemTags.DEMO_ITEMS)) {
 			original
 				.set(
 					DataComponents.CAN_PLACE_ON,

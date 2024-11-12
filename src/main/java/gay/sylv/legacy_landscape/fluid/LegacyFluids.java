@@ -2,7 +2,7 @@ package gay.sylv.legacy_landscape.fluid;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
-import gay.sylv.legacy_landscape.ServerConfig;
+import gay.sylv.legacy_landscape.CommonConfig;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_components.Broken;
@@ -90,7 +90,7 @@ public final class LegacyFluids {
 		// If we are in demo mode and disallowed from transmuting water, cancel callback.
 		ChunkPos chunkPos = event.getEntity().chunkPosition();
 		if (
-			ServerConfig.isDemoMode() &&
+			CommonConfig.isDemoMode() &&
 			!event.getEntity()
 				.level()
 				.getChunk(chunkPos.x, chunkPos.z)
