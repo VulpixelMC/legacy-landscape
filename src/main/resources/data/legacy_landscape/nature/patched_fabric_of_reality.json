@@ -5,7 +5,7 @@
 			"modid": "witchery"
 		}
 	],
-	"block": "#legacy_landscape:patched_fabric_of_reality",
+	"tag": "#legacy_landscape:patched_fabric_of_reality",
 	"power": 16,
 	"limit": 800
 }

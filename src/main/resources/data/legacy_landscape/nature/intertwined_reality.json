@@ -5,7 +5,7 @@
 			"modid": "witchery"
 		}
 	],
-	"block": "#legacy_landscape:intertwined_reality",
+	"tag": "#legacy_landscape:intertwined_reality",
 	"power": 12,
 	"limit": 800
 }
