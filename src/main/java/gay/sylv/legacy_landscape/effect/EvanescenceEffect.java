@@ -1,12 +1,10 @@
 package gay.sylv.legacy_landscape.effect;
 
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
-import gay.sylv.legacy_landscape.entity.SilentLivingEntity;
 import gay.sylv.legacy_landscape.mixin.Accessor_ChunkMap;
 import gay.sylv.legacy_landscape.mixin.Accessor_TrackedEntity;
 import gay.sylv.legacy_landscape.util.Maths;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ChunkMap;
@@ -59,6 +57,8 @@ public final class EvanescenceEffect extends MobEffect {
 						ServerPlayer player = connection.getPlayer();
 						if (!player.hasData(LegacyAttachments.OMNISCIENT)) {
 							((Accessor_TrackedEntity) trackedEntity).getServerEntity().removePairing(player);
+						} else {
+							sendActiveEffect(livingEntity, connection);
 						}
 					});
 			});
@@ -129,16 +129,19 @@ public final class EvanescenceEffect extends MobEffect {
 				trackedEntity.updatePlayers((List<ServerPlayer>) entity.level().players());
 				((Accessor_TrackedEntity) trackedEntity).getSeenBy()
 					.forEach(connection -> {
-						connection.send(new ClientboundAddEntityPacket(entity, ((Accessor_TrackedEntity) trackedEntity).getServerEntity()));
-						if (connection.getPlayer().hasData(LegacyAttachments.OMNISCIENT)) {
+						ServerPlayer player = connection.getPlayer();
+						if (player.hasData(LegacyAttachments.OMNISCIENT)) {
 							removeInactiveEffect(entity, connection);
+						} else {
+							pairEntity(player, trackedEntity);
 						}
 					});
 			});
 		}
+	}
 
-		// Make entity no longer silent.
-		((SilentLivingEntity) entity).legacy_landscape$setSilent(false);
+	private static void pairEntity(ServerPlayer player, ChunkMap.TrackedEntity trackedEntity) {
+		((Accessor_TrackedEntity) trackedEntity).getServerEntity().addPairing(player);
 	}
 
 	private static void showForPlayer(LivingEntity entity, ServerPlayer player) {
@@ -153,7 +156,7 @@ public final class EvanescenceEffect extends MobEffect {
 				// Tell player to track this entity again.
 				trackedEntity.updatePlayers(List.of(player));
 				((Accessor_TrackedEntity) trackedEntity).getSeenBy()
-					.forEach(connection -> connection.send(new ClientboundAddEntityPacket(entity, ((Accessor_TrackedEntity) trackedEntity).getServerEntity())));
+					.forEach(connection -> pairEntity(player, trackedEntity));
 				sendActiveEffect(entity, player.connection);
 			});
 		}

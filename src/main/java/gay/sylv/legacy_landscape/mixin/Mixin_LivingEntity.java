@@ -32,9 +32,7 @@ public abstract class Mixin_LivingEntity extends Entity implements SilentLivingE
 		at = @At("HEAD")
 	)
 	private void silenceIfEvanescent(CallbackInfo ci) {
-		if (this.hasEffect(LegacyEffects.EVANESCENCE) && !this.legacy_landscape$isSilent()) {
-			this.legacy_landscape$setSilent(true);
-		}
+		this.legacy_landscape$setSilent(this.hasEffect(LegacyEffects.EVANESCENCE));
 	}
 
 	@Override
