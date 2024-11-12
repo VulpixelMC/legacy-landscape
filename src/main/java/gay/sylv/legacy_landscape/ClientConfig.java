@@ -13,21 +13,23 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 	bus = EventBusSubscriber.Bus.MOD
 )
 public class ClientConfig {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+	private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ModConfigSpec.IntValue SUPER_SECRET_SETTINGS = BUILDER
+	private static final ModConfigSpec.IntValue SUPER_SECRET_SETTINGS = BUILDER
 		.defineInRange("superSecretSettings", 0, 0, SuperSecretSetting.values().length - 1);
 	private static final ModConfigSpec.BooleanValue SHOW_LEGACY_TEXTURES = BUILDER
 		.define("showLegacyTextures", true);
 
-    static final ModConfigSpec SPEC = BUILDER.build();
+	static final ModConfigSpec SPEC = BUILDER.build();
 
-    public static SuperSecretSetting superSecretSettings;
+	public static SuperSecretSetting superSecretSettings;
 	public static boolean showLegacyTextures;
 
-    @SubscribeEvent
-    static void onLoad(final ModConfigEvent event)
-    {
+	 @SubscribeEvent
+	 static void onLoad(final ModConfigEvent event)
+	 {
+		if (!event.getConfig().getSpec().equals(SPEC)) return;
+
 		superSecretSettings = SuperSecretSetting.values()[SUPER_SECRET_SETTINGS.get()];
 		Boolean showLegacyTextures1 = SHOW_LEGACY_TEXTURES.get();
 		if (showLegacyTextures != showLegacyTextures1) {
@@ -35,5 +37,5 @@ public class ClientConfig {
 			client.reloadResourcePacks();
 		}
 		showLegacyTextures = showLegacyTextures1;
-    }
+	 }
 }

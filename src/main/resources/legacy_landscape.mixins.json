@@ -12,7 +12,9 @@
 		"Mixin_MutableComponent",
 		"Mixin_Player",
 		"Mixin_ServerEntity",
-		"Mixin_ServerLevel"
+		"Mixin_ServerLevel",
+		"Mixin_ShapedRecipe",
+		"Mixin_ShapelessRecipe"
 	],
 	"client": [
 		"client.Accessor_ClientLevel",

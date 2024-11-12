@@ -35,6 +35,7 @@ public final class LegacyLandscape {
 	// FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
 	public LegacyLandscape(IEventBus modBus, ModContainer modContainer) {
 		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+		modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
 
 		LegacySounds.SOUNDS.register(modBus);
 		LegacyComponents.DATA_COMPONENTS.register(modBus);

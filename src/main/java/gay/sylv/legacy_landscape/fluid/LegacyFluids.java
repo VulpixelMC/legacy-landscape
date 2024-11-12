@@ -2,7 +2,9 @@ package gay.sylv.legacy_landscape.fluid;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
+import gay.sylv.legacy_landscape.ServerConfig;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
+import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_components.Broken;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.effect.LegacyEffects;
@@ -21,6 +23,7 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -84,6 +87,18 @@ public final class LegacyFluids {
 
 	@SubscribeEvent
 	public static void transmuteWater(EntityTickEvent.Post event) {
+		// If we are in demo mode and disallowed from transmuting water, cancel callback.
+		ChunkPos chunkPos = event.getEntity().chunkPosition();
+		if (
+			ServerConfig.isDemoMode() &&
+			!event.getEntity()
+				.level()
+				.getChunk(chunkPos.x, chunkPos.z)
+				.hasData(LegacyAttachments.ALLOW_ADVENTURE_MODE)
+		) {
+			return;
+		}
+
 		if (
 			event.getEntity() instanceof ItemEntity entity &&
 			entity.isInWater() &&
