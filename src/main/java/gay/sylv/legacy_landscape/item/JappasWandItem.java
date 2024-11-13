@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.item;
 
+import gay.sylv.legacy_landscape.CommonConfig;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
 import gay.sylv.legacy_landscape.data_components.Broken;
@@ -63,8 +64,14 @@ public class JappasWandItem extends TooltipItem {
 		LevelChunk chunk = context.getLevel().getChunkAt(context.getClickedPos());
 		Player player = Objects.requireNonNull(context.getPlayer());
 
+		boolean playerCanUndecay = player.getAbilities().instabuild || CommonConfig.isDemoMode();
+
 		// Prevent non-Creative players from recovering decayed chunks.
-		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK) && chunk.getData(LegacyAttachments.LEGACY_CHUNK) == LegacyChunkType.DECAYED && !player.getAbilities().instabuild) {
+		if (
+			chunk.hasData(LegacyAttachments.LEGACY_CHUNK) &&
+			chunk.getData(LegacyAttachments.LEGACY_CHUNK) == LegacyChunkType.DECAYED &&
+			!playerCanUndecay
+		) {
 			return InteractionResult.PASS;
 		}
 
