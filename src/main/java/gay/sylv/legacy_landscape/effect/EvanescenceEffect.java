@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.effect;
 
+import gay.sylv.legacy_landscape.api.definitions.effect.MobEffects;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.mixin.Accessor_ChunkMap;
 import gay.sylv.legacy_landscape.mixin.Accessor_TrackedEntity;
@@ -78,7 +79,7 @@ public final class EvanescenceEffect extends MobEffect {
 			chunkPos -> level.getEntities()
 				.get(Maths.chunkToBox(chunkPos, level), entity -> {
 					if (entity.equals(player)) return;
-					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
+					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence())) {
 						showForPlayer(livingEntity, player);
 					}
 				})
@@ -90,7 +91,7 @@ public final class EvanescenceEffect extends MobEffect {
 			chunkPos -> level.getEntities()
 				.get(Maths.chunkToBox(chunkPos, level), entity -> {
 					if (entity.equals(player)) return;
-					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
+					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence())) {
 						removeForPlayer(livingEntity, player);
 					}
 				})
@@ -99,14 +100,14 @@ public final class EvanescenceEffect extends MobEffect {
 
 	@SubscribeEvent
 	public static void onEffectRemoved(MobEffectEvent.Remove event) {
-		if (event.getEffect().equals(LegacyEffects.EVANESCENCE)) {
+		if (event.getEffect().equals(MobEffects.evanescence())) {
 			onRemoved(event.getEntity());
 		}
 	}
 
 	@SubscribeEvent
 	public static void onEffectExpired(MobEffectEvent.Expired event) {
-		if (Objects.requireNonNull(event.getEffectInstance(), "expired effect corresponds to no existing effect instance").getEffect().equals(LegacyEffects.EVANESCENCE)) {
+		if (Objects.requireNonNull(event.getEffectInstance(), "expired effect corresponds to no existing effect instance").getEffect().equals(MobEffects.evanescence())) {
 			onRemoved(event.getEntity());
 		}
 	}
@@ -178,11 +179,11 @@ public final class EvanescenceEffect extends MobEffect {
 	}
 
 	public static void sendActiveEffect(LivingEntity entity, ServerPlayerConnection connection) {
-		if (entity.hasEffect(LegacyEffects.EVANESCENCE)) {
+		if (entity.hasEffect(MobEffects.evanescence())) {
 			connection.send(
 				new ClientboundUpdateMobEffectPacket(
 					entity.getId(),
-					Objects.requireNonNull(entity.getEffect(LegacyEffects.EVANESCENCE), "effect corresponds to no existing effect instance"),
+					Objects.requireNonNull(entity.getEffect(MobEffects.evanescence()), "effect corresponds to no existing effect instance"),
 					false
 				)
 			);
@@ -193,7 +194,7 @@ public final class EvanescenceEffect extends MobEffect {
 		connection.send(
 			new ClientboundRemoveMobEffectPacket(
 				entity.getId(),
-				LegacyEffects.EVANESCENCE
+				MobEffects.evanescence()
 			)
 		);
 	}

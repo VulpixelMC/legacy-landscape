@@ -3,6 +3,7 @@ package gay.sylv.legacy_landscape.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import gay.sylv.legacy_landscape.api.definitions.effect.MobEffects;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.permission.Permissions;
@@ -34,10 +35,10 @@ public final class LegacyCommands {
 		Command<CommandSourceStack> executeVanish = ctx -> {
 			ServerPlayer player = ctx.getSource().getPlayerOrException();
 			Permissions.assertPermission(player, Permissions.VANISH);
-			if (!player.hasEffect(LegacyEffects.EVANESCENCE)) {
+			if (!player.hasEffect(MobEffects.evanescence())) {
 				boolean addedEffect = LegacyEffects.apply(
 					player,
-					LegacyEffects.EVANESCENCE,
+					MobEffects.evanescence(),
 					-1,
 					0,
 					false,
@@ -50,7 +51,7 @@ public final class LegacyCommands {
 					ctx.getSource().sendSuccess(() -> Component.translatable("commands.legacy_landscape.vanish.applied"), true);
 				}
 			} else {
-				boolean removedEffect = player.removeEffect(LegacyEffects.EVANESCENCE);
+				boolean removedEffect = player.removeEffect(MobEffects.evanescence());
 				if (!removedEffect) {
 					ctx.getSource().sendFailure(Component.translatable("commands.legacy_landscape.vanish.cannot_be_removed"));
 					return FAILURE;

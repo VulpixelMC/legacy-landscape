@@ -9,8 +9,8 @@ import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 import static gay.sylv.legacy_landscape.LegacyLandscape.id;
+import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 public final class LegacyBlockStateProvider extends BlockStateProvider {

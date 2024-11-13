@@ -3,8 +3,8 @@ package gay.sylv.legacy_landscape.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import gay.sylv.legacy_landscape.api.definitions.effect.MobEffects;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
-import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.entity.SilentLivingEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -124,6 +124,6 @@ public final class Mixin_Entity {
 		)
 	)
 	private boolean invisibleForEvanesced(Entity instance, int flag, Operation<Boolean> original) {
-		return original.call(instance, flag) || (instance instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE));
+		return original.call(instance, flag) || (instance instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence()));
 	}
 }

@@ -3,6 +3,7 @@ package gay.sylv.legacy_landscape.fluid;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import gay.sylv.legacy_landscape.CommonConfig;
+import gay.sylv.legacy_landscape.api.definitions.effect.MobEffects;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_components.Broken;
@@ -79,7 +80,7 @@ public final class LegacyFluids {
 		if (entity instanceof LivingEntity livingEntity && livingEntity.isInFluidType(Types.VOID.get())) {
 			LegacyEffects.apply(
 				livingEntity,
-				LegacyEffects.EVANESCENCE,
+				MobEffects.evanescence(),
 				Maths.tickMinute(10)
 			);
 		}

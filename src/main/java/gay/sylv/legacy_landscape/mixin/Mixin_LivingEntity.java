@@ -1,6 +1,6 @@
 package gay.sylv.legacy_landscape.mixin;
 
-import gay.sylv.legacy_landscape.effect.LegacyEffects;
+import gay.sylv.legacy_landscape.api.definitions.effect.MobEffects;
 import gay.sylv.legacy_landscape.entity.SilentLivingEntity;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
@@ -32,7 +32,7 @@ public abstract class Mixin_LivingEntity extends Entity implements SilentLivingE
 		at = @At("HEAD")
 	)
 	private void silenceIfEvanescent(CallbackInfo ci) {
-		this.legacy_landscape$setSilent(this.hasEffect(LegacyEffects.EVANESCENCE));
+		this.legacy_landscape$setSilent(this.hasEffect(MobEffects.evanescence()));
 	}
 
 	@Override

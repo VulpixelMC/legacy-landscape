@@ -26,7 +26,7 @@ public class TooltipItem extends Item {
 	/**
 	 * Controls if the tooltip should be shown based on the given context.
 	 * @param stack The {@link ItemStack} to show the tooltip on.
-	 * @param context The {@link net.minecraft.world.item.Item.TooltipContext}.
+	 * @param context The {@link Item.TooltipContext}.
 	 * @param tooltip The {@link Component} of the tooltip.
 	 * @param tooltipFlag The {@link TooltipFlag}s of the tooltip.
 	 * @return whether the tooltip should be shown.

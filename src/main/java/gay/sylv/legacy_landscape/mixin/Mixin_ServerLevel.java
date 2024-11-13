@@ -1,6 +1,6 @@
 package gay.sylv.legacy_landscape.mixin;
 
-import gay.sylv.legacy_landscape.effect.LegacyEffects;
+import gay.sylv.legacy_landscape.api.definitions.effect.MobEffects;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,7 +21,7 @@ public abstract class Mixin_ServerLevel {
 		cancellable = true
 	)
 	private void suppressEvanesced(Entity entity, byte state, CallbackInfo ci) {
-		if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(LegacyEffects.EVANESCENCE)) {
+		if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence())) {
 			ci.cancel();
 			// If entity is player, only send packet to that player.
 			if (entity instanceof ServerPlayer player) {
