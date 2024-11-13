@@ -149,6 +149,9 @@ public class JappasWandItem extends TooltipItem {
 		return InteractionResult.PASS;
 	}
 
+	/**
+	 * @implNote Do not change this method! These modifications do not apply retroactively.
+	 */
 	private static void dustOfDecay(ItemStack stack) {
 		stack.set(LegacyComponents.BROKEN, new Broken(1));
 		stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));

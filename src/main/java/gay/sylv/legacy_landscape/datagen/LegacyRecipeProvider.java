@@ -71,6 +71,13 @@ public final class LegacyRecipeProvider extends RecipeProvider {
 			.requires(LegacyItems.TWINE_OF_REALITY)
 			.unlockedBy("has_twine_of_reality", has(LegacyItems.TWINE_OF_REALITY))
 			.save(recipeOutput);
+		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, LegacyBlocks.FABRIC_OF_REALITY.item())
+			.define('@', LegacyItems.TWINE_OF_REALITY.get())
+			.pattern("@@@")
+			.pattern("@@@")
+			.pattern("@@@")
+			.unlockedBy("has_twine_of_reality", has(LegacyItems.TWINE_OF_REALITY))
+			.save(recipeOutput);
 
 		// Void recipes
 		VoidRecipeBuilder.of(LegacyItems.TWINE_OF_REALITY.get())

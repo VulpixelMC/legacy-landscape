@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_intertwined_reality": {
+    "has_string": {
       "conditions": {
         "items": [
           {
-            "items": "legacy_landscape:intertwined_reality"
+            "items": "minecraft:string"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "legacy_landscape:inverted_intertwined_reality"
+        "recipe": "legacy_landscape:void/twine_of_reality"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_intertwined_reality"
+      "has_string"
     ]
   ],
   "rewards": {
     "recipes": [
-      "legacy_landscape:inverted_intertwined_reality"
+      "legacy_landscape:void/twine_of_reality"
     ]
   }
 }

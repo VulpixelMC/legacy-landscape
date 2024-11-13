@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "legacy_landscape:reality_dust"
+        "recipe": "legacy_landscape:fabric_of_reality"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "legacy_landscape:reality_dust"
+      "legacy_landscape:fabric_of_reality"
     ]
   }
 }

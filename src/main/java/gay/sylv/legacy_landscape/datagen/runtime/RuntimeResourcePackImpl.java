@@ -29,6 +29,11 @@ import java.util.stream.Collectors;
 
 import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
+/**
+ * @deprecated use {@link RuntimeResourcePack}.
+ */
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class RuntimeResourcePackImpl implements RuntimeResourcePack, PackResources {
 	public static final RuntimeResourcePackImpl INSTANCE = new RuntimeResourcePackImpl();
 	public static final String PACK_ID = MOD_ID + "_rrp";

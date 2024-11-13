@@ -10,8 +10,13 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * A {@link RecipeBuilder} for void recipes.
+ * Use this class to construct and save custom void recipes.
+ */
+@SuppressWarnings("deprecation")
 public final class VoidRecipeBuilder implements RecipeBuilder {
-	private VoidRecipeBuilderImpl impl;
+	private final VoidRecipeBuilderImpl impl;
 
 	private VoidRecipeBuilder(Item item, int size) {
 		this.impl = new VoidRecipeBuilderImpl(item, size);
@@ -34,25 +39,30 @@ public final class VoidRecipeBuilder implements RecipeBuilder {
 	}
 
 	public @NotNull VoidRecipeBuilder input(Item input) {
-		impl = impl.input(input);
+		impl.input(input);
 		return this;
 	}
 
 	@Override
 	public @NotNull VoidRecipeBuilder unlockedBy(@NotNull String name, @NotNull Criterion<?> criterion) {
-		impl = impl.unlockedBy(name, criterion);
+		impl.unlockedBy(name, criterion);
 		return this;
 	}
 
 	@Override
 	public @NotNull VoidRecipeBuilder group(@Nullable String groupName) {
-		impl = impl.group(groupName);
+		impl.group(groupName);
 		return this;
 	}
 
 	@Override
 	public @NotNull Item getResult() {
 		return impl.getResult();
+	}
+
+	@Override
+	public void save(@NotNull RecipeOutput recipeOutput) {
+		impl.save(recipeOutput);
 	}
 
 	@Override

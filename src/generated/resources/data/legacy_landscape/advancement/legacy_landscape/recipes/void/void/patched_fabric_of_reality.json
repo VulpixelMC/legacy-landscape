@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "legacy_landscape:patched_fabric_of_reality"
+        "recipe": "legacy_landscape:void/patched_fabric_of_reality"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "legacy_landscape:patched_fabric_of_reality"
+      "legacy_landscape:void/patched_fabric_of_reality"
     ]
   }
 }

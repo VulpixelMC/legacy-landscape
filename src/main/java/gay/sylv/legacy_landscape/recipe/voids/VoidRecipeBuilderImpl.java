@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.recipe.voids;
 
+import gay.sylv.legacy_landscape.api.recipe.builder.VoidRecipeBuilder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -19,6 +20,11 @@ import java.util.Map;
 
 import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 
+/**
+ * @deprecated use {@link VoidRecipeBuilder}.
+ */
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class VoidRecipeBuilderImpl implements RecipeBuilder {
 	private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 	private final ItemStack result;
@@ -41,9 +47,8 @@ public class VoidRecipeBuilderImpl implements RecipeBuilder {
 		return new VoidRecipeBuilderImpl(stack);
 	}
 
-	public @NotNull VoidRecipeBuilderImpl input(Item input) {
+	public void input(Item input) {
 		this.input = Ingredient.of(input);
-		return this;
 	}
 
 	@Override
@@ -61,6 +66,11 @@ public class VoidRecipeBuilderImpl implements RecipeBuilder {
 	@Override
 	public @NotNull Item getResult() {
 		return result.getItem();
+	}
+
+	@Override
+	public void save(@NotNull RecipeOutput recipeOutput) {
+		this.save(recipeOutput, RecipeBuilder.getDefaultRecipeId(this.getResult()).withPrefix("void/"));
 	}
 
 	@Override
