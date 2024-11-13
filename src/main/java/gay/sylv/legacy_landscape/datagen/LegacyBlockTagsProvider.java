@@ -31,5 +31,7 @@ public final class LegacyBlockTagsProvider extends BlockTagsProvider {
 			.add(LegacyBlocks.TURF.block().get());
 		tag(BlockTags.NEEDS_STONE_TOOL)
 			.add(LegacyBlocks.TURF.block().get());
+		tag(BlockTags.DIRT)
+			.add(LegacyBlocks.TURF.block().get());
 	}
 }
