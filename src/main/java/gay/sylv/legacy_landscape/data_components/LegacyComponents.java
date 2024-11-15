@@ -14,8 +14,8 @@ public final class LegacyComponents {
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Broken>> BROKEN = DATA_COMPONENTS.registerComponentType(
 		"broken",
 		builder -> builder
-			.persistent(Broken.CODEC)
-			.networkSynchronized(Broken.STREAM_CODEC)
+			.persistent(Broken.codec())
+			.networkSynchronized(Broken.streamCodec())
 	);
 
 	private LegacyComponents() {}

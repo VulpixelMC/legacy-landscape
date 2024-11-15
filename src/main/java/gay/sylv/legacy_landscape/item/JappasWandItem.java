@@ -52,7 +52,7 @@ public class JappasWandItem extends TooltipItem {
 		@NotNull TooltipFlag tooltipFlag
 	) {
 		Broken brokenLevel = ((ConditionalText) tooltip).legacy_landscape$getBroken();
-		return brokenLevel.equals(stack.getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN));
+		return brokenLevel.equals(stack.getOrDefault(LegacyComponents.BROKEN, Broken.unbroken()));
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class JappasWandItem extends TooltipItem {
 			return InteractionResult.PASS;
 		}
 
-		boolean broken = context.getItemInHand().getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN).equals(Broken.of(1));
+		boolean broken = context.getItemInHand().getOrDefault(LegacyComponents.BROKEN, Broken.unbroken()).equals(Broken.of(1));
 
 		if (chunk.hasData(LegacyAttachments.LEGACY_CHUNK) || broken) {
 			if (broken) {
