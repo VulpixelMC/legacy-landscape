@@ -1,15 +1,17 @@
-package gay.sylv.legacy_landscape.data_components;
+package gay.sylv.legacy_landscape.api.definitions.data_components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * A component that stores how many times an item has broken.
  * @param level the amount of times that something has broken.
  */
+@ApiStatus.Experimental
 public record Broken(int level) {
 	public static final Codec<Broken> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(

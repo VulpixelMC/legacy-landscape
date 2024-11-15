@@ -1,5 +1,6 @@
 package gay.sylv.legacy_landscape.data_components;
 
+import gay.sylv.legacy_landscape.api.definitions.data_components.Broken;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;

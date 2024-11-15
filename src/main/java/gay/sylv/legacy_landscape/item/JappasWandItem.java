@@ -3,7 +3,7 @@ package gay.sylv.legacy_landscape.item;
 import gay.sylv.legacy_landscape.CommonConfig;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
-import gay.sylv.legacy_landscape.data_components.Broken;
+import gay.sylv.legacy_landscape.api.definitions.data_components.Broken;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import gay.sylv.legacy_landscape.util.Constants;

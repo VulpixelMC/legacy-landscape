@@ -6,7 +6,7 @@ import gay.sylv.legacy_landscape.CommonConfig;
 import gay.sylv.legacy_landscape.api.definitions.effect.MobEffects;
 import gay.sylv.legacy_landscape.block.LegacyBlocks;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
-import gay.sylv.legacy_landscape.data_components.Broken;
+import gay.sylv.legacy_landscape.api.definitions.data_components.Broken;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.effect.LegacyEffects;
 import gay.sylv.legacy_landscape.item.LegacyItems;

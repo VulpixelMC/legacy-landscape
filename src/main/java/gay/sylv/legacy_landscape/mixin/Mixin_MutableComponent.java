@@ -1,6 +1,6 @@
 package gay.sylv.legacy_landscape.mixin;
 
-import gay.sylv.legacy_landscape.data_components.Broken;
+import gay.sylv.legacy_landscape.api.definitions.data_components.Broken;
 import gay.sylv.legacy_landscape.item.ConditionalText;
 import gay.sylv.legacy_landscape.item.TooltipCondition;
 import net.minecraft.network.chat.MutableComponent;

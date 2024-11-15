@@ -1,6 +1,6 @@
 package gay.sylv.legacy_landscape.item;
 
-import gay.sylv.legacy_landscape.data_components.Broken;
+import gay.sylv.legacy_landscape.api.definitions.data_components.Broken;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
