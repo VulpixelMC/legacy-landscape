@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,18 +19,14 @@ public final class VoidRecipeSerializer implements RecipeSerializer<VoidRecipe> 
 			ItemStack.CODEC.fieldOf("result").forGetter(VoidRecipe::result)
 		).apply(instance, VoidRecipe::new)
 	);
-	private static final StreamCodec<RegistryFriendlyByteBuf, VoidRecipe> STREAM_CODEC = StreamCodec.of(
-		(buffer, value) -> {
-			buffer.writeUtf(value.group());
-			Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, value.input());
-			ItemStack.STREAM_CODEC.encode(buffer, value.result());
-		},
-		buffer -> {
-			String group = buffer.readUtf();
-			Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-			ItemStack result = ItemStack.STREAM_CODEC.decode(buffer);
-			return new VoidRecipe(group, input, result);
-		}
+	private static final StreamCodec<RegistryFriendlyByteBuf, VoidRecipe> STREAM_CODEC = StreamCodec.composite(
+		ByteBufCodecs.STRING_UTF8,
+		VoidRecipe::group,
+		Ingredient.CONTENTS_STREAM_CODEC,
+		VoidRecipe::input,
+		ItemStack.STREAM_CODEC,
+		VoidRecipe::result,
+		VoidRecipe::new
 	);
 
 	@Override
