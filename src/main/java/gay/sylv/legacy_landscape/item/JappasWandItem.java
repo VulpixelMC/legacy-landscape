@@ -149,6 +149,7 @@ public class JappasWandItem extends TooltipItem {
 		return InteractionResult.PASS;
 	}
 
+	// That's a sentence you never wanna hear.
 	/**
 	 * @implNote Do not change this method! These modifications do not apply retroactively.
 	 */

@@ -34,12 +34,18 @@ public final class LegacyAttachments {
 
 	public static final Supplier<AttachmentType<LegacyChunkType>> LEGACY_CHUNK = ATTACHMENT_TYPES.register(
 		"legacy_chunk",
-		() -> AttachmentType.builder(() -> LegacyChunkType.LEGACY).serialize(LegacyChunkType.CODEC).build()
+		() -> AttachmentType
+			.builder(() -> LegacyChunkType.LEGACY)
+			.serialize(LegacyChunkType.CODEC)
+			.build()
 	);
 
 	public static final Supplier<AttachmentType<Unit>> VOID_RESULT = ATTACHMENT_TYPES.register(
 		"void_result",
-		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
+		() -> AttachmentType
+			.builder(() -> Unit.INSTANCE)
+			.serialize(Unit.CODEC)
+			.build()
 	);
 
 	/**
@@ -47,7 +53,10 @@ public final class LegacyAttachments {
 	 */
 	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> ALLOW_ADVENTURE_MODE = ATTACHMENT_TYPES.register(
 		"allow_adventure_mode",
-		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
+		() -> AttachmentType
+			.builder(() -> Unit.INSTANCE)
+			.serialize(Unit.CODEC)
+			.build()
 	);
 
 	/**
@@ -55,7 +64,11 @@ public final class LegacyAttachments {
 	 */
 	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> OMNISCIENT = ATTACHMENT_TYPES.register(
 		"omniscient",
-		() -> AttachmentType.builder(() -> Unit.INSTANCE).serialize(Unit.CODEC).build()
+		() -> AttachmentType
+			.builder(() -> Unit.INSTANCE)
+			.serialize(Unit.CODEC)
+			.copyOnDeath()
+			.build()
 	);
 
 	private LegacyAttachments() {}
