@@ -1,9 +1,9 @@
 package gay.sylv.legacy_landscape.item;
 
 import gay.sylv.legacy_landscape.CommonConfig;
+import gay.sylv.legacy_landscape.api.definitions.data_components.Broken;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
 import gay.sylv.legacy_landscape.data_attachment.LegacyChunkType;
-import gay.sylv.legacy_landscape.api.definitions.data_components.Broken;
 import gay.sylv.legacy_landscape.data_components.LegacyComponents;
 import gay.sylv.legacy_landscape.networking.client_bound.LegacyChunkPayload;
 import gay.sylv.legacy_landscape.util.Constants;
@@ -33,6 +33,23 @@ public class JappasWandItem extends TooltipItem {
 
 	public JappasWandItem(Properties properties) {
 		super(properties);
+	}
+
+	@Override
+	public void verifyComponentsAfterLoad(ItemStack stack) {
+		Broken broken = stack.getOrDefault(LegacyComponents.BROKEN, Broken.UNBROKEN);
+		if (broken.isAlways()) {
+			stack.remove(LegacyComponents.BROKEN);
+			broken = Broken.UNBROKEN;
+		}
+
+		if (!broken.equals(Broken.UNBROKEN)) {
+			stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(broken.level()));
+		}
+
+		if (broken.equals(Broken.of(1))) {
+			dustOfDecay(stack);
+		}
 	}
 
 	@Override
@@ -138,7 +155,7 @@ public class JappasWandItem extends TooltipItem {
 				context.getItemInHand().hurtAndBreak(3, (ServerLevel) context.getLevel(), context.getPlayer(), item -> {
 					ItemStack stack = context.getPlayer().getItemBySlot(slot);
 					stack.grow(1);
-					dustOfDecay(stack);
+					stack.set(LegacyComponents.BROKEN, Broken.of(1));
 					context.getPlayer().onEquippedItemBroken(item, slot);
 				});
 			}
@@ -154,9 +171,7 @@ public class JappasWandItem extends TooltipItem {
 	 * @implNote Do not change this method! These modifications do not apply retroactively.
 	 */
 	private static void dustOfDecay(ItemStack stack) {
-		stack.set(LegacyComponents.BROKEN, new Broken(1));
 		stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
-		stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(1));
 		stack.set(DataComponents.RARITY, Rarity.COMMON);
 	}
 

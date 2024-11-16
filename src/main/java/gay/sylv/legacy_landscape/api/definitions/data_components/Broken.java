@@ -52,6 +52,10 @@ public record Broken(int level) {
 		return false;
 	}
 
+	public boolean isAlways() {
+		return this.level == -1;
+	}
+
 	/**
 	 * Returns a pre-cached value of {@link Broken}. The maximum level is {@code 255}, and the minimum level is {@code 0}.
 	 * @param level The level of the {@link Broken}.
