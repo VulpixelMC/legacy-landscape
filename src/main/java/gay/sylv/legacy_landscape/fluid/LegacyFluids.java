@@ -80,7 +80,7 @@ public final class LegacyFluids {
 		if (entity instanceof LivingEntity livingEntity && livingEntity.isInFluidType(Types.VOID.get())) {
 			LegacyEffects.apply(
 				livingEntity,
-				MobEffects.evanescence(),
+				MobEffects.EVANESCENCE,
 				Maths.tickMinute(10)
 			);
 		}
@@ -104,7 +104,7 @@ public final class LegacyFluids {
 			event.getEntity() instanceof ItemEntity entity &&
 			entity.isInWater() &&
 			entity.getItem().is(LegacyItems.JAPPAS_WAND) &&
-			Objects.requireNonNullElse(entity.getItem().get(LegacyComponents.BROKEN), Broken.unbroken()).equals(Broken.of(1)) &&
+			Objects.requireNonNullElse(entity.getItem().get(LegacyComponents.BROKEN), Broken.UNBROKEN).equals(Broken.of(1)) &&
 			!entity.level().isClientSide()
 		) {
 			ServerLevel level = (ServerLevel) entity.level();

@@ -5,6 +5,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 
 public final class MobEffects {
+	public static Holder<MobEffect> EVANESCENCE = LegacyEffects.EVANESCENCE;
+
+	@Deprecated(forRemoval = true)
 	public static Holder<MobEffect> evanescence() {
 		return LegacyEffects.EVANESCENCE;
 	}

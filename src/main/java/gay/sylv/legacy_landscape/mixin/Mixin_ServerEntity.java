@@ -28,7 +28,7 @@ public final class Mixin_ServerEntity {
 		cancellable = true
 	)
 	private void hideEvanesced(ServerPlayer player, CallbackInfo ci) {
-		if (this.entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence()) && !player.hasData(LegacyAttachments.OMNISCIENT)) {
+		if (this.entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.EVANESCENCE) && !player.hasData(LegacyAttachments.OMNISCIENT)) {
 			ci.cancel();
 		}
 	}
@@ -38,7 +38,7 @@ public final class Mixin_ServerEntity {
 		at = @At("TAIL")
 	)
 	private void showEvanescedToOmniscient(ServerPlayer player, CallbackInfo ci) {
-		if (this.entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence())) {
+		if (this.entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.EVANESCENCE)) {
 			EvanescenceEffect.sendActiveEffect(livingEntity, player.connection);
 		}
 	}

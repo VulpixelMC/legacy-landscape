@@ -35,10 +35,10 @@ public final class LegacyCommands {
 		Command<CommandSourceStack> executeVanish = ctx -> {
 			ServerPlayer player = ctx.getSource().getPlayerOrException();
 			Permissions.assertPermission(player, Permissions.VANISH);
-			if (!player.hasEffect(MobEffects.evanescence())) {
+			if (!player.hasEffect(MobEffects.EVANESCENCE)) {
 				boolean addedEffect = LegacyEffects.apply(
 					player,
-					MobEffects.evanescence(),
+					MobEffects.EVANESCENCE,
 					-1,
 					0,
 					false,
@@ -51,7 +51,7 @@ public final class LegacyCommands {
 					ctx.getSource().sendSuccess(() -> Component.translatable("commands.legacy_landscape.vanish.applied"), true);
 				}
 			} else {
-				boolean removedEffect = player.removeEffect(MobEffects.evanescence());
+				boolean removedEffect = player.removeEffect(MobEffects.EVANESCENCE);
 				if (!removedEffect) {
 					ctx.getSource().sendFailure(Component.translatable("commands.legacy_landscape.vanish.cannot_be_removed"));
 					return FAILURE;

@@ -38,7 +38,7 @@ public final class Mixin_MutableComponent implements ConditionalText {
 
 	@Override
 	public @NotNull Broken legacy_landscape$getBroken() {
-		return Objects.requireNonNullElse(legacy_landscape$broken, Broken.unbroken());
+		return Objects.requireNonNullElse(legacy_landscape$broken, Broken.UNBROKEN);
 	}
 
 	@Override

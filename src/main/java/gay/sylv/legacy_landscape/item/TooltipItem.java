@@ -89,7 +89,7 @@ public class TooltipItem extends Item {
 			return this
 				.tooltip(
 					TooltipCondition.not(TooltipCondition::hasModifierKey),
-					Broken.always(),
+					Broken.ALWAYS,
 					Component.translatable("tooltip.legacy_landscape.more_info")
 						.withStyle(
 							ChatFormatting.ITALIC,

@@ -13,20 +13,23 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @ApiStatus.Experimental
 public record Broken(int level) {
-	private static final Codec<Broken> CODEC = RecordCodecBuilder.create(
+	public static final Codec<Broken> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			Codec.INT.fieldOf("level").forGetter(Broken::level)
 		).apply(instance, Broken::new)
 	);
 
-	private static final StreamCodec<ByteBuf, Broken> STREAM_CODEC = StreamCodec.composite(
+	public static final StreamCodec<ByteBuf, Broken> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.INT, Broken::level,
 		Broken::new
 	);
 
-	private static final Broken UNBROKEN = new Broken(0);
+	public static final Broken UNBROKEN = new Broken(0);
 
-	private static final Broken ALWAYS = new Broken(-1);
+	/**
+	 * A {@link Broken} with level {@code -1} that indicates that conditions checking this will always be equal.
+	 */
+	public static final Broken ALWAYS = new Broken(-1);
 
 	/**
 	 * A LUT to avoid duplication.
@@ -37,25 +40,6 @@ public record Broken(int level) {
 		for (int i = 0; i < LEVELS.length; i++) {
 			LEVELS[i] = new Broken(i);
 		}
-	}
-
-	public static Codec<Broken> codec() {
-		return CODEC;
-	}
-
-	public static StreamCodec<ByteBuf, Broken> streamCodec() {
-		return STREAM_CODEC;
-	}
-
-	public static Broken unbroken() {
-		return UNBROKEN;
-	}
-
-	/**
-	 * A {@link Broken} with level {@code -1} that indicates that conditions checking this will always be equal.
-	 */
-	public static Broken always() {
-		return ALWAYS;
 	}
 
 	@Override

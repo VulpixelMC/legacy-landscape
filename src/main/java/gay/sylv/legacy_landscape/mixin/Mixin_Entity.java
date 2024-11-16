@@ -124,6 +124,6 @@ public final class Mixin_Entity {
 		)
 	)
 	private boolean invisibleForEvanesced(Entity instance, int flag, Operation<Boolean> original) {
-		return original.call(instance, flag) || (instance instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence()));
+		return original.call(instance, flag) || (instance instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.EVANESCENCE));
 	}
 }

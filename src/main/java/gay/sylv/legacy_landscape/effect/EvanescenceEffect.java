@@ -79,7 +79,7 @@ public final class EvanescenceEffect extends MobEffect {
 			chunkPos -> level.getEntities()
 				.get(Maths.chunkToBox(chunkPos, level), entity -> {
 					if (entity.equals(player)) return;
-					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence())) {
+					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.EVANESCENCE)) {
 						showForPlayer(livingEntity, player);
 					}
 				})
@@ -91,7 +91,7 @@ public final class EvanescenceEffect extends MobEffect {
 			chunkPos -> level.getEntities()
 				.get(Maths.chunkToBox(chunkPos, level), entity -> {
 					if (entity.equals(player)) return;
-					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.evanescence())) {
+					if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.EVANESCENCE)) {
 						removeForPlayer(livingEntity, player);
 					}
 				})
@@ -100,14 +100,14 @@ public final class EvanescenceEffect extends MobEffect {
 
 	@SubscribeEvent
 	public static void onEffectRemoved(MobEffectEvent.Remove event) {
-		if (event.getEffect().equals(MobEffects.evanescence())) {
+		if (event.getEffect().equals(MobEffects.EVANESCENCE)) {
 			onRemoved(event.getEntity());
 		}
 	}
 
 	@SubscribeEvent
 	public static void onEffectExpired(MobEffectEvent.Expired event) {
-		if (Objects.requireNonNull(event.getEffectInstance(), "expired effect corresponds to no existing effect instance").getEffect().equals(MobEffects.evanescence())) {
+		if (Objects.requireNonNull(event.getEffectInstance(), "expired effect corresponds to no existing effect instance").getEffect().equals(MobEffects.EVANESCENCE)) {
 			onRemoved(event.getEntity());
 		}
 	}
@@ -179,11 +179,11 @@ public final class EvanescenceEffect extends MobEffect {
 	}
 
 	public static void sendActiveEffect(LivingEntity entity, ServerPlayerConnection connection) {
-		if (entity.hasEffect(MobEffects.evanescence())) {
+		if (entity.hasEffect(MobEffects.EVANESCENCE)) {
 			connection.send(
 				new ClientboundUpdateMobEffectPacket(
 					entity.getId(),
-					Objects.requireNonNull(entity.getEffect(MobEffects.evanescence()), "effect corresponds to no existing effect instance"),
+					Objects.requireNonNull(entity.getEffect(MobEffects.EVANESCENCE), "effect corresponds to no existing effect instance"),
 					false
 				)
 			);
@@ -194,7 +194,7 @@ public final class EvanescenceEffect extends MobEffect {
 		connection.send(
 			new ClientboundRemoveMobEffectPacket(
 				entity.getId(),
-				MobEffects.evanescence()
+				MobEffects.EVANESCENCE
 			)
 		);
 	}
