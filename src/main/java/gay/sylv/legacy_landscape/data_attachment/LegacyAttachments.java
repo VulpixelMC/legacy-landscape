@@ -18,6 +18,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -32,41 +33,35 @@ import static gay.sylv.legacy_landscape.util.Constants.MOD_ID;
 public final class LegacyAttachments {
 	public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
 
-	public static final Supplier<AttachmentType<LegacyChunkType>> LEGACY_CHUNK = ATTACHMENT_TYPES.register(
+	public static final Supplier<AttachmentType<LegacyChunkType>> LEGACY_CHUNK = register(
 		"legacy_chunk",
-		() -> AttachmentType
+		AttachmentType
 			.builder(() -> LegacyChunkType.LEGACY)
 			.serialize(LegacyChunkType.CODEC)
 			.build()
 	);
 
-	public static final Supplier<AttachmentType<Unit>> VOID_RESULT = ATTACHMENT_TYPES.register(
+	public static final Supplier<AttachmentType<Unit>> VOID_RESULT = register(
 		"void_result",
-		() -> AttachmentType
-			.builder(() -> Unit.INSTANCE)
-			.serialize(Unit.CODEC)
+		unitBuilder()
 			.build()
 	);
 
 	/**
 	 * Allows adventure mode players to interact with the chunk's legacy status.
 	 */
-	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> ALLOW_ADVENTURE_MODE = ATTACHMENT_TYPES.register(
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> ALLOW_ADVENTURE_MODE = register(
 		"allow_adventure_mode",
-		() -> AttachmentType
-			.builder(() -> Unit.INSTANCE)
-			.serialize(Unit.CODEC)
+		unitBuilder()
 			.build()
 	);
 
 	/**
 	 * Allows operators to see evanesced entities.
 	 */
-	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> OMNISCIENT = ATTACHMENT_TYPES.register(
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> OMNISCIENT = register(
 		"omniscient",
-		() -> AttachmentType
-			.builder(() -> Unit.INSTANCE)
-			.serialize(Unit.CODEC)
+		unitBuilder()
 			.copyOnDeath()
 			.build()
 	);
@@ -201,5 +196,21 @@ public final class LegacyAttachments {
 				)
 			);
 		}
+	}
+
+	private static AttachmentType.@NotNull Builder<Unit> unitBuilder() {
+		return AttachmentType
+			.builder(() -> Unit.INSTANCE)
+			.serialize(Unit.CODEC);
+	}
+
+	private static <T> @NotNull DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(
+		String name,
+		AttachmentType<T> attachmentType
+	) {
+		return ATTACHMENT_TYPES.register(
+			name,
+			() -> attachmentType
+		);
 	}
 }
