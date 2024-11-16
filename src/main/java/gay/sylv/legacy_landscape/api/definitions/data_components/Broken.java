@@ -20,7 +20,8 @@ public record Broken(int level) {
 	);
 
 	public static final StreamCodec<ByteBuf, Broken> STREAM_CODEC = StreamCodec.composite(
-		ByteBufCodecs.INT, Broken::level,
+		ByteBufCodecs.INT,
+		Broken::level,
 		Broken::new
 	);
 
