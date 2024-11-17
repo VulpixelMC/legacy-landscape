@@ -177,7 +177,8 @@ public class JappasWandItem extends TooltipItem {
 
 	public static ItemStack dustOfDecay() {
 		ItemStack stack = new ItemStack(LegacyItems.JAPPAS_WAND.get());
-		dustOfDecay(stack);
+		stack.set(LegacyComponents.BROKEN, Broken.of(1));
+		LegacyItems.JAPPAS_WAND.get().verifyComponentsAfterLoad(stack);
 		return stack;
 	}
 }
