@@ -1,9 +1,7 @@
 package gay.sylv.legacy_landscape.mixin.client.sodium;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import gay.sylv.legacy_landscape.data_attachment.LegacyAttachments;
-import net.caffeinemc.mods.sodium.client.util.color.BoxBlur;
 import net.caffeinemc.mods.sodium.client.world.biome.LevelColorCache;
 import net.caffeinemc.mods.sodium.client.world.cloned.ChunkRenderContext;
 import net.minecraft.client.Minecraft;
@@ -56,16 +54,14 @@ public final class Mixin_LevelColorCache {
 		}
 	}
 
-	@WrapOperation(
+	@WrapWithCondition(
 		method = "updateColorBuffers",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/caffeinemc/mods/sodium/client/util/color/BoxBlur;blur(Lnet/caffeinemc/mods/sodium/client/util/color/BoxBlur$ColorBuffer;Lnet/caffeinemc/mods/sodium/client/util/color/BoxBlur$ColorBuffer;I)V"
+			target = "Lnet/caffeinemc/mods/sodium/client/util/color/BoxBlur;blur([I[IIII)V"
 		)
 	)
-	private void disableBoxBlur(BoxBlur.ColorBuffer buf, BoxBlur.ColorBuffer tmp, int radius, Operation<Void> original) {
-		if (!legacy_landscape$isLegacyChunk) {
-			original.call(buf, tmp, radius);
-		}
+	private boolean disableBoxBlur(int[] src, int[] tmp, int width, int height, int radius) {
+		return !legacy_landscape$isLegacyChunk;
 	}
 }
