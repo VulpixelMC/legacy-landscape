@@ -1,3 +1,5 @@
+Legacy Landscape is a retired project. Check out its spiritual successor [Blight](https://git.greenhouse.lgbt/Modding/blight)!
+
 ## Legacy Landscape
 Legacy landscapes for your lugubrious level.
 This mod adds legacy-ified chunks that you can apply to your world. Legacy chunks disable biome blending, reverts water color, and brings back void fog.
